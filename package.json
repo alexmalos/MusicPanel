@@ -1,6 +1,30 @@
 {
   "name": "music-panel",
   "private": true,
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "version": "1.0.0",
+  "main": "webpack.config.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --watch --mode=development",
+    "build": "webpack --mode=production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexmalos/MusicPanel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexmalos/MusicPanel/issues"
+  },
+  "homepage": "https://github.com/alexmalos/MusicPanel#readme",
   "dependencies": {
     "@babel/core": "^7.18.10",
     "@babel/preset-env": "^7.18.10",
