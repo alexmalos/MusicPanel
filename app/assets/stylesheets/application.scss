@@ -22,11 +22,22 @@
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
     -webkit-font-smoothing: antialiased;
     background-color: $offBlack;
-    color: $offWhite;
 
-    * { text-decoration: none; }
+   * {
+      text-decoration: none;
+      color: $offWhite;
+   }
+
+   button {
+      padding: 0;
+      margin: 0;
+      border: none;
+      cursor: pointer;
+      background-color: transparent;
+      transition: background-color .2s;
+   }
     
-    p {
+   p {
        font-size: 14px;
        line-height: 20px;
    }

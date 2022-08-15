@@ -17,8 +17,6 @@ header {
     height: 38px;
     display: flex;
     align-items: center;
-
-    .lastItem { margin-left: auto; }
 }
 
 #logo {
@@ -31,21 +29,50 @@ header {
     border-radius: 1000px;
 }
 
+.navButtonDiv {
+    display: flex;
+    align-items: center;
+    flex: 1 1;
+
+    button {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 0 24px;
+        margin-left: 4px;
+        height: 38px;
+        border-radius: 100px;
+    }
+
+    button:hover {
+        background-color: $lightGray;
+    }
+
+    #moreButton {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        width: 38px;
+        height: 38px;
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
 #sessionButtons {
     display: flex;
     height: 100%;
     text-align: center;
 
     button {
-        margin: 0;
-        border: none;
         height: 100%;
         padding: 0 24px;
         border-radius: 4px;
         font-weight: 600;
         font-size: 14px;
-        transition: background-color .2s;
-        cursor: pointer;
     }
 
     #login {

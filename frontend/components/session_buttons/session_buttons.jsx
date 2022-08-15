@@ -4,7 +4,7 @@ import ProfileDropdownContainer from '../dropdown/profile_dropdown_container';
 
 export default props => {
     const loggedOut = () => (
-        <div id='sessionButtons' className='lastItem'>
+        <div id='sessionButtons'>
             <button id='login' onClick={() => props.openModal('login')}>Log In</button>
             <button id='signup' onClick={() => props.openModal('signup')}>Sign Up</button>
         </div>
@@ -20,13 +20,11 @@ export default props => {
     };
 
     const loggedIn = () => (
-        <div className='lastItem'>
-            <div id='profileDiv'>
-                <button className='profileButton' id='navbarProfileButton' onClick={profileClick}>
-                    <PersonIcon />
-                </button>
-                {renderDropdown()}
-            </div>
+        <div id='profileDiv'>
+            <button className='profileButton' id='navbarProfileButton' onClick={profileClick}>
+                <PersonIcon />
+            </button>
+            {renderDropdown()}
         </div>
     );
 

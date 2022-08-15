@@ -26,9 +26,9 @@ export default ({ modal, closeModal }) => {
                         <div id="modalHeader">
                             <div id="leftPlaceholder"></div>
                                 <h5>{headerText}</h5>
-                            <div id="closeDiv" onClick={closeModal}>
-                                <CloseIcon id='closeIcon'/>
-                            </div>
+                            <button id="closeButton" onClick={closeModal}>
+                                <CloseIcon/>
+                            </button>
                         </div>
                         <div id="modalInnerContent">
                             {component}
