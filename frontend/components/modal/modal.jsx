@@ -1,6 +1,7 @@
 import React from 'react';
 import LoginFormContainer from '../session_form/login_form_container';
 import SignupFormContainer from '../session_form/signup_form_container';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default ({ modal, closeModal }) => {
     if (modal) {
@@ -24,9 +25,9 @@ export default ({ modal, closeModal }) => {
                     <div id="modalWindow">
                         <div id="modalHeader">
                             <div id="leftPlaceholder"></div>
-                                <p>{headerText}</p>
+                                <h5>{headerText}</h5>
                             <div id="closeDiv" onClick={closeModal}>
-                                <p id="closeIcon">×</p>
+                                <CloseIcon id='closeIcon'/>
                             </div>
                         </div>
                         <div id="modalInnerContent">

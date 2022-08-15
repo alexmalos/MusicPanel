@@ -9,7 +9,6 @@ export default (state = null, action) => {
         case OPEN_MODAL:
             return action.modal;
         case CLOSE_MODAL:
-            return null;
         case RECEIVE_CURRENT_USER:
             return null;
         default:

@@ -30,11 +30,9 @@
     padding: 8px;
     border-bottom: 1px solid $darkLightGray;
 
-    > p {
+    > h5 {
         color: $offWhite;
         font-weight: 700;
-        font-size: 16px;
-        line-height: 20px;
     }
 }
 
@@ -57,14 +55,11 @@
 #closeDiv:hover { background-color: $darkLightGray; }
 
 #closeIcon {
-    color: $offWhite;
-    font-size: 24px;
-    font-weight: 350;
+    width: 20px;
+    height: 20px;
 }
 
-#modalInnerContent {
-    padding: 32px;
-}
+#modalInnerContent { padding: 32px; }
 
 .formInputDiv {
     position: relative;
@@ -74,15 +69,11 @@
     flex-direction: column;
 }
 
-.formSection {
-    margin-top: 16px;
-}
+.formSection { margin-top: 16px; }
 
 .formText {
     color: $offWhite;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
 }
 
 .formInput {
@@ -108,7 +99,7 @@
     flex-direction: column;
 }
 
-#submit {
+.submit {
     margin: 0;
 	border: none;
     cursor: pointer;
@@ -120,9 +111,13 @@
     color: white;
     font-size: 16px;
     font-weight: 600;
+    transition: background-color .2s;
 }
 
-#submit:hover { background-color: $blueLight; }
+.submit:hover { background-color: $blueLight; }
+
+#demoSubmit { background-color: $darkLightGray; }
+#demoSubmit:hover { background-color: #505254; }
 
 #createAccountDiv {
     margin-top: 24px;
@@ -131,9 +126,7 @@
 
     p {
         cursor: pointer;
-        font-size: 14px;
         font-weight: 500;
-        line-height: 20px;
         text-decoration: underline;
         text-decoration-color: #e4e6ea40;
         text-decoration-style: solid;
@@ -142,9 +135,20 @@
     p:hover { text-decoration-color: #e4e6eab3; }
 }
 
-#errorList {
+#errorDiv {
+    display: flex;
+    align-items: center;
     color: #ff453a;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    li {
+        margin-left: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+    }
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 
-const SessionForm = props => {
+export default props => {
     const [state, setState] = useState({ username: '', password: '' });
 
     const handleSubmit = e => {
@@ -16,16 +17,24 @@ const SessionForm = props => {
     const renderErrors = () => {
         if (props.errors.length > 0) {
             return (
-                <ul id="errorList" className="formSection">
-                    {props.errors.map((error, i) => (
-                        <li key={`error-${i}`}>
-                            {error}
-                        </li>
-                    ))}
-                </ul>
+                <div className="formSection" id="errorDiv">
+                    <WarningRoundedIcon />
+                    <ul>
+                        {props.errors.map((error, i) => (
+                            <li key={`error-${i}`}>
+                                {error}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             );
         }
     };
+
+    const loginDemo = e => {
+        e.preventDefault();
+        props.loginDemo();
+    }
 
     let createAccount;
     if (props.openModal) createAccount = (
@@ -54,13 +63,9 @@ const SessionForm = props => {
                 />
             </div>
             {renderErrors()}
-            <button id="submit" type="submit">{props.submitText}</button>
-            {/* <div id="submitDiv" onClick={handleSubmit}>
-                <p>{props.submitText}</p>
-            </div> */}
+            <button className="submit" type="submit">{props.submitText}</button>
+            <button className="submit" id="demoSubmit" onClick={loginDemo}>Demo User</button>
             {createAccount}
         </form>
     );
 };
-
-export default SessionForm;

@@ -1,15 +1,17 @@
 import { connect } from 'react-redux';
-import { logout } from '../../actions/session_actions';
 import { openModal } from '../../actions/modal_actions';
+import { openDropdown, closeDropdown } from '../../actions/dropdown_actions';
 import SessionButtons from './session_buttons';
 
-const mapStateToProps = ({entities: { users }, session}) => ({
-    currentUser: users[session.id]
+const mapStateToProps = ({entities: { users }, session, ui}) => ({
+    currentUser: users[session.id],
+    dropdown: ui.dropdown
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout()),
-  openModal: modal => dispatch(openModal(modal))
+  openModal: modal => dispatch(openModal(modal)),
+  openDropdown: dropdown => dispatch(openDropdown(dropdown)),
+  closeDropdown: () => dispatch(closeDropdown())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SessionButtons);

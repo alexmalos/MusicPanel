@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import ModalContainer from "./modal/modal_container";
 import SessionButtonsContainer from "./session_buttons/session_buttons_container";
 
-const App = () => (
+export default () => (
   <div>
     <header>
       <div id="navbar">
@@ -15,5 +15,3 @@ const App = () => (
     <ModalContainer />
   </div>
 );
-
-export default App;
