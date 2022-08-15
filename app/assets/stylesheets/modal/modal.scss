@@ -1,0 +1,139 @@
+@import "../variables.scss";
+
+#modalOverlay {
+    background-color: #0009;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+#modalContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 48px;
+    margin-bottom: 80px;
+    min-height: calc(100vh - 120px);
+}
+
+#modalWindow {
+    background-color: $lightGray;
+    border-radius: 8px;
+}
+
+#modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid $darkLightGray;
+
+    > p {
+        color: $offWhite;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+    }
+}
+
+#leftPlaceholder {
+    width: 38px;
+    height: 38px;
+}
+
+#closeDiv {
+    height: 38px;
+    width: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 1000px;
+    transition: background-color .2s;
+}
+
+#closeDiv:hover { background-color: $darkLightGray; }
+
+#closeIcon {
+    color: $offWhite;
+    font-size: 24px;
+    font-weight: 350;
+}
+
+#modalInnerContent {
+    padding: 32px;
+}
+
+.formInputDiv {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.formSection {
+    margin-top: 16px;
+}
+
+.formText {
+    color: $offWhite;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.formInput {
+    outline: none;
+    resize: none;
+    border-radius: 4px;
+    margin-top: 4px;
+    font-size: 14px;
+    width: 510px;
+    background-color: $darkGray;
+    border: 1px solid $darkLightGray;
+    color: $offWhite;
+    padding: 12px;
+}
+
+.formInput:focus {
+    background-color: $lightGray;
+    border-color: $blue;
+}
+
+#sessionForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#submit {
+    margin: 0;
+	border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 45px;
+    margin-top: 32px;
+    background-color: $blue;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#submit:hover { background-color: $blueLight; }
+
+#createAccount {
+    margin-top: 24px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-decoration: underline;
+    text-decoration-color: #e4e6ea40;
+    text-decoration-style: solid;
+}
+
+#createAccount:hover { text-decoration-color: #e4e6eab3; }

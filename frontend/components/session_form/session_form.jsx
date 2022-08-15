@@ -23,26 +23,38 @@ const SessionForm = props => {
         </ul>
     );
 
+    let createAccount;
+    if (props.openModal) createAccount = (
+        <p id="createAccount" onClick={() => props.openModal('signup')}>Create an account</p>
+    );
+    else createAccount = null;
+
     return (
-        <form onSubmit={handleSubmit}>
-            {props.formType}
+        <form id="sessionForm" onSubmit={handleSubmit}>
+            <div className="formInputDiv">
+                <p className="formText">Username</p>
+                <input className="formInput"
+                    type="text"
+                    value={state.username}
+                    onChange={update('username')}
+                />
+            </div>
+            <div className="formInputDiv formSection">
+                <p className="formText">Password</p>
+                <input className="formInput"
+                    type="password"
+                    value={state.password}
+                    onChange={update('password')}
+                />
+            </div>
             {renderErrors()}
-            <label>Username:
-              <input type="text"
-                value={state.username}
-                onChange={update('username')}
-              />
-            </label>
-            <br/>
-            <label>Password:
-              <input type="password"
-                value={state.password}
-                onChange={update('password')}
-              />
-            </label>
-            <input type="submit" value={props.formType} />
+            <button id="submit" type="submit">{props.submitText}</button>
+            {/* <div id="submitDiv" onClick={handleSubmit}>
+                <p>{props.submitText}</p>
+            </div> */}
+            {createAccount}
         </form>
-    )
+    );
 };
 
 export default SessionForm;

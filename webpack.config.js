@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = {
+const config = {
   context: __dirname,
   entry: './frontend/music_panel.jsx',
   output: {
@@ -17,12 +17,21 @@ module.exports = {
           options: {
             presets: ['@babel/env', '@babel/react']
           }
-        },
+        }
       }
     ]
   },
-  devtool: 'source-map',
   resolve: {
     extensions: [".js", ".jsx", "*"]
   }
 };
+
+module.exports = (env, argv) => {
+  if (argv.mode === 'production') {
+    config.devtool = 'source-map';
+  } else {
+    config.devtool = 'eval-source-map';
+  }
+
+  return config;
+}

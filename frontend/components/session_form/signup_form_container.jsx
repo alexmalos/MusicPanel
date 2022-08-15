@@ -6,12 +6,12 @@ import SessionForm from './session_form';
 
 const mapStateToProps = ({ errors }) => ({
     errors: errors.session,
-    formType: 'signup',
+    submitText: 'Create Account',
     navLink: <Link to="/login">log in instead</Link>,
 });
 
 const mapDispatchToProps = dispatch => ({
-    processForm: (user) => dispatch(signup(user)),
+    processForm: user => dispatch(signup(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SessionForm);
