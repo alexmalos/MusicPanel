@@ -21,6 +21,8 @@
 #modalWindow {
     background-color: $lightGray;
     border-radius: 8px;
+    width: 100vw;
+    max-width: 600px;
 }
 
 #modalHeader {
@@ -82,7 +84,6 @@
     border-radius: 4px;
     margin-top: 4px;
     font-size: 14px;
-    width: 510px;
     background-color: $darkGray;
     border: 1px solid $darkLightGray;
     color: $offWhite;

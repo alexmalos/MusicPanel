@@ -5,7 +5,9 @@ $borderColor: #e4e6ea40;
     position: relative;
 }
 
-.profileButtonDiv {
+.profileButton {
+    margin: 0;
+    border: none;
     cursor: pointer;
     border-radius: 1000px;
     display: flex;
@@ -17,7 +19,7 @@ $borderColor: #e4e6ea40;
     color: $darkLightGray;
 }
 
-.profileButtonDiv:hover {
+.profileButton:hover {
     box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
 }
 
@@ -49,7 +51,7 @@ $borderColor: #e4e6ea40;
     padding: 7px;
     border-radius: 8px;
     border: 1px solid $lightGray;
-    width: 215px;
+    width: max-content;
 }
 
 .dropdownLink {
@@ -57,7 +59,6 @@ $borderColor: #e4e6ea40;
     padding: 12px;
     align-items: center;
     color: $offWhite;
-    text-decoration: none;
     border-radius: 4px;
 
     svg {

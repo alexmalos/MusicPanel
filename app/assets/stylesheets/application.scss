@@ -23,6 +23,8 @@
     -webkit-font-smoothing: antialiased;
     background-color: $offBlack;
     color: $offWhite;
+
+    * { text-decoration: none; }
     
     p {
        font-size: 14px;
@@ -32,7 +34,7 @@
    h5 {
       font-size: 16px;
       line-height: 20px;
-      font-weight: 600
+      font-weight: 600;
    }
 }
 

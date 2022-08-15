@@ -22,9 +22,9 @@ export default props => {
     const loggedIn = () => (
         <div className='lastItem'>
             <div id='profileDiv'>
-                <div className='profileButtonDiv' id='navbarProfileButton' onClick={profileClick}>
+                <button className='profileButton' id='navbarProfileButton' onClick={profileClick}>
                     <PersonIcon />
-                </div>
+                </button>
                 {renderDropdown()}
             </div>
         </div>

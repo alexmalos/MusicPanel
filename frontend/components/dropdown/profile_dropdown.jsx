@@ -18,7 +18,7 @@ export default props => {
     return (
         <div id="profileDropdown">
             <Link to='/' className='dropdownLink'>
-                <div className='profileButtonDiv' id='dropdownProfileButton'>
+                <div className='profileButton' id='dropdownProfileButton'>
                     <PersonIcon />
                 </div>
                 <div id='profileTextDiv'>
