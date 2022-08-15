@@ -106,7 +106,6 @@
 #sessionForm {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 #submit {
@@ -125,15 +124,27 @@
 
 #submit:hover { background-color: $blueLight; }
 
-#createAccount {
+#createAccountDiv {
     margin-top: 24px;
-    cursor: pointer;
+    display: flex;
+    justify-content: center;
+
+    p {
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        text-decoration: underline;
+        text-decoration-color: #e4e6ea40;
+        text-decoration-style: solid;
+    }
+
+    p:hover { text-decoration-color: #e4e6eab3; }
+}
+
+#errorList {
+    color: #ff453a;
     font-size: 14px;
     font-weight: 500;
     line-height: 20px;
-    text-decoration: underline;
-    text-decoration-color: #e4e6ea40;
-    text-decoration-style: solid;
 }
-
-#createAccount:hover { text-decoration-color: #e4e6eab3; }

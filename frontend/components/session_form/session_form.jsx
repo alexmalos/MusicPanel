@@ -13,19 +13,25 @@ const SessionForm = props => {
         setState(Object.assign({}, state, { [field]: e.target.value }))
     );
 
-    const renderErrors = () => (
-        <ul>
-            {props.errors.map((error, i) => (
-                <li key={`error-${i}`}>
-                    {error}
-                </li>
-            ))}
-        </ul>
-    );
+    const renderErrors = () => {
+        if (props.errors.length > 0) {
+            return (
+                <ul id="errorList" className="formSection">
+                    {props.errors.map((error, i) => (
+                        <li key={`error-${i}`}>
+                            {error}
+                        </li>
+                    ))}
+                </ul>
+            );
+        }
+    };
 
     let createAccount;
     if (props.openModal) createAccount = (
-        <p id="createAccount" onClick={() => props.openModal('signup')}>Create an account</p>
+        <div id="createAccountDiv">
+            <p onClick={() => props.openModal('signup')}>Create an account</p>
+        </div>
     );
     else createAccount = null;
 

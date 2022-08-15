@@ -1,14 +1,11 @@
 import { connect } from 'react-redux';
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { login } from '../../actions/session_actions';
-import SessionForm from './session_form';
 import { openModal } from '../../actions/modal_actions';
+import SessionForm from './session_form';
 
 const mapStateToProps = ({ errors }) => ({
     errors: errors.session,
-    submitText: 'Log In',
-    navLink: <Link to="/signup">sign up instead</Link>,
+    submitText: 'Log In'
 });
 
 const mapDispatchToProps = dispatch => ({
