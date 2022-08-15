@@ -22,6 +22,7 @@
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
     -webkit-font-smoothing: antialiased;
     background-color: $offBlack;
+    word-break: break-word;
 
    * {
       text-decoration: none;
@@ -40,6 +41,7 @@
    p {
        font-size: 14px;
        line-height: 20px;
+       white-space: pre-wrap;
    }
 
    h5 {
@@ -52,3 +54,4 @@
 @import "./navbar/navbar.scss";
 @import "./dropdown/profile_dropdown.scss";
 @import "./modal/modal.scss";
+@import "./splash/splash.scss";

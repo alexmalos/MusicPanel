@@ -1,6 +1,10 @@
 @import "../variables.scss";
 
-header {
+header { height: 57px; }
+
+#navbarContainer {
+    position: fixed;
+    top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
