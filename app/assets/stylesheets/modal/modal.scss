@@ -125,15 +125,16 @@
     display: flex;
     justify-content: center;
 
-    p {
-        cursor: pointer;
+    button {
+        font-size: 14px;
+        line-height: 20px;
         font-weight: 500;
         text-decoration: underline;
         text-decoration-color: #e4e6ea40;
         text-decoration-style: solid;
     }
 
-    p:hover { text-decoration-color: #e4e6eab3; }
+    button:hover { text-decoration-color: #e4e6eab3; }
 }
 
 @keyframes error-popup {

@@ -6,13 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'open-uri'
+
 User.delete_all
 Artist.delete_all
 Album.delete_all
 Song.delete_all
 
 demo_user = User.create!(
-    username: 'Demo User',
+    username: 'demo',
     password: 'password'
 )
 
@@ -33,6 +35,11 @@ yeezus = Album.create!(
     duration: "40 minutes 0 seconds",
     explicit: true,
     artist_id: kanye.id
+)
+
+yeezus.cover.attach(
+    io: open('https://music-panel-seeds.s3.amazonaws.com/yeezus-cover.png'),
+    filename: 'yeezus-cover.png'
 )
 
 yeezus_tracklist = [

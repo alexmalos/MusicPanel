@@ -1,15 +1,15 @@
 class Api::SessionsController < ApplicationController
     def create
-        @user = User.find_by_credentials(
-          params[:user][:username],
-          params[:user][:password]
-        )
+        username = params[:user][:username]
+        password = params[:user][:password]
+
+        @user = User.find_by_credentials(username, password)
     
-        if @user
+        if username == '' || password == ''
+          render json: ["Both fields have to be filled."], status: 401
+        elsif @user
           login!(@user)
           render "api/users/show"
-        elsif params[:user][:username] == '' || params[:user][:password] == ''
-          render json: ["Both fields have to be filled."], status: 401
         else
           render json: ["Unable to login with provided credentials."], status: 401
         end

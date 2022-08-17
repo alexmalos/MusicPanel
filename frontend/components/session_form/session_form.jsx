@@ -39,7 +39,7 @@ export default props => {
     let createAccount;
     if (props.openModal) createAccount = (
         <div id="create-account-div">
-            <p onClick={() => props.openModal('signup')}>Create an account</p>
+            <button onClick={() => props.openModal('signup')}>Create an account</button>
         </div>
     );
     else createAccount = null;
@@ -47,16 +47,20 @@ export default props => {
     return (
         <form id="session-form" onSubmit={handleSubmit}>
             <div className="form-input-div">
-                <p className="form-text">Username</p>
-                <input className="form-input"
+                <label className="form-text" htmlFor="username-input">Username</label>
+                <input
+                    className="form-input"
+                    id="username-input"
                     type="text"
                     value={state.username}
                     onChange={update('username')}
                 />
             </div>
             <div className="form-input-div form-section">
-                <p className="form-text">Password</p>
-                <input className="form-input"
+                <label className="form-text" htmlFor="password-input">Password</label>
+                <input
+                    className="form-input"
+                    id="password-input"
                     type="password"
                     value={state.password}
                     onChange={update('password')}

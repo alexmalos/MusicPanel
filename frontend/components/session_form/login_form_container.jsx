@@ -11,7 +11,7 @@ const mapStateToProps = ({ errors }) => ({
 const mapDispatchToProps = dispatch => ({
     processForm: user => dispatch(login(user)),
     openModal: modal => dispatch(openModal(modal)),
-    loginDemo: () => dispatch(login({ username: 'Demo User', password: 'password' }))
+    loginDemo: () => dispatch(login({ username: 'demo', password: 'password' }))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SessionForm);

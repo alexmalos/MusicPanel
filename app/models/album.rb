@@ -6,4 +6,5 @@ class Album < ApplicationRecord
     has_many :tracks,
         class_name: :Song
     has_many :reviews, as: :item
+    has_one_attached :cover
 end
