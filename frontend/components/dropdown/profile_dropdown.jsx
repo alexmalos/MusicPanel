@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CancelIcon from '@mui/icons-material/Cancel';
 import PersonIcon from '@mui/icons-material/Person';
+import SubjectIcon from '@mui/icons-material/Subject';
+import ListIcon from '@mui/icons-material/List';
 
 export default props => {
     useEffect(() => {
         const handleClick = e => {
-            const profileDropdown = document.getElementById('profileDropdown');
+            const profileDropdown = document.getElementById('profile-dropdown');
             if (!profileDropdown.contains(e.target)) props.closeDropdown();
         };
 
@@ -16,21 +18,30 @@ export default props => {
     });
 
     return (
-        <div id="profileDropdown">
-            <Link to='/' className='dropdownLink'>
-                <div className='profileButton' id='dropdownProfileButton'>
+        <div id="profile-dropdown">
+            <Link to='/' className='dropdown-element'>
+                <div className='profile-button' id='dropdown-profile-button'>
                     <PersonIcon />
                 </div>
-                <div id='profileTextDiv'>
+                <div id='profile-text-div'>
                     <h5>{props.currentUser.username}</h5>
                     <p>Go to my profile</p>
                 </div>
             </Link>
-            <div className='dropdownDivider'></div>
-            <Link to='/' className='dropdownLink' onClick={props.logout}>
-                <CancelIcon />
-                <p>Log out</p>
+            <div className='dropdown-divider'></div>
+            <Link to='/reviews' className='dropdown-element dropdown-link'>
+                <SubjectIcon />
+                <p>Reviews</p>
             </Link>
+            <Link to='/lists' className='dropdown-element dropdown-link'>
+                <ListIcon />
+                <p>Lists</p>
+            </Link>
+            <div className='dropdown-divider'></div>
+            <button className='dropdown-element dropdown-button' onClick={props.logout}>
+                <CancelIcon />
+                <span>Log out</span>
+            </button>
         </div>
     );
 };

@@ -1,11 +1,11 @@
 @import "../variables.scss";
 $borderColor: #e4e6ea40;
 
-#profileDiv {
+#profile-div {
     position: relative;
 }
 
-.profileButton {
+.profile-button {
     border-radius: 1000px;
     display: flex;
     justify-content: center;
@@ -17,11 +17,11 @@ $borderColor: #e4e6ea40;
     path { color: $darkLightGray; }
 }
 
-.profileButton:hover {
+.profile-button:hover {
     box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
 }
 
-#navbarProfileButton {
+#navbar-profile-button {
     width: 38px;
     height: 38px;
 
@@ -31,7 +31,7 @@ $borderColor: #e4e6ea40;
     }
 }
 
-#dropdownProfileButton {
+#dropdown-profile-button {
     width: 64px;
     height: 64px;
 
@@ -41,7 +41,7 @@ $borderColor: #e4e6ea40;
     }
 }
 
-#profileDropdown {
+#profile-dropdown {
     position: absolute;
     top: 42px;
     right: 0px;
@@ -52,33 +52,39 @@ $borderColor: #e4e6ea40;
     width: max-content;
 }
 
-.dropdownLink {
+.dropdown-element {
     display: flex;
     padding: 12px;
     align-items: center;
     color: $offWhite;
     border-radius: 4px;
 
-    svg {
-        width: 16px;
-        height: 16px;
-    }
-
-    > p {
+    > p, span {
         margin-left: 12px;
     }
 }
 
-.dropdownLink:hover {
+.dropdown-element:hover {
     background-color: $lightGray;
 }
 
-#userDropdownLink {
-    display: flex;
-
+.dropdown-link {
+    svg {
+        width: 20px;
+        height: 20px;
+    }
 }
 
-#profileTextDiv {
+.dropdown-button {
+    width: 100%;
+
+    svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+#profile-text-div {
     margin: 0 12px;
     
     h5 { color: $offWhite; }
@@ -89,7 +95,7 @@ $borderColor: #e4e6ea40;
     }
 }
 
-.dropdownDivider {
+.dropdown-divider {
     margin: 8px 0;
     border-bottom: 1px solid $lightGray;
 }

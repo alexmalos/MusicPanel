@@ -1,8 +1,8 @@
 @import "../variables.scss";
 
-header { height: 57px; }
+header { height: 56px; }
 
-#navbarContainer {
+#navbar-container {
     position: fixed;
     top: 0;
     display: flex;
@@ -33,25 +33,27 @@ header { height: 57px; }
     border-radius: 1000px;
 }
 
-.navButtonDiv {
+.nav-button-div {
     display: flex;
     align-items: center;
     flex: 1 1;
 
-    button {
+    button, a {
         font-size: 14px;
         font-weight: 600;
         padding: 0 24px;
         margin-left: 4px;
         height: 38px;
         border-radius: 100px;
+        line-height: 38px;
+        transition: background-color .2s;
     }
 
-    button:hover {
+    button:hover, a:hover {
         background-color: $lightGray;
     }
 
-    #moreButton {
+    #more-button {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -66,7 +68,7 @@ header { height: 57px; }
     }
 }
 
-#sessionButtons {
+#session-buttons {
     display: flex;
     height: 100%;
     text-align: center;

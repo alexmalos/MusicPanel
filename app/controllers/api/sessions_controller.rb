@@ -8,6 +8,8 @@ class Api::SessionsController < ApplicationController
         if @user
           login!(@user)
           render "api/users/show"
+        elsif params[:user][:username] == '' || params[:user][:password] == ''
+          render json: ["Both fields have to be filled."], status: 401
         else
           render json: ["Unable to login with provided credentials."], status: 401
         end

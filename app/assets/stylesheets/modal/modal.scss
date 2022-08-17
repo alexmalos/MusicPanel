@@ -1,6 +1,6 @@
 @import "../variables.scss";
 
-#modalOverlay {
+#modal-overlay {
     background-color: #0009;
     position: absolute;
     top: 0;
@@ -9,7 +9,7 @@
     width: 100vw;
 }
 
-#modalContent {
+#modal-content {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,20 +18,20 @@
     min-height: calc(100vh - 120px);
 }
 
-@keyframes modalPopup {
+@keyframes modal-popup {
     0% { transform:scale(1.2) }
     to { transform:scale(1) }
 }
 
-#modalWindow {
+#modal-window {
     background-color: $lightGray;
     border-radius: 8px;
     width: 100vw;
     max-width: 600px;
-    animation: modalPopup 50ms ease-out forwards;
+    animation: modal-popup 50ms ease-out forwards;
 }
 
-#modalHeader {
+#modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -44,12 +44,12 @@
     }
 }
 
-#leftPlaceholder {
+#left-placeholder {
     width: 38px;
     height: 38px;
 }
 
-#closeButton {
+#close-button {
     height: 38px;
     width: 38px;
     display: flex;
@@ -63,11 +63,11 @@
     }
 }
 
-#closeButton:hover { background-color: $darkLightGray; }
+#close-button:hover { background-color: $darkLightGray; }
 
-#modalInnerContent { padding: 32px; }
+#modal-inner-content { padding: 32px; }
 
-.formInputDiv {
+.form-input-div {
     position: relative;
     display: flex;
     align-items: stretch;
@@ -75,14 +75,14 @@
     flex-direction: column;
 }
 
-.formSection { margin-top: 16px; }
+.form-section { margin-top: 16px; }
 
-.formText {
+.form-text {
     color: $offWhite;
     font-weight: 500;
 }
 
-.formInput {
+.form-input {
     outline: none;
     resize: none;
     border-radius: 4px;
@@ -94,12 +94,12 @@
     padding: 12px;
 }
 
-.formInput:focus {
+.form-input:focus {
     background-color: $lightGray;
     border-color: $blue;
 }
 
-#sessionForm {
+#session-form {
     display: flex;
     flex-direction: column;
 }
@@ -117,10 +117,10 @@
 
 .submit:hover { background-color: $blueLight; }
 
-#demoSubmit { background-color: $darkLightGray; }
-#demoSubmit:hover { background-color: #505254; }
+#demo-submit { background-color: $darkLightGray; }
+#demo-submit:hover { background-color: #505254; }
 
-#createAccountDiv {
+#create-account-div {
     margin-top: 24px;
     display: flex;
     justify-content: center;
@@ -136,16 +136,16 @@
     p:hover { text-decoration-color: #e4e6eab3; }
 }
 
-@keyframes errorPopup {
+@keyframes error-popup {
     0% { height:0 }
     to { height:20px }
 }
 
-#errorDiv {
+#error-div {
     display: flex;
     align-items: center;
-    color: #ff453a;
-    animation: errorPopup .25s ease-out 0ms 1 forwards;
+    animation: error-popup .25s ease-out 0ms 1 forwards;
+    * { color: #ff453a; }
 
     svg {
         width: 18px;

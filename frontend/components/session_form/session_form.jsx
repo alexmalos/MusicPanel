@@ -17,7 +17,7 @@ export default props => {
     const renderErrors = () => {
         if (props.errors.length > 0) {
             return (
-                <div className="formSection" id="errorDiv">
+                <div className="form-section" id="error-div">
                     <WarningRoundedIcon />
                     <ul>
                         {props.errors.map((error, i) => (
@@ -38,25 +38,25 @@ export default props => {
 
     let createAccount;
     if (props.openModal) createAccount = (
-        <div id="createAccountDiv">
+        <div id="create-account-div">
             <p onClick={() => props.openModal('signup')}>Create an account</p>
         </div>
     );
     else createAccount = null;
 
     return (
-        <form id="sessionForm" onSubmit={handleSubmit}>
-            <div className="formInputDiv">
-                <p className="formText">Username</p>
-                <input className="formInput"
+        <form id="session-form" onSubmit={handleSubmit}>
+            <div className="form-input-div">
+                <p className="form-text">Username</p>
+                <input className="form-input"
                     type="text"
                     value={state.username}
                     onChange={update('username')}
                 />
             </div>
-            <div className="formInputDiv formSection">
-                <p className="formText">Password</p>
-                <input className="formInput"
+            <div className="form-input-div form-section">
+                <p className="form-text">Password</p>
+                <input className="form-input"
                     type="password"
                     value={state.password}
                     onChange={update('password')}
@@ -64,7 +64,7 @@ export default props => {
             </div>
             {renderErrors()}
             <button className="submit" type="submit">{props.submitText}</button>
-            <button className="submit" id="demoSubmit" onClick={loginDemo}>Demo User</button>
+            <button className="submit" id="demo-submit" onClick={loginDemo}>Demo User</button>
             {createAccount}
         </form>
     );
