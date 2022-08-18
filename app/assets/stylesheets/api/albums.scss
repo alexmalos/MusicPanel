@@ -1,3 +1,251 @@
 // Place all the styles related to the api/albums controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.album-header {
+    background-color: $darkGray;
+    border-bottom: 1px solid $lightGray;
+
+    .header-content {
+        position: relative;
+        padding-bottom: 32px;
+        z-index: 1;
+        
+        .background-div {
+            z-index: -10;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            height: 200px;
+    
+            .inner-background-div {
+                position: absolute;
+                height: 434px;
+                width: 1200px;
+                max-width: 100%;
+    
+                img {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center top;
+                }
+    
+                .small-background-image { image-rendering: pixelated; }
+    
+                .background-overlay {
+                    position: absolute;
+                    height: inherit;
+                    width: inherit;
+                    background-image: linear-gradient(90deg,$darkGray,rgba(24,26,28,.978938) 2%,rgba(24,26,28,.913325) 4%,rgba(24,26,28,.805633) 6%,rgba(24,26,28,.670197) 8%,rgba(24,26,28,.530396) 10%,rgba(24,26,28,.407353) 12%,rgba(24,26,28,.312253) 14%,rgba(24,26,28,.247561) 16%,rgba(24,26,28,.21129) 18%,rgba(24,26,28,.2) 20%,rgba(24,26,28,.2) 80%,rgba(24,26,28,.21129) 82%,rgba(24,26,28,.247561) 84%,rgba(24,26,28,.312253) 86%,rgba(24,26,28,.407353) 88%,rgba(24,26,28,.530396) 90%,rgba(24,26,28,.670197) 92%,rgba(24,26,28,.805633) 94%,rgba(24,26,28,.913325) 96%,rgba(24,26,28,.978938) 98%,$darkGray),linear-gradient(0deg,$darkGray,rgba(24,26,28,.973673) 6%,rgba(24,26,28,.891657) 12%,rgba(24,26,28,.757042) 18%,rgba(24,26,28,.587746) 24%,rgba(24,26,28,.412995) 30%,rgba(24,26,28,.259191) 36%,rgba(24,26,28,.140316) 42%,rgba(24,26,28,.059451) 48%,rgba(24,26,28,.014113) 54%,rgba(24,26,28,0) 60%);
+                }
+            }
+        }
+    
+        .header-info {
+            max-width: 1200px;
+            margin: auto;
+            padding: 64px 32px 0;
+            display: flex;
+            align-items: flex-end;
+
+            .album-div {
+                flex: 3 3;
+                margin-right: 32px;
+                display: flex;
+                align-items: flex-end;
+
+                .album-cover {
+                    position: relative;
+                    border-radius: 4px;
+                    height: 300px;
+                    width: 300px;
+                    background-color: $lightGray;
+                }
+
+                .album-info {
+                    margin-left: 24px;
+                    margin-bottom: 16px;
+
+                    .album-details {
+                        display: flex;
+                        align-items: center;
+                        margin-top: 8px;
+
+                        * {
+                            color: $highDarkGray;
+                            margin-right: 12px;
+                        }
+
+                        .dot {
+                            width: 6px;
+                            height: 6px;
+                            background-color: $highDarkGray;
+                            border-radius: 1000px;
+                        }
+                    }
+
+                    .artist-link {
+                        display: flex;
+                        align-items: center;
+                        margin-top: 16px;
+
+                        #artist-image-link {
+                            height: 32px;
+                            width: 32px;
+                            border-radius: 1000px;
+                            position: relative;
+
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                border-radius: inherit;
+                            }
+
+                            #link-border {
+                                border-radius: inherit;
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                width: inherit;
+                                height: inherit;
+                                box-shadow: 0 1px 0 $borderColor inset,0 -1px 0 $borderColor inset,1px 0 0 $borderColor inset,-1px 0 0 $borderColor inset;
+                                transition: box-shadow .25s;
+                            }
+
+                            #link-border:hover {
+                                box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
+                            }
+                        }
+
+                        #artist-text-link { margin-left: 8px; }
+
+                        #artist-text-link:hover {
+                            color: $blue;
+                            transition: color .2s;
+                        }
+                    }
+                }
+            }
+
+            .rating-div {
+                flex: 2 2;
+                margin-bottom: 16px;
+
+                .rating-info {
+                    display: flex;
+                    align-items: center;
+
+                    .info-div {
+                        display: flex;
+                        flex: 1 1;
+                        
+                        .inner-info-div {
+                            display: flex;
+                            flex: 1 1;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+
+                            p {
+                                margin-top: 4px;
+                                color: $highDarkGray;
+                            }
+
+                            .star-div {
+                                display: flex;
+                                align-items: center;
+
+                                svg {
+                                    margin-right: 8px;
+                                    width: 24px;
+                                    height: 24px;
+                                    path { color: $highDarkGray; }
+                                }
+
+                                span {
+                                    color: $highDarkGray;
+                                    font-size: inherit;
+                                    line-height: inherit;
+                                    font-weight: normal;
+                                }
+                            }
+                        }
+
+                        .divider {
+                            width: 1px;
+                            background-color: $darkLightGray;
+                            height: 80px;
+                        }
+                    }
+                }
+
+                button {
+                    width: 100%;
+                    margin-top: 16px;
+                    height: 45px;
+                    background-color: $blue;
+                    border-radius: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 16px;
+                    font-weight: 600;
+                    line-height: normal;
+
+                    svg {
+                        path { color: white; }
+                        width: 20px;
+                        height: 20px;
+                        margin-right: 8px;
+                    }
+                }
+
+                button:hover { background-color: $blueLight; }
+            }
+        }
+    }
+
+    .header-tabs {
+        display: flex;
+        align-items: flex-start;
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 32px;
+
+        .tab-div {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+            a {
+                border-radius: 4px;
+                transition: all .2s;
+                margin: 4px;
+                padding: 12px 24px;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: normal;
+                color: $blue;
+            }
+
+            .inactive { color: $offWhite; }
+    
+            .inactive:hover { background-color: $offBlack; }
+    
+            .active {
+                background-color: $blue;
+                border-top-left-radius: 2px;
+                border-top-right-radius: 2px;
+            }
+    
+            div {
+                height: 4px;
+                width: 100%;
+            }
+        }
+
+    }
+}

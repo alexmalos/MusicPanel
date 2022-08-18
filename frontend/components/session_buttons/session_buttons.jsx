@@ -23,5 +23,5 @@ export default props => {
         </div>
     );
 
-    return props.currentUser ? loggedIn() : loggedOut();
+    return props.loggedIn ? loggedIn() : loggedOut();
 };

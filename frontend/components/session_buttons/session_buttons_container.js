@@ -3,8 +3,8 @@ import { openModal } from '../../actions/modal_actions';
 import { openDropdown, closeDropdown } from '../../actions/dropdown_actions';
 import SessionButtons from './session_buttons';
 
-const mapStateToProps = ({entities: { users }, session, ui}) => ({
-    currentUser: users[session.id],
+const mapStateToProps = ({session, ui}) => ({
+    loggedIn: Boolean(session.id),
     dropdown: ui.dropdown
 });
 

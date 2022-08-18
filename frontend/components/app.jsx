@@ -5,6 +5,7 @@ import { AuthRoute } from "../util/route_util";
 import ModalContainer from "./modal/modal_container";
 import SplashContainer from "./splash/splash_container";
 import ReviewsContainer from "./reviews/reviews_container";
+import AlbumContainer from "./music/album_container";
 import SessionButtonsContainer from "./session_buttons/session_buttons_container";
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 
@@ -27,6 +28,9 @@ const App = ({ modal }) => (
       </div>
     </header>
     <Switch>
+      <Route path="/artists/:artistId" component={AlbumContainer} />
+      <Route path="/albums/:albumId" component={AlbumContainer} />
+      <Route path="/songs/:songId" component={AlbumContainer} />
       <Route exact path="/reviews" component={ReviewsContainer} />
       <AuthRoute exact path="/" component={SplashContainer} />
       <Route exact path="/" />

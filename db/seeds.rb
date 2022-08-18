@@ -27,9 +27,24 @@ kanye = Artist.create!(
     website: 'https://www.kanyewest.com'
 )
 
+kanye.photo.attach(
+    io: open('https://music-panel-seeds.s3.amazonaws.com/kanye-photo.jpeg'),
+    filename: 'kanye-photo.jpeg'
+)
+
+kanye.background.attach(
+    io: open('https://music-panel-seeds.s3.amazonaws.com/kanye-background.jpeg'),
+    filename: 'kanye-background.jpeg'
+)
+
+kanye.small_background.attach(
+    io: open('https://music-panel-seeds.s3.amazonaws.com/kanye-background-small.jpeg'),
+    filename: 'kanye-background-small.jpeg'
+)
+
 yeezus = Album.create!(
     title: "Yeezus",
-    album_type: 'album',
+    album_type: 'Album',
     release_date: Date.new(2013, 6, 18),
     label: "Def Jam Recordings, Roc-A-Fella Records",
     duration: "40 minutes 0 seconds",
@@ -40,6 +55,16 @@ yeezus = Album.create!(
 yeezus.cover.attach(
     io: open('https://music-panel-seeds.s3.amazonaws.com/yeezus-cover.png'),
     filename: 'yeezus-cover.png'
+)
+
+yeezus.background.attach(
+    io: open('https://music-panel-seeds.s3.amazonaws.com/yeezus-background.jpeg'),
+    filename: 'yeezus-background.jpeg'
+)
+
+yeezus.small_background.attach(
+    io: open('https://music-panel-seeds.s3.amazonaws.com/yeezus-background-small.jpeg'),
+    filename: 'yeezus-background-small.jpeg'
 )
 
 yeezus_tracklist = [
