@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchAlbum, fetchArtist, fetchTracks } from '../../actions/music_actions';
+import { fetchAlbum } from '../../actions/music_actions';
 import Album from './album';
 
 const mapStateToProps = ({ entities, session }, { match, location }) => ({
@@ -10,9 +10,7 @@ const mapStateToProps = ({ entities, session }, { match, location }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchAlbum: id => dispatch(fetchAlbum(id)),
-    fetchArtist: id => dispatch(fetchArtist(id)),
-    fetchTracks: albumId => dispatch(fetchTracks(albumId))
+    fetchAlbum: id => dispatch(fetchAlbum(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Album);

@@ -28,9 +28,9 @@ const App = ({ modal }) => (
       </div>
     </header>
     <Switch>
-      <Route path="/artists/:artistId" component={AlbumContainer} />
+      <Route path="/artists/:artistId" />
       <Route path="/albums/:albumId" component={AlbumContainer} />
-      <Route path="/songs/:songId" component={AlbumContainer} />
+      <Route path="/songs/:songId" />
       <Route exact path="/reviews" component={ReviewsContainer} />
       <AuthRoute exact path="/" component={SplashContainer} />
       <Route exact path="/" />

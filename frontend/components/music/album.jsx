@@ -6,10 +6,9 @@ import LockIcon from '@mui/icons-material/Lock';
 export default props => {
     const history = useHistory();
 
-    const [album, setAlbum] = useState(props.entities.albums[props.albumId]);
+    const [album, setAlbum] = useState(null);
     const [artist, setArtist] = useState(null);
     const [tracks, setTracks] = useState(null);
-    const [requestedTracks, setRequestedTracks] = useState(false);
 
     const atPath = pathEnd => {
         const regexPath = new RegExp(`/albums/${props.albumId}${pathEnd}/?$`);
@@ -17,9 +16,8 @@ export default props => {
     };
 
     useEffect(() => {
-        console.log('effect')
         if (album && props.albumId !== album.id) {
-            setAlbum(props.entities.albums[props.albumId]);
+            setAlbum(null);
             setArtist(null);
             setTracks(null);
             setRequestedTracks(false);
@@ -28,25 +26,15 @@ export default props => {
     }, [props.path]);
     
     useEffect(() => {
-        if (!tracks && !requestedTracks) {
-            props.fetchTracks(props.albumId)
-                .then(({ tracks }) => setTracks(tracks));
-            setRequestedTracks(true);
-        }
-    
         if (!album) {
             props.fetchAlbum(props.albumId)
-                .then(({ album }) => setAlbum(album), () => history.replace("/"));
-        } else {
-            const loadedArtist = props.entities.artists[album.artistId];
-    
-            if (loadedArtist) setArtist(loadedArtist);
-            else {
-                props.fetchArtist(album.artistId)
-                    .then(({ artist }) => setArtist(artist));
-            }
+                .then(({ album, artist, tracks }) => {
+                    setAlbum(album);
+                    setArtist(artist);
+                    setTracks(tracks);
+                }, () => history.replace("/"));
         }
-    }, [album]);
+    }, []);
 
     return (album && artist && tracks) ? (
         <div>
