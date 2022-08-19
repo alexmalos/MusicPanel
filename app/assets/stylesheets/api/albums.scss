@@ -156,16 +156,15 @@
                             .star-div {
                                 display: flex;
                                 align-items: center;
+                                svg, path, span { color: $highDarkGray; }
 
                                 svg {
                                     margin-right: 8px;
                                     width: 24px;
                                     height: 24px;
-                                    path { color: $highDarkGray; }
                                 }
 
                                 span {
-                                    color: $highDarkGray;
                                     font-size: inherit;
                                     line-height: inherit;
                                     font-weight: normal;
@@ -194,9 +193,9 @@
                     font-size: 16px;
                     font-weight: 600;
                     line-height: normal;
+                    svg, path { color: white; }
 
                     svg {
-                        path { color: white; }
                         width: 20px;
                         height: 20px;
                         margin-right: 8px;
@@ -248,4 +247,249 @@
         }
 
     }
+}
+
+@keyframes arrowUp {
+    0%{transform:translateY(0)}50%{transform:translateY(-2px)}to{transform:translateY(0)}
+}
+
+@keyframes arrowDown {
+    0%{transform:translateY(0)}50%{transform:translateY(2px)}to{transform:translateY(0)}
+}
+
+.album-body {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 32px 64px;
+    display: flex;
+
+    .left-body-div {
+        margin-right: 32px;
+        flex: 2 2;
+
+        .header-button {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+
+            span {
+                margin-right: 8px;
+                font-size: 20px;
+                font-weight: 600;
+                line-height: normal;
+            }
+            
+            svg {
+                height: 24px;
+                width: 24px;
+            }
+        }
+        
+        .header-button:hover {
+            * {
+                color: $blue;
+                transition: color .2s;
+            }
+
+            .up-arrow { animation: arrowUp .3s cubic-bezier(.5,0,.51,.99); }
+            .down-arrow { animation: arrowDown .3s cubic-bezier(.5,0,.51,.99); }
+        }
+
+        .tracklist {
+            background-color: $darkGray;
+            border-radius: 8px;
+            padding: 8px;
+            position: relative;
+
+            .track-div {
+                display: flex;
+                align-items: center;
+                flex: 1 1;
+                height: 48px;
+                border-radius: 4px;
+                transition: background-color .2s;
+
+                p { pointer-events: none; }
+
+                .track-number {
+                    width: 48px;
+                    height: 48px;
+                    text-align: center;
+                    line-height: 48px;
+                    color: $highDarkGray;
+                }
+
+                .track-title {
+                    flex: 1 1;
+                }
+
+                .track-options-button {
+                    margin: 0 8px;
+                    width: 24px;
+                    height: 24px;
+                    opacity: 0;
+                    transition: opacity .2s;
+                    position: relative;
+
+                    svg, path {
+                        color: $gray;
+                        transition: color .2s;
+                    }
+
+                    .text-popup { transform: translateX(-50%) translateY(-136%) translateY(-1px); }
+                }
+
+                .track-options-button:hover {
+                    svg, path {
+                        color: $offWhite;
+                        transition: color 0ms;
+                    }
+
+                    .text-popup {
+                        opacity: 1;
+                        transition: opacity 0ms;
+                    }
+                }
+
+                .track-rating-button {
+                    height: 100%;
+                    margin: 0 16px;
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    svg, path { color: $highDarkGray; }
+
+                    svg {
+                        height: 16px;
+                        width: 16px;
+                        margin-right: 8px;
+                    }
+
+                    > span {
+                        width: 56px;
+                        text-align: right;
+
+                        span { color: $highDarkGray; }
+                    }
+                }
+
+                .track-rating-button:hover {
+                    .text-popup {
+                        z-index: 4;
+                        opacity: 1;
+                        transition: opacity 0ms;
+                    }
+                }
+            }
+
+            .track-div:hover {
+                background-color: $lightGray;
+                transition: background-color 0ms;
+
+                .track-options-button {
+                    opacity: 1;
+                    transition: opacity 0ms;
+                }
+            }
+
+            .expand-overlay {
+                position: absolute;
+                bottom: 0;
+                height: 96px;
+                background: linear-gradient(#181a1c00,$darkGray);
+                width: calc(100% - 32px);
+                border-bottom: 1px solid $darkGray;
+            }
+
+            .expand-overlay:hover {
+                .text-popup {
+                    opacity: 1;
+                    transition: opacity 0ms;
+                }
+            }
+        }
+
+        .text-popup {
+            z-index: 3;
+            width: max-content;
+            position: absolute;
+            opacity: 0;
+            transition: opacity .3s;
+            border-radius: 8px;
+            border: 1px solid $lightGray;
+            line-height: normal;
+            padding: 8px 21px;
+            font-size: 13px;
+            background-color: $darkGray;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%) translateY(-100%) translateY(-1px);
+        }
+    }
+
+    .right-body-div {
+        flex: 1 1;
+
+        .option-menu {
+            margin-top: 32px;
+            background-color: $darkGray;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+
+            button, a {
+                border-radius: 8px;
+                padding: 16px;
+                border-bottom: 1px solid $lightGray;
+                transition: background-color .2s;
+                font-size: 16px;
+                line-height: 20px;
+                font-weight: 600;
+                transition: color .2s;
+            }
+
+            button:hover, a:hover {
+                background-color: $lightGray;
+                transition: background-color 0ms;
+                color: $blue;
+                transition: color 0ms;
+            }
+
+            a {
+                border-bottom: none;
+                text-align: center;
+            }
+        }
+
+        .info-div {
+            background-color: $darkGray;
+            border-radius: 8px;
+
+            .info-element {
+                border-top: 1px solid #3d3e4080;
+                padding: 16px;
+
+                h5 {
+                    font-size: 15px;
+                    line-height: normal;
+                }
+
+                p {
+                    margin-top: 4px;
+                    color: $highDarkGray;
+                    font-size: 15px;
+                }
+            }
+
+            .first-element { border-top: none; }
+        }
+    }
+
+    h4, .header-button {
+        margin-top: 32px;
+        padding-bottom: 12px;
+    }
+
+    h4 { pointer-events: none; }
 }

@@ -1,13 +1,17 @@
 @import "../variables.scss";
 
+body.modal-open {
+    overflow: hidden;
+}
+
 #modal-overlay {
     background-color: #0009;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     width: 100vw;
-    z-index: 3;
+    z-index: 10;
 }
 
 #modal-content {

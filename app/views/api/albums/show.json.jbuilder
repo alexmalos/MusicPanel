@@ -1,5 +1,5 @@
 json.album do
-    json.extract! @album, :id, :title, :album_type, :release_date, :label, :duration, :explicit, :artist_id
+    json.extract! @album, :id, :title, :album_type, :release_date, :label, :duration, :explicit, :genres, :artist_id
     
     json.trackIds do
         json.array! @album.tracks.map { |track| track.id }

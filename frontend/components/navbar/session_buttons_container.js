@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { openModal } from '../../actions/modal_actions';
-import { openDropdown, closeDropdown } from '../../actions/dropdown_actions';
 import SessionButtons from './session_buttons';
 
 const mapStateToProps = ({session, ui}) => ({
@@ -9,9 +8,7 @@ const mapStateToProps = ({session, ui}) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  openModal: modal => dispatch(openModal(modal)),
-  openDropdown: dropdown => dispatch(openDropdown(dropdown)),
-  closeDropdown: () => dispatch(closeDropdown())
+  openModal: modal => dispatch(openModal(modal))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SessionButtons);

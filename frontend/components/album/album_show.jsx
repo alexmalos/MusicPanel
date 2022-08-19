@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import StarIcon from '@mui/icons-material/Star';
 import LockIcon from '@mui/icons-material/Lock';
+import AlbumHome from './album_home';
 
 export default props => {
     const history = useHistory();
@@ -15,12 +16,22 @@ export default props => {
         return regexPath.test(props.path);
     };
 
+    const albumBody = () => {
+        if (atPath('')) return <AlbumHome
+                                    tracks={tracks}
+                                    album={album}
+                                    artist={artist}
+                                    openLoginModal={props.openLoginModal}
+                                    loggedIn={props.loggedIn}
+                                />
+        else return null;
+    }
+
     useEffect(() => {
         if (album && props.albumId !== album.id) {
             setAlbum(null);
             setArtist(null);
             setTracks(null);
-            setRequestedTracks(false);
         }
 
     }, [props.path]);
@@ -58,7 +69,7 @@ export default props => {
                                     <div className='dot'></div>
                                     <p>{album.releaseDate}</p>
                                     <div className='dot'></div>
-                                    <p>{album.trackIds.length} Tracks</p>
+                                    <p>{tracks.length} Tracks</p>
                                 </div>
                                 <div className='artist-link'>
                                     <Link to={`/artists/${album.artistId}`} id='artist-image-link'>
@@ -110,7 +121,7 @@ export default props => {
                                         <StarIcon />
                                         Rate Album
                                     </button> :
-                                    <button>
+                                    <button onClick={props.openLoginModal}>
                                         <LockIcon />
                                         Sign in to rate this album
                                     </button>
@@ -133,6 +144,7 @@ export default props => {
                     </div>
                 </div>
             </div>
+            {albumBody()}
         </div>
     ) : null;
 };

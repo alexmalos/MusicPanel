@@ -8,6 +8,21 @@
 
 require 'open-uri'
 
+genres = {
+    pop: 'Pop',
+    rap: 'Rap/Hip Hop',
+    alt: 'Alternative',
+    rock: 'Rock',
+    rnb: 'R&B/Soul',
+    electro: 'Electronic',
+    folk: 'Folk',
+    country: 'Country',
+    jazz: 'Jazz',
+    blues: 'Blues',
+    latin: 'Latin',
+    classical: 'Classical'
+}
+
 User.delete_all
 Artist.delete_all
 Album.delete_all
@@ -20,8 +35,7 @@ demo_user = User.create!(
 
 kanye = Artist.create!(
     name: 'Kanye West',
-    birth_year: 1977,
-    gender: 'M',
+    birthday: Date.new(1977, 6, 8),
     label: 'Def Jam Recordings',
     origin: 'Chicago, Illinois, USA',
     website: 'https://www.kanyewest.com'
@@ -49,6 +63,7 @@ yeezus = Album.create!(
     label: "Def Jam Recordings, Roc-A-Fella Records",
     duration: "40 minutes 0 seconds",
     explicit: true,
+    genres: [genres[:rap]],
     artist_id: kanye.id
 )
 

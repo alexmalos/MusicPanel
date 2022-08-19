@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
+import { openModal } from '../../actions/modal_actions';
 import { fetchAlbum } from '../../actions/music_actions';
-import Album from './album';
+import AlbumShow from './album_show';
 
 const mapStateToProps = ({ entities, session }, { match, location }) => ({
     albumId: parseInt(match.params.albumId),
@@ -10,7 +11,8 @@ const mapStateToProps = ({ entities, session }, { match, location }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchAlbum: id => dispatch(fetchAlbum(id))
+    fetchAlbum: id => dispatch(fetchAlbum(id)),
+    openLoginModal: () => dispatch(openModal('login'))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Album);
+export default connect(mapStateToProps, mapDispatchToProps)(AlbumShow);

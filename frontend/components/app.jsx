@@ -1,35 +1,19 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { AuthRoute } from "../util/route_util";
 import ModalContainer from "./modal/modal_container";
 import SplashContainer from "./splash/splash_container";
 import ReviewsContainer from "./reviews/reviews_container";
-import AlbumContainer from "./music/album_container";
-import SessionButtonsContainer from "./session_buttons/session_buttons_container";
-import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
+import AlbumShowContainer from "./album/album_container";
+import Navbar from "./navbar/navbar";
 
 const App = ({ modal }) => (
   <div>
-    <header>
-      <div id="navbar-container">
-        <div id="navbar">
-          <Link to={"/"} id="logo"></Link>
-          <div className="nav-button-div">
-            <button>Music</button>
-            <Link to={"/reviews"}>Reviews</Link>
-            <Link to={"/lists"}>Lists</Link>
-            <button id="more-button">
-              <MoreHorizRoundedIcon />
-            </button>
-          </div>
-          <SessionButtonsContainer />
-        </div>
-      </div>
-    </header>
+    <Navbar />
     <Switch>
       <Route path="/artists/:artistId" />
-      <Route path="/albums/:albumId" component={AlbumContainer} />
+      <Route path="/albums/:albumId" component={AlbumShowContainer} />
       <Route path="/songs/:songId" />
       <Route exact path="/reviews" component={ReviewsContainer} />
       <AuthRoute exact path="/" component={SplashContainer} />

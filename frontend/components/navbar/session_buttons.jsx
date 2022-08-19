@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PersonIcon from '@mui/icons-material/Person';
-import ProfileDropdownContainer from '../dropdown/profile_dropdown_container';
+import ProfileDropdownContainer from './profile_dropdown_container';
 
 export default props => {
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
     const loggedOut = () => (
         <div id='session-buttons'>
             <button id='login' onClick={() => props.openModal('login')}>Log In</button>
@@ -11,7 +13,7 @@ export default props => {
     );
 
     const profileClick = () => {
-        if (!props.dropdown) props.openDropdown('profile');
+        if (!dropdownOpen) setDropdownOpen(true);
     };
 
     const loggedIn = () => (
@@ -19,7 +21,8 @@ export default props => {
             <button className='profile-button' id='navbar-profile-button' onClick={profileClick}>
                 <PersonIcon />
             </button>
-            {props.dropdown === 'profile' ? <ProfileDropdownContainer /> : null}
+            {dropdownOpen ? <ProfileDropdownContainer
+            closeDropdown={() => setDropdownOpen(false)}/> : null}
         </div>
     );
 
