@@ -348,7 +348,7 @@
 
                     .text-popup {
                         opacity: 1;
-                        transition: opacity 0ms;
+                        transition: opacity .3s;
                     }
                 }
 
@@ -378,7 +378,7 @@
                     .text-popup {
                         z-index: 4;
                         opacity: 1;
-                        transition: opacity 0ms;
+                        transition: opacity .3s;
                     }
                 }
             }
@@ -389,7 +389,7 @@
 
                 .track-options-button {
                     opacity: 1;
-                    transition: opacity 0ms;
+                    transition: opacity .3s;
                 }
             }
 
@@ -405,7 +405,7 @@
             .expand-overlay:hover {
                 .text-popup {
                     opacity: 1;
-                    transition: opacity 0ms;
+                    transition: opacity .3s;
                 }
             }
         }
@@ -415,7 +415,7 @@
             width: max-content;
             position: absolute;
             opacity: 0;
-            transition: opacity .3s;
+            transition: opacity 0ms;
             border-radius: 8px;
             border: 1px solid $lightGray;
             line-height: normal;

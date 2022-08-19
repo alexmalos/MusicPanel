@@ -125,22 +125,17 @@ body.modal-open {
 #demo-submit { background-color: $darkLightGray; }
 #demo-submit:hover { background-color: #505254; }
 
-#create-account-div {
+#create-account-button {
     margin-top: 24px;
-    display: flex;
-    justify-content: center;
-
-    button {
-        font-size: 14px;
-        line-height: 20px;
-        font-weight: 500;
-        text-decoration: underline;
-        text-decoration-color: #e4e6ea40;
-        text-decoration-style: solid;
-    }
-
-    button:hover { text-decoration-color: #e4e6eab3; }
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: #e4e6ea40;
+    text-decoration-style: solid;
 }
+
+#create-account-button:hover { text-decoration-color: #e4e6eab3; }
 
 @keyframes error-popup {
     0% { height:0 }

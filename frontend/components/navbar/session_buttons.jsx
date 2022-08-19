@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PersonIcon from '@mui/icons-material/Person';
 import ProfileDropdownContainer from './profile_dropdown_container';
 
 export default props => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    useEffect(() => setDropdownOpen(false), [props.loggedIn]);
 
     const loggedOut = () => (
         <div id='session-buttons'>

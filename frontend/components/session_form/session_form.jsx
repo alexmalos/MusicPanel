@@ -36,13 +36,10 @@ export default props => {
         props.loginDemo();
     }
 
-    let createAccount;
-    if (props.openModal) createAccount = (
-        <div id="create-account-div">
-            <button onClick={() => props.openModal('signup')}>Create an account</button>
-        </div>
-    );
-    else createAccount = null;
+    const openSignupModal = e => {
+        e.preventDefault();
+        props.openModal('signup');
+    };
 
     return (
         <form id="session-form" onSubmit={handleSubmit}>
@@ -69,7 +66,12 @@ export default props => {
             {renderErrors()}
             <button className="submit" type="submit">{props.submitText}</button>
             <button className="submit" id="demo-submit" onClick={loginDemo}>Demo User</button>
-            {createAccount}
+            {
+                props.openModal ?
+                    <button onClick={openSignupModal} id='create-account-button'>
+                        Create an account
+                    </button> : null
+            }
         </form>
     );
 };

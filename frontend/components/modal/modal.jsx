@@ -7,7 +7,8 @@ export default ({ modal, closeModal }) => {
     useEffect(() => {
         const handleClick = e => {
             const modalWindow = document.getElementById('modal-window');
-            if (!modalWindow.contains(e.target)) closeModal();
+            if (e.target.id !== 'create-account-button' && modalWindow &&
+                !modalWindow.contains(e.target))  closeModal();
         };
 
         document.addEventListener('click', handleClick);
