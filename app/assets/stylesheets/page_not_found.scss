@@ -1,0 +1,42 @@
+@import "./variables.scss";
+
+#page-not-found {
+    height: calc(100vh - 55px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    svg {
+        width: 128px;
+        height: 128px;
+        fill: none;
+        stroke: $darkLightGray;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+        color: $highDarkGray;
+        margin: 32px 32px 0;
+    }
+
+    a {
+        margin-top: 40px;
+        padding: 0 24px;
+        height: 45px;
+        border-radius: 100px;
+        background-color: $blue;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 45px;
+        transition: background-color .2s;
+    }
+
+    a:hover { background-color: $blueLight; }
+}

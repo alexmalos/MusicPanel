@@ -2,82 +2,94 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import StarIcon from '@mui/icons-material/Star';
 import LockIcon from '@mui/icons-material/Lock';
-import AlbumHome from './album_home';
+import ArtistHome from './artist_home';
+import parse from 'html-react-parser';
+import ModalContainer from '../modal/modal_container';
 
-export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
+export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType }) => {
     const history = useHistory();
 
-    const [album, setAlbum] = useState(null);
     const [artist, setArtist] = useState(null);
-    const [tracks, setTracks] = useState(null);
+    const [albums, setAlbums] = useState(null);
+    const [artistBio, setArtistBio] = useState(null);
 
     const atPath = pathEnd => {
-        const regexPath = new RegExp(`/albums/${albumId}${pathEnd}/?$`);
+        const regexPath = new RegExp(`/artists/${artistId}${pathEnd}/?$`);
         return regexPath.test(path);
     };
 
-    const albumBody = () => {
-        if (atPath('')) return <AlbumHome
-                                    tracks={tracks}
-                                    album={album}
+    const artistBody = () => {
+        if (atPath('')) return <ArtistHome
+                                    albums={albums}
                                     artist={artist}
-                                    openLoginModal={openLoginModal}
+                                    openLoginModal={() => openModal('login')}
                                     loggedIn={loggedIn}
                                 />
         else return null;
     }
 
     useEffect(() => {
-        if (album && albumId !== album.id) {
-            setAlbum(null);
+        if (artist && artistId !== artist.id) {
             setArtist(null);
-            setTracks(null);
+            setAlbums(null);
+            setArtistBio(null);
         }
 
     }, [path]);
     
     useEffect(() => {
-        fetchAlbum(albumId)
-            .then(({ album, artist, tracks }) => {
-                setAlbum(album);
+        fetchArtist(artistId)
+            .then(({ artist, albums }) => {
                 setArtist(artist);
-                setTracks(tracks);
+                setAlbums(albums);
             }, () => history.replace("/"));
     }, []);
 
-    return (album && artist && tracks) ? (
+    useEffect(() => {
+        if (artist) {
+            $.ajax({
+                url: `https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro&origin=*&titles=${artist.wikiPath}`,
+                method: 'GET'
+            }).then(response => {
+                const bioString = Object.values(response.query.pages)[0].extract;
+                const bioElements = parse(bioString).filter(el => el.props && el.props.className !== 'mw-empty-elt');
+                setArtistBio(bioElements);
+            });
+        }
+    }, [artist]);
+
+    console.log(modalType);
+
+    return (artist && albums) ? (
         <div>
             <div className='music-header'>
                 <div className='header-content'>
                     <div className='background-div'>
                         <div className='inner-background-div'>
-                            <img src={album.smallBackgroundUrl} alt=""
+                            <img src={artist.smallBackgroundUrl} alt=""
                             className='small-background-image'/>
-                            <img src={album.backgroundUrl} alt="" />
+                            <img src={artist.backgroundUrl} alt="" />
                             <div className='background-overlay'></div>
                         </div>
                     </div>
                     <div className='header-info'>
                         <div className='music-div'>
-                            <img src={album.coverUrl} alt="" className='album-cover'/>
+                            <div className='artist-photo-div'>
+                                <img src={artist.photoUrl} alt=""/>
+                                <div id="photo-border"></div>
+                            </div>
                             <div className='music-info'>
-                                <h1>{album.title}</h1>
-                                <div className='album-details'>
-                                    <p>{album.albumType}</p>
-                                    <div className='dot'></div>
-                                    <p>{album.releaseDate}</p>
-                                    <div className='dot'></div>
-                                    <p>{tracks.length} Tracks</p>
-                                </div>
-                                <div className='artist-link'>
-                                    <Link to={`/artists/${album.artistId}`} id='artist-image-link'>
-                                        <img src={artist.photoUrl} alt="" />
-                                        <div id='link-border'></div>
-                                    </Link>
-                                    <Link to={`/artists/${album.artistId}`} id='artist-text-link'>
-                                        {artist.name}
-                                    </Link>
-                                </div>
+                                <h1>{artist.name}</h1>
+                                {
+                                    artistBio ?
+                                        <div className='artist-bio-div'>
+                                            {artistBio}
+                                            <div className='artist-bio-fade'></div>
+                                            <button onClick={() => openModal('artistBio', true)}>
+                                                Read more...
+                                            </button>
+                                        </div> : null
+                                }
                             </div>
                         </div>
                         <div className='rating-div'>
@@ -117,11 +129,11 @@ export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
                                 loggedIn ?
                                     <button>
                                         <StarIcon />
-                                        Rate Album
+                                        Rate Artist
                                     </button> :
-                                    <button onClick={openLoginModal}>
+                                    <button onClick={() => openModal('login')}>
                                         <LockIcon />
-                                        Sign in to rate this album
+                                        Sign in to rate this artist
                                     </button>
                             }
                         </div>
@@ -129,29 +141,37 @@ export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
                 </div>
                 <div className='header-tabs'>
                     <div className='tab-div'>
-                        <Link to={`/albums/${albumId}`}
+                        <Link to={`/artists/${artistId}`}
                             className={atPath('') ? '' : 'inactive'}>
                             Home
                         </Link>
                         <div className={atPath('') ? 'active' : '' }></div>
                     </div>
                     <div className='tab-div'>
-                        <Link to={`/albums/${albumId}/reviews`}
+                        <Link to={`/artists/${artistId}/reviews`}
                             className={atPath('/reviews') ? '' : 'inactive'}>
                             Reviews
                         </Link>
                         <div className={atPath('/reviews') ? 'active' : '' }></div>
                     </div>
                     <div className='tab-div'>
-                        <Link to={`/albums/${albumId}/ratings`}
-                            className={atPath('/ratings') ? '' : 'inactive'}>
-                            Ratings
+                        <Link to={`/artists/${artistId}/releases`}
+                            className={atPath('/releases') ? '' : 'inactive'}>
+                            Discography
                         </Link>
-                        <div className={atPath('/ratings') ? 'active' : '' }></div>
+                        <div className={atPath('/releases') ? 'active' : '' }></div>
                     </div>
                 </div>
             </div>
-            {albumBody()}
+            {artistBody()}
+            {
+                (modalType === 'artistBio') ?
+                <ModalContainer
+                    artistBio={artistBio}
+                    artistName={artist.name}
+                    artistWikiPath={artist.wikiPath}
+                /> : null
+            }
         </div>
     ) : null;
 };

@@ -14,6 +14,9 @@ export const artists = (state = {}, action) => {
 export const albums = (state = {}, action) => {
     Object.freeze(state);
     switch(action.type) {
+      case RECEIVE_ARTIST:
+        const albums = action.albums.reduce((acc, album) => (acc[album.id] = album, acc), {});
+        return Object.assign({}, state, albums);
       case RECEIVE_ALBUM:
         return Object.assign({}, state, { [action.album.id]: action.album });
       default:

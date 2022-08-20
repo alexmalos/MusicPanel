@@ -44,6 +44,10 @@
        white-space: pre-wrap;
    }
 
+   b { font-weight: bolder; }
+
+   i { font-style: italic; }
+
    h1 {
       font-size: 40px;
       line-height: 54px;
@@ -70,8 +74,10 @@
    }
 }
 
+@import "./page_not_found.scss";
 @import "./navbar/navbar.scss";
 @import "./dropdown/profile_dropdown.scss";
-@import "./modal/modal.scss";
 @import "./splash/splash.scss";
-@import "./api/albums.scss";
+@import "./api/music_show.scss";
+@import "./modal/modal.scss";
+@import "./api/artists.scss";

@@ -5,21 +5,24 @@ import { AuthRoute } from "../util/route_util";
 import ModalContainer from "./modal/modal_container";
 import SplashContainer from "./splash/splash_container";
 import ReviewsContainer from "./reviews/reviews_container";
-import AlbumShowContainer from "./album/album_container";
+import AlbumShowContainer from "./album/album_show_container";
+import ArtistShowContainer from "./artist/artist_show_container";
 import Navbar from "./navbar/navbar";
+import PageNotFound from "./page_not_found";
 
 const App = ({ modal }) => (
   <div>
     <Navbar />
     <Switch>
-      <Route path="/artists/:artistId" />
+      <Route path="/artists/:artistId" component={ArtistShowContainer}/>
       <Route path="/albums/:albumId" component={AlbumShowContainer} />
       <Route path="/songs/:songId" />
       <Route exact path="/reviews" component={ReviewsContainer} />
       <AuthRoute exact path="/" component={SplashContainer} />
       <Route exact path="/" />
+      <Route path="/" component={PageNotFound} />
     </Switch>
-    {modal ? <ModalContainer /> : null}
+    {(modal.modalType && !modal.data) ? <ModalContainer /> : null}
   </div>
 );
 

@@ -3,7 +3,7 @@ import { closeModal } from '../../actions/modal_actions';
 import Modal from './modal';
 
 const mapStateToProps = state => ({
-    modal: state.ui.modal
+    modalType: state.ui.modal.modalType
 });
 
 const mapDispatchToProps = dispatch => ({

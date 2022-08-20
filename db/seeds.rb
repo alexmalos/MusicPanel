@@ -38,7 +38,8 @@ kanye = Artist.create!(
     birthday: Date.new(1977, 6, 8),
     label: 'Def Jam Recordings',
     origin: 'Chicago, Illinois, USA',
-    website: 'https://www.kanyewest.com'
+    website: 'https://www.kanyewest.com',
+    wiki_path: 'Kanye_West'
 )
 
 kanye.photo.attach(

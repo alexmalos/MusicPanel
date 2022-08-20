@@ -4,9 +4,10 @@ export const RECEIVE_ARTIST = 'RECEIVE_ARTIST';
 export const RECEIVE_ALBUM = 'RECEIVE_ALBUM';
 export const RECEIVE_SONG = 'RECEIVE_SONG';
 
-const receiveArtist = artist => ({
+const receiveArtist = ({ artist, albums}) => ({
     type: RECEIVE_ARTIST,
-    artist
+    artist,
+    albums
 });
 
 const receiveAlbum = ({ album, artist, tracks }) => ({

@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import LoginFormContainer from '../session_form/login_form_container';
 import SignupFormContainer from '../session_form/signup_form_container';
+import ArtistBioModal from '../artist/artist_bio_modal';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default ({ modal, closeModal }) => {
+export default props => {
     useEffect(() => {
         const handleClick = e => {
             const modalWindow = document.getElementById('modal-window');
             if (e.target.id !== 'create-account-button' && modalWindow &&
-                !modalWindow.contains(e.target))  closeModal();
+                !modalWindow.contains(e.target)) props.closeModal();
         };
 
         document.addEventListener('click', handleClick);
@@ -17,7 +18,7 @@ export default ({ modal, closeModal }) => {
     });
 
     let component, headerText;
-    switch (modal) {
+    switch (props.modalType) {
         case 'login':
             component = <LoginFormContainer />;
             headerText = "Log In to MusicPanel";
@@ -25,6 +26,13 @@ export default ({ modal, closeModal }) => {
         case 'signup':
             component = <SignupFormContainer />;
             headerText = "Join MusicPanel";
+            break;
+        case 'artistBio':
+            component = <ArtistBioModal
+                            artistBio={props.artistBio}
+                            artistWikiPath={props.artistWikiPath}
+                        />;
+            headerText = props.artistName;
             break;
         default:
             return null;
@@ -37,7 +45,7 @@ export default ({ modal, closeModal }) => {
                     <div id="modal-header">
                         <div id="left-placeholder"></div>
                             <h5>{headerText}</h5>
-                        <button id="close-button" onClick={closeModal}>
+                        <button id="close-button" onClick={props.closeModal}>
                             <CloseIcon/>
                         </button>
                     </div>
