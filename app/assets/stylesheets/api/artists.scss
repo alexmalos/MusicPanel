@@ -18,3 +18,111 @@
         a:hover { text-decoration: underline; }
     }
 }
+
+.discography-grid {
+    display: grid;
+    column-gap: 16px;
+    row-gap: 16px;
+    padding: 16px;
+    grid-template-columns: repeat(4,1fr);
+    border-radius: 8px;
+    background-color: $darkGray;
+
+    .album-div {
+        .album-cover-div {
+            position: relative;
+    
+            .album-options-button {
+                z-index: 1;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%) translateY(33%);
+                transition: opacity .2s, background-color .2s;
+                opacity: 0;
+                background-color: $darkGrayWhite;
+                border-radius: 1000px;
+                padding: 2px;
+    
+                svg, path {
+                    color: $darkGray;
+                    vertical-align: bottom;
+                    width: 20px;
+                    height: 20px;
+                }
+
+                .text-popup {
+                    pointer-events: none;
+                    transform: translateX(-50%) translateY(-130%);
+                }
+            }
+
+            .album-options-button:hover {
+                background-color: $blue;
+                transition: opacity .2s, background-color 0ms;
+
+                svg, path { color: $offWhite; }
+
+                .text-popup {
+                    opacity: 1;
+                    transition: opacity .3s;
+                }
+            }
+
+        }
+    
+        .album-cover-link, .album-info-link {
+            display: block;
+            position: relative;
+    
+            img, .album-cover-border {
+                width: 100%;
+                height: 100%;
+            }
+    
+            img {
+                border-radius: 4px;
+                vertical-align: bottom;
+            }
+        
+            .album-cover-border {
+                position: absolute;
+                top: 0;
+                left: 0;
+                box-shadow: 0 1px 0 rgba(228,230,234,0.4) inset,0 -1px 0 #e4e6ea66 inset,1px 0 0 #e4e6ea66 inset,-1px 0 0 #e4e6ea66 inset;
+                border-radius: 3px;
+                transition: box-shadow .25s;
+            }
+    
+            .album-cover-border:hover {
+                box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
+            }
+    
+            h6 {
+                font-weight: 600;
+                padding-top: 12px;
+                font-size: 16px;
+                line-height: normal;
+                transition: color .25s;
+                text-align: center;
+            }
+    
+            .album-info {
+                text-align: center;
+                margin-top: 4px;
+                color: $highDarkGray;
+            }
+        }
+    
+        a:hover {
+            h6 { color: $blue; }
+        }
+    }
+
+    .album-div:hover {
+        .album-options-button {
+            opacity: 1;
+            transition: opacity 0ms,background-color .2s;
+        }
+    }
+}

@@ -381,14 +381,13 @@
                     height: 24px;
                     opacity: 0;
                     transition: opacity .2s;
-                    position: relative;
 
                     svg, path {
                         color: $gray;
                         transition: color .2s;
                     }
 
-                    .text-popup { transform: translateX(-50%) translateY(-136%) translateY(-1px); }
+                    .text-popup { transform: translateX(-50%) translateY(-100%) translateY(-1px); }
                 }
 
                 .track-options-button:hover {

@@ -3,7 +3,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import StarIcon from '@mui/icons-material/Star';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
-import OptionPopup from './option_popup';
+import OptionPopup from '../music/option_popup';
 import OptionMenu from '../music/option_menu';
 
 export default props => {
@@ -40,7 +40,7 @@ export default props => {
             const optionPopup = document.getElementById('option-popup');
             const trackDiv = [...document.getElementsByClassName('track-div')]
                 .find(el => parseInt(el.getAttribute('track-id')) === clickedTrackId);
-            if (optionPopup.offsetHeight > trackDiv.getBoundingClientRect().top - 4) {
+            if (optionPopup.offsetHeight > trackDiv.getBoundingClientRect().top) {
                 optionPopup.classList.add('popup-below');
             } else optionPopup.classList.add('popup-above');
             optionPopup.classList.remove('hidden');
@@ -81,8 +81,8 @@ export default props => {
                                             {
                                                 (optionPopupOpen && clickedTrackId === track.id) ?
                                                     <OptionPopup
-                                                        track={track}
                                                         closeOptionPopup={() => setOptionPopupOpen(false)}
+                                                        optionType='track'
                                                     /> : null
                                             }
                                         </div> :
@@ -105,7 +105,11 @@ export default props => {
                 </div>
             </div>
             <div className='right-body-div'>
-                <OptionMenu loggedIn={loggedIn} openLoginModal={props.openLoginModal} />
+                <OptionMenu
+                    loggedIn={loggedIn}
+                    openLoginModal={props.openLoginModal}
+                    musicType='album'
+                />
                 <h4>Information</h4>
                 <div className='info-div'>
                     <div className='info-element first-element'>

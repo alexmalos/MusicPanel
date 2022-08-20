@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import StarIcon from '@mui/icons-material/Star';
 import LockIcon from '@mui/icons-material/Lock';
 import ArtistHome from './artist_home';
+import ArtistDiscography from './artist_discography';
 import parse from 'html-react-parser';
 import ModalContainer from '../modal/modal_container';
 import PageNotFound from '../page_not_found';
@@ -19,12 +20,21 @@ export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType })
     };
 
     const artistBody = () => {
-        if (atPath('')) return <ArtistHome
-                                    albums={albums}
-                                    artist={artist}
-                                    openLoginModal={() => openModal('login')}
-                                    loggedIn={loggedIn}
-                                />
+        if (atPath('')) return (
+            <ArtistHome
+                albums={albums.slice(0, 8)}
+                artist={artist}
+                openLoginModal={() => openModal('login')}
+                loggedIn={loggedIn}
+            />
+        );
+        else if (atPath('releases')) return (
+            <ArtistDiscography
+                albums={albums}
+                artist={artist}
+                loggedIn={loggedIn}
+            />
+        );
         else return null;
     }
 
@@ -37,7 +47,19 @@ export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType })
         fetchArtist(artistId)
             .then(({ artist, albums }) => {
                 setArtist(artist);
-                setAlbums(albums);
+
+                const processedAlbums = albums.map(album => {
+                    Object.freeze(album);
+                    const releaseDate = new Date(album.releaseDate.split('-'))
+                    return Object.assign({}, album, { releaseDate });
+                });
+        
+                processedAlbums.sort((a, b) => {
+                    if (a.releaseDate < b.releaseDate) return 1;
+                    else return -1;
+                });
+
+                setAlbums(processedAlbums);
             }, () => setPageNotFound(true));
     }, [artistId]);
 

@@ -1,13 +1,13 @@
 import React from "react";
 
-export default ({ loggedIn, openLoginModal }) => (
+export default ({ loggedIn, openLoginModal, musicType }) => (
     <div className='option-menu'>
         {
             loggedIn ?
                 [
                     <button key={1}>Write Review</button>,
                     <button key={2}>Add to Listen Later</button>,
-                    <button key={3}>Add album to a list</button>
+                    <button key={3}>Add {musicType} to a list</button>
                 ] :
                 <button onClick={openLoginModal}>Sign in for more options</button>
         }

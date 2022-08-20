@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import OptionMenu from '../music/option_menu';
+import OptionPopup from '../music/option_popup';
 
-export default props => {
-    const { artist, loggedIn } = props;
-
-    const [albums, setAlbums] = useState(props.albums.slice(0, 8));
+export default ({ artist, albums, loggedIn, openLoginModal }) => {
+    const [optionPopupOpen, setOptionPopupOpen] = useState(false);
+    const [clickedAlbumButton, setClickedAlbumButton] = useState(null);
 
     const artistBirthdayString = () => {
         const date = new Date(artist.birthday.split('-'));
@@ -23,6 +24,21 @@ export default props => {
         else return <a href={artist.instagram} target='_blank'>Instagram</a>;
     };
 
+    const handleOptionClick = e => {
+        setOptionPopupOpen(true);
+        setClickedAlbumButton(e.currentTarget);
+    }
+
+    useEffect(() => {
+        if (optionPopupOpen) {
+            const optionPopup = document.getElementById('option-popup');
+            if (optionPopup.offsetHeight > clickedAlbumButton.getBoundingClientRect().top - 12) {
+                optionPopup.classList.add('popup-below');
+            } else optionPopup.classList.add('popup-above');
+            optionPopup.classList.remove('hidden');
+        }
+    }, [optionPopupOpen]);
+
     return (
         <div className='artist-body'>
             <div className='left-body-div'>
@@ -33,15 +49,48 @@ export default props => {
                 <div className='discography-grid'>
                     {
                         albums.map(album => (
-                            <div className='album-div' key={album.id} album-id={album.id}>
-                                
+                            <div className='album-div' key={album.id}>
+                                <div className='album-cover-div'>
+                                    <Link className='album-cover-link' to={`/albums/${album.id}`}>
+                                        <img src={album.coverUrl} alt="" />
+                                        <div className='album-cover-border'></div>
+                                    </Link>
+                                    {
+                                        loggedIn ?
+                                            <div className='album-options-div'>
+                                                <button className='album-options-button'
+                                                album-id={album.id}
+                                                onClick={handleOptionClick}>
+                                                    <MoreHorizRoundedIcon />
+                                                    <p className='text-popup'>Show Menu</p>
+                                                </button>
+                                                {
+                                                    (optionPopupOpen && parseInt(clickedAlbumButton.getAttribute('album-id')) === album.id) ?
+                                                        <OptionPopup
+                                                            closeOptionPopup={() => setOptionPopupOpen(false)}
+                                                            optionType='album'
+                                                            musicLink={`/albums/${album.id}`}
+                                                        /> : null
+                                                }
+                                            </div> :
+                                            null
+                                    }
+                                </div>
+                                <Link className='album-info-link' to={`/albums/${album.id}`}>
+                                    <h6>{album.title}</h6>
+                                    <p className='album-info'>{album.albumType} • {album.releaseDate.getFullYear()}</p>
+                                </Link>
                             </div>
                         ))
                     }
                 </div>
             </div>
             <div className='right-body-div'>
-                <OptionMenu loggedIn={loggedIn} openLoginModal={props.openLoginModal} />
+                <OptionMenu
+                    loggedIn={loggedIn}
+                    openLoginModal={openLoginModal}
+                    musicType='artist'
+                />
                 <h4>Information</h4>
                 <div className='info-div'>
                     {
