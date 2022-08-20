@@ -1,4 +1,4 @@
-json.extract! artist, :id, :name, :birthday, :label, :origin, :website, :wiki_path, :instagram, :twitter, :members, :formed
+json.extract! artist, :id, :name, :birthday, :label, :origin, :website, :wiki_path, :instagram, :twitter, :spotify, :members, :formed
 
 json.albumIds do
     json.array! artist.albums.map { |album| album.id }

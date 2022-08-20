@@ -13,11 +13,11 @@ export default ({ artist, albums, loggedIn, openLoginModal }) => {
 
     const artistSocials = () => {
         if (artist.twitter && artist.instagram)
-            return <p><a href={artist.twitter} target='_blank'>Twitter</a>
-                    , <a href={artist.instagram} target='_blank'>Instagram</a></p>;
+            return <p><a href={`https://twitter.com/${artist.twitter}`} target='_blank'>Twitter</a>
+                    , <a href={`https://www.instagram.com/${artist.instagram}`} target='_blank'>Instagram</a></p>;
         else if (artist.twitter)
-            return <a href={artist.twitter} target='_blank'>Twitter</a>;
-        else return <a href={artist.instagram} target='_blank'>Instagram</a>;
+            return <a href={`https://twitter.com/${artist.twitter}`} target='_blank'>Twitter</a>;
+        else return <a href={`https://www.instagram.com/${artist.instagram}`} target='_blank'>Instagram</a>;
     };
 
     return (
@@ -34,6 +34,7 @@ export default ({ artist, albums, loggedIn, openLoginModal }) => {
                     loggedIn={loggedIn}
                     openLoginModal={openLoginModal}
                     musicType='artist'
+                    spotify={artist.spotify}
                 />
                 <h4>Information</h4>
                 <div className='info-div'>

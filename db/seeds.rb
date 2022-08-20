@@ -39,8 +39,9 @@ kanye = Artist.create!(
     label: 'Def Jam Recordings',
     origin: 'Chicago, Illinois, USA',
     website: 'https://www.kanyewest.com',
-    twitter: 'https://twitter.com/kanyewest',
-    instagram: 'https://www.instagram.com/kanyewest/',
+    twitter: 'kanyewest',
+    instagram: 'kanyewest/',
+    spotify: 'artist/5K4W6rqBFWDnAN6FQUkS6x',
     wiki_path: 'Kanye_West'
 )
 
@@ -67,6 +68,7 @@ yeezus = Album.create!(
     duration: "40 minutes 0 seconds",
     explicit: true,
     genres: [genres[:rap]],
+    spotify: 'album/7D2NdGvBHIavgLhmcwhluK',
     artist_id: kanye.id
 )
 

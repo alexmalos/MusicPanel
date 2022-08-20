@@ -109,6 +109,7 @@ export default props => {
                     loggedIn={loggedIn}
                     openLoginModal={props.openLoginModal}
                     musicType='album'
+                    spotify={album.spotify}
                 />
                 <h4>Information</h4>
                 <div className='info-div'>

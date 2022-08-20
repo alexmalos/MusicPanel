@@ -1,5 +1,5 @@
 class Album < ApplicationRecord
-    validates :title, :album_type, :release_date, :label, :duration, :genres, presence: true
+    validates :title, :album_type, :release_date, :label, :duration, :genres, :spotify, presence: true
     validates :explicit, inclusion: [true, false]
 
     belongs_to :artist
