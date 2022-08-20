@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import StarIcon from '@mui/icons-material/Star';
-import LockIcon from '@mui/icons-material/Lock';
+import RatingDiv from '../music/rating_div';
 import AlbumHome from './album_home';
 import PageNotFound from '../page_not_found';
 
@@ -77,51 +76,11 @@ export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className='rating-div'>
-                            <div className='rating-info'>
-                                <div className='info-div'>
-                                    <div className='inner-info-div'>
-                                        <h3>0</h3>
-                                        <p>Total ratings</p>
-                                    </div>
-                                </div>
-                                <div className='info-div'>
-                                    <div className='divider'></div>
-                                    <div className='inner-info-div'>
-                                        <div className='star-div'>
-                                            <StarIcon />
-                                            <h3>0
-                                                <span> / 5</span>
-                                            </h3>
-                                        </div>
-                                        <p>Average rating</p>
-                                    </div>
-                                </div>
-                                <div className='info-div'>
-                                    <div className='divider'></div>
-                                    <div className='inner-info-div'>
-                                        <div className='star-div'>
-                                            <StarIcon />
-                                            <h3>0
-                                                <span> / 5</span>
-                                            </h3>
-                                        </div>
-                                        <p>Your rating</p>
-                                    </div>
-                                </div>
-                            </div>
-                            {
-                                loggedIn ?
-                                    <button>
-                                        <StarIcon />
-                                        Rate Album
-                                    </button> :
-                                    <button onClick={openLoginModal}>
-                                        <LockIcon />
-                                        Sign in to rate this album
-                                    </button>
-                            }
-                        </div>
+                        <RatingDiv
+                            loggedIn={loggedIn}
+                            openLoginModal={openLoginModal}
+                            musicType='album'
+                        />
                     </div>
                 </div>
                 <div className='header-tabs'>
