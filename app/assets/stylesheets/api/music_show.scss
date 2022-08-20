@@ -459,23 +459,6 @@
                 }
             }
         }
-
-        .text-popup {
-            z-index: 3;
-            width: max-content;
-            position: absolute;
-            opacity: 0;
-            transition: opacity 0ms;
-            border-radius: 8px;
-            border: 1px solid $lightGray;
-            line-height: normal;
-            padding: 8px 21px;
-            font-size: 13px;
-            background-color: $darkGray;
-            left: 50%;
-            top: 0;
-            transform: translateX(-50%) translateY(-100%) translateY(-1px);
-        }
     }
 
     .right-body-div {
@@ -546,10 +529,30 @@
         }
     }
 
+    .text-popup {
+        z-index: 3;
+        width: max-content;
+        position: absolute;
+        opacity: 0;
+        transition: opacity 0ms;
+        border-radius: 8px;
+        border: 1px solid $lightGray;
+        line-height: normal;
+        padding: 8px 21px;
+        font-size: 13px;
+        background-color: $darkGray;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%) translateY(-100%) translateY(-1px);
+    }
+
     h4, .header-button {
         margin-top: 32px;
         padding-bottom: 12px;
     }
 
-    h4 { pointer-events: none; }
+    h4 {
+        pointer-events: none;
+        line-height: normal;
+    }
 }

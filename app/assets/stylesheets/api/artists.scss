@@ -126,3 +126,11 @@
         }
     }
 }
+
+.artist-discography {
+    display: block;
+
+    .discography-grid { grid-template-columns: repeat(6,1fr); }
+
+    .singles-heading { margin-top: 48px; }
+}

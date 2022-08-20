@@ -28,7 +28,7 @@ export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType })
                 loggedIn={loggedIn}
             />
         );
-        else if (atPath('releases')) return (
+        else if (atPath('/releases')) return (
             <ArtistDiscography
                 albums={albums}
                 artist={artist}
