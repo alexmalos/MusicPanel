@@ -303,7 +303,11 @@
     0%{transform:translateY(0)}50%{transform:translateY(2px)}to{transform:translateY(0)}
 }
 
-.album-body {
+@keyframes arrowRight {
+    0%{transform:translateX(0)}50%{transform:translateX(2px)}to{transform:translateX(0)}
+}
+
+.album-body, .artist-body {
     max-width: 1200px;
     margin: auto;
     padding: 0 32px 64px;
@@ -340,6 +344,7 @@
 
             .up-arrow { animation: arrowUp .3s cubic-bezier(.5,0,.51,.99); }
             .down-arrow { animation: arrowDown .3s cubic-bezier(.5,0,.51,.99); }
+            .right-arrow { animation: arrowRight .3s cubic-bezier(.5,0,.51,.99); }
         }
 
         .tracklist {
@@ -515,16 +520,26 @@
             .info-element {
                 border-top: 1px solid #3d3e4080;
                 padding: 16px;
+                * { font-size: 15px; }
 
                 h5 {
-                    font-size: 15px;
+                    line-height: normal;
+                    margin-bottom: 4px;
+                }
+
+                p { color: $highDarkGray; }
+
+                a {
+                    color: $blue;
+                    text-decoration: underline;
+                    text-decoration-color: #0c94ff33;
+                    transition: text-decoration-color .2s;
                     line-height: normal;
                 }
 
-                p {
-                    margin-top: 4px;
-                    color: $highDarkGray;
-                    font-size: 15px;
+                a:hover {
+                    text-decoration-color: $blue;
+                    transition: text-decoration-color .13s;
                 }
             }
 

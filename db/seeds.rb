@@ -39,6 +39,8 @@ kanye = Artist.create!(
     label: 'Def Jam Recordings',
     origin: 'Chicago, Illinois, USA',
     website: 'https://www.kanyewest.com',
+    twitter: 'https://twitter.com/kanyewest',
+    instagram: 'https://www.instagram.com/kanyewest/',
     wiki_path: 'Kanye_West'
 )
 

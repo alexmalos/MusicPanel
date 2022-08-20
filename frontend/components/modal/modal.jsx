@@ -49,9 +49,7 @@ export default props => {
                             <CloseIcon/>
                         </button>
                     </div>
-                    <div id="modal-inner-content">
-                        {component}
-                    </div>
+                    {component}
                 </div>
             </div>
         </div>

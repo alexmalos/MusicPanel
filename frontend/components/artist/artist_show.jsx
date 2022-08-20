@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import StarIcon from '@mui/icons-material/Star';
 import LockIcon from '@mui/icons-material/Lock';
 import ArtistHome from './artist_home';
 import parse from 'html-react-parser';
 import ModalContainer from '../modal/modal_container';
+import PageNotFound from '../page_not_found';
 
 export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType }) => {
-    const history = useHistory();
-
     const [artist, setArtist] = useState(null);
     const [albums, setAlbums] = useState(null);
     const [artistBio, setArtistBio] = useState(null);
+    const [pageNotFound, setPageNotFound] = useState(false);
 
     const atPath = pathEnd => {
         const regexPath = new RegExp(`/artists/${artistId}${pathEnd}/?$`);
@@ -29,24 +29,20 @@ export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType })
     }
 
     useEffect(() => {
-        if (artist && artistId !== artist.id) {
-            setArtist(null);
-            setAlbums(null);
-            setArtistBio(null);
-        }
+        setArtist(null);
+        setAlbums(null);
+        setArtistBio(null);
+        setPageNotFound(false);
 
-    }, [path]);
-    
-    useEffect(() => {
         fetchArtist(artistId)
             .then(({ artist, albums }) => {
                 setArtist(artist);
                 setAlbums(albums);
-            }, () => history.replace("/"));
-    }, []);
+            }, () => setPageNotFound(true));
+    }, [artistId]);
 
     useEffect(() => {
-        if (artist) {
+        if (artist && artist.wikiPath) {
             $.ajax({
                 url: `https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro&origin=*&titles=${artist.wikiPath}`,
                 method: 'GET'
@@ -57,10 +53,9 @@ export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType })
             });
         }
     }, [artist]);
-
-    console.log(modalType);
-
-    return (artist && albums) ? (
+ 
+    if (pageNotFound) return <PageNotFound />;
+    else if (artist && albums) return (
         <div>
             <div className='music-header'>
                 <div className='header-content'>
@@ -173,5 +168,6 @@ export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType })
                 /> : null
             }
         </div>
-    ) : null;
+    );
+    else return null;
 };

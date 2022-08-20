@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import StarIcon from '@mui/icons-material/Star';
-import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
+import { Link } from 'react-router-dom';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import OptionMenu from '../music/option_menu';
 
 export default props => {
     const { artist, loggedIn } = props;
@@ -15,96 +14,81 @@ export default props => {
         return date.toLocaleDateString('en-US', options);
     };
 
-   return (
+    const artistSocials = () => {
+        if (artist.twitter && artist.instagram)
+            return <p><a href={artist.twitter} target='_blank'>Twitter</a>
+                    , <a href={artist.instagram} target='_blank'>Instagram</a></p>;
+        else if (artist.twitter)
+            return <a href={artist.twitter} target='_blank'>Twitter</a>;
+        else return <a href={artist.instagram} target='_blank'>Instagram</a>;
+    };
+
+    return (
         <div className='artist-body'>
-            {/* <div className='left-body-div'>
-                {
-                    expandableTracklist ?
-                        <button className='header-button' onClick={toggleTracklist}>
-                            <span>Tracklist</span>
-                            {
-                                tracklistExpanded ?
-                                    <ExpandLessIcon className='up-arrow' /> :
-                                    <ExpandMoreIcon className='down-arrow'/>
-                            }
-                        </button> :
-                        <h4>Tracklist</h4>
-                }
-                
-                <div className='tracklist'>
+            <div className='left-body-div'>
+                <Link to={`/artists/${artist.id}/releases`} className='header-button'>
+                    <span>Discography</span>
+                    <ChevronRightIcon className='right-arrow' />
+                </Link>
+                <div className='discography-grid'>
                     {
                         albums.map(album => (
-                            <div className='track-div' key={track.id} track-id={track.id}>
-                                <p className='track-number'>{track.trackNumber}</p>
-                                <p className='track-title'>{track.title}</p>
-                                {
-                                    loggedIn ?
-                                        <div className='track-options-div'>
-                                            <button className='track-options-button'
-                                            track-id={track.id}
-                                            onClick={handleOptionClick}>
-                                                <MoreHorizRoundedIcon />
-                                                <p className='text-popup'>Show Menu</p>
-                                            </button>
-                                            {
-                                                (optionPopupOpen && clickedTrackId === track.id) ?
-                                                    <OptionPopup
-                                                        track={track}
-                                                        closeOptionPopup={() => setOptionPopupOpen(false)}
-                                                    /> : null
-                                            }
-                                        </div> :
-                                        null
-                                }
-                                <button className='track-rating-button'>
-                                    <StarIcon />
-                                    <span>0<span> / 5</span></span>
-                                    <p className='text-popup'>Rate this track</p>
-                                </button>
+                            <div className='album-div' key={album.id} album-id={album.id}>
+                                
                             </div>
                         ))
                     }
                 </div>
             </div>
             <div className='right-body-div'>
-                <div className='option-menu'>
-                    {
-                        loggedIn ?
-                            [
-                                <button key={1}>Write Review</button>,
-                                <button key={2}>Add to Listen Later</button>,
-                                <button key={3}>Add album to a list</button>
-                            ] :
-                            <button onClick={props.openLoginModal}>Sign in for more options</button>
-                    }
-                    <a href='https://open.spotify.com/album/7D2NdGvBHIavgLhmcwhluK' target='_blank'>
-                        Listen on Spotify
-                    </a>
-                </div>
+                <OptionMenu loggedIn={loggedIn} openLoginModal={props.openLoginModal} />
                 <h4>Information</h4>
                 <div className='info-div'>
-                    <div className='info-element first-element'>
-                        <h5>Release Date</h5>
-                        <p>{artistBirthdayString()}</p>
-                    </div>
-                    <div className='info-element'>
-                        <h5>Duration</h5>
-                        <p>{album.duration}</p>
-                    </div>
+                    {
+                        artist.formed ?
+                            <div className='info-element first-element'>
+                                <h5>Formed</h5>
+                                <p>{artist.formed}</p>
+                            </div> : null
+                    }
+                    {
+                        artist.members.length > 0 ?
+                            <div className='info-element'>
+                                <h5>Members</h5>
+                                <p>{artist.members.join(', ')}</p>
+                            </div> : null
+                    }
+                    {
+                        artist.birthday ?
+                            <div className='info-element first-element'>
+                                <h5>Born</h5>
+                                <p>{artistBirthdayString()}</p>
+                            </div> : null
+                    }
                     <div className='info-element'>
                         <h5>Label</h5>
-                        <p>{album.label}</p>
+                        <p>{artist.label}</p>
                     </div>
                     <div className='info-element'>
-                        <h5>Explict Lyrics</h5>
-                        <p>{album.explicit ? 'Yes' : 'No'}</p>
+                        <h5>Origin</h5>
+                        <p>{artist.origin}</p>
                     </div>
-                    <div className='info-element'>
-                        <h5>Genres</h5>
-                        <p>{album.genres.join(', ')}</p>
-                    </div>
-                    </div>
-            </div> */}
+                    {
+                        artist.website ?
+                            <div className='info-element'>
+                                <h5>Website</h5>
+                                <a href={artist.website} target='_blank'>{artist.website.slice(12)}</a>
+                            </div> : null
+                    }
+                    {
+                        artist.twitter || artist.instagram ?
+                            <div className='info-element'>
+                                <h5>Socials</h5>
+                                {artistSocials()}
+                            </div> : null
+                    }
+                </div>
+            </div>
         </div>
     );
 };

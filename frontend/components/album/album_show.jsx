@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import StarIcon from '@mui/icons-material/Star';
 import LockIcon from '@mui/icons-material/Lock';
 import AlbumHome from './album_home';
+import PageNotFound from '../page_not_found';
 
 export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
-    const history = useHistory();
-
     const [album, setAlbum] = useState(null);
     const [artist, setArtist] = useState(null);
     const [tracks, setTracks] = useState(null);
+    const [pageNotFound, setPageNotFound] = useState(false);
 
     const atPath = pathEnd => {
         const regexPath = new RegExp(`/albums/${albumId}${pathEnd}/?$`);
@@ -28,24 +28,21 @@ export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
     }
 
     useEffect(() => {
-        if (album && albumId !== album.id) {
-            setAlbum(null);
-            setArtist(null);
-            setTracks(null);
-        }
+        setAlbum(null);
+        setArtist(null);
+        setTracks(null);
+        setPageNotFound(false);
 
-    }, [path]);
-    
-    useEffect(() => {
         fetchAlbum(albumId)
             .then(({ album, artist, tracks }) => {
                 setAlbum(album);
                 setArtist(artist);
                 setTracks(tracks);
-            }, () => history.replace("/"));
-    }, []);
+            }, () => setPageNotFound(true));
+    }, [albumId]);
 
-    return (album && artist && tracks) ? (
+    if (pageNotFound) return <PageNotFound />;
+    else if (album && artist && tracks) return (
         <div>
             <div className='music-header'>
                 <div className='header-content'>
@@ -153,5 +150,6 @@ export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
             </div>
             {albumBody()}
         </div>
-    ) : null;
+    );
+    else return null;
 };

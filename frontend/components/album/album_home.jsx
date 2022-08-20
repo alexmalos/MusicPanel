@@ -4,6 +4,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import StarIcon from '@mui/icons-material/Star';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import OptionPopup from './option_popup';
+import OptionMenu from '../music/option_menu';
 
 export default props => {
     const { album, loggedIn } = props;
@@ -104,20 +105,7 @@ export default props => {
                 </div>
             </div>
             <div className='right-body-div'>
-                <div className='option-menu'>
-                    {
-                        loggedIn ?
-                            [
-                                <button key={1}>Write Review</button>,
-                                <button key={2}>Add to Listen Later</button>,
-                                <button key={3}>Add album to a list</button>
-                            ] :
-                            <button onClick={props.openLoginModal}>Sign in for more options</button>
-                    }
-                    <a href='https://open.spotify.com/album/7D2NdGvBHIavgLhmcwhluK' target='_blank'>
-                        Listen on Spotify
-                    </a>
-                </div>
+                <OptionMenu loggedIn={loggedIn} openLoginModal={props.openLoginModal} />
                 <h4>Information</h4>
                 <div className='info-div'>
                     <div className='info-element first-element'>
