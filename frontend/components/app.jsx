@@ -7,6 +7,7 @@ import SplashContainer from "./splash/splash_container";
 import ReviewsContainer from "./reviews/reviews_container";
 import AlbumShowContainer from "./album/album_show_container";
 import ArtistShowContainer from "./artist/artist_show_container";
+import TrackShowContainer from "./track/track_show_container";
 import Navbar from "./navbar/navbar";
 import PageNotFound from "./page_not_found";
 
@@ -16,7 +17,7 @@ const App = ({ modal }) => (
     <Switch>
       <Route path="/artists/:artistId" component={ArtistShowContainer}/>
       <Route path="/albums/:albumId" component={AlbumShowContainer} />
-      <Route path="/songs/:songId" />
+      <Route path="/tracks/:trackId" component={TrackShowContainer}/>
       <Route exact path="/reviews" component={ReviewsContainer} />
       <AuthRoute exact path="/" component={SplashContainer} />
       <Route exact path="/" />

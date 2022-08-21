@@ -9,7 +9,7 @@ export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
     const [artist, setArtist] = useState(null);
     const [tracks, setTracks] = useState(null);
     const [pageNotFound, setPageNotFound] = useState(false);
-
+    
     const atPath = pathEnd => {
         const regexPath = new RegExp(`/albums/${albumId}${pathEnd}/?$`);
         return regexPath.test(path);
@@ -38,6 +38,8 @@ export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
                 setArtist(artist);
                 setTracks(tracks);
             }, () => setPageNotFound(true));
+
+        console.log(queryParams());
     }, [albumId]);
 
     if (pageNotFound) return <PageNotFound />;
@@ -55,7 +57,10 @@ export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
                     </div>
                     <div className='header-info'>
                         <div className='music-div'>
-                            <img src={album.coverUrl} alt="" className='album-cover'/>
+                            <div className='album-cover-div'>
+                                <img src={album.coverUrl} alt=""/>
+                                <div className="cover-border"></div>
+                            </div>
                             <div className='music-info'>
                                 <h1>{album.title}</h1>
                                 <div className='album-details'>
@@ -66,11 +71,11 @@ export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
                                     <p>{tracks.length} Tracks</p>
                                 </div>
                                 <div className='artist-link'>
-                                    <Link to={`/artists/${album.artistId}`} id='artist-image-link'>
+                                    <Link to={`/artists/${artist.id}`} id='artist-image-link'>
                                         <img src={artist.photoUrl} alt="" />
                                         <div id='link-border'></div>
                                     </Link>
-                                    <Link to={`/artists/${album.artistId}`} id='artist-text-link'>
+                                    <Link to={`/artists/${artist.id}`} id='artist-text-link'>
                                         {artist.name}
                                     </Link>
                                 </div>

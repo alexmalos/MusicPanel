@@ -83,6 +83,7 @@ export default props => {
                                                     <OptionPopup
                                                         closeOptionPopup={() => setOptionPopupOpen(false)}
                                                         optionType='track'
+                                                        musicLink={`/tracks/${clickedTrackId}/reviews`}
                                                     /> : null
                                             }
                                         </div> :

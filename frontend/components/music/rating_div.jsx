@@ -16,9 +16,7 @@ export default ({ loggedIn, openLoginModal, musicType }) => (
                 <div className='inner-info-div'>
                     <div className='star-div'>
                         <StarIcon />
-                        <h3>0
-                            <span> / 5</span>
-                        </h3>
+                        <h3>0<span> / 5</span></h3>
                     </div>
                     <p>Average rating</p>
                 </div>
@@ -28,9 +26,7 @@ export default ({ loggedIn, openLoginModal, musicType }) => (
                 <div className='inner-info-div'>
                     <div className='star-div'>
                         <StarIcon />
-                        <h3>0
-                            <span> / 5</span>
-                        </h3>
+                        <h3>0<span> / 5</span></h3>
                     </div>
                     <p>Your rating</p>
                 </div>

@@ -30,8 +30,6 @@ export const songs = (state = {}, action) => {
       case RECEIVE_ALBUM:
         const songs = action.tracks.reduce((acc, song) => (acc[song.id] = song, acc), {});
         return Object.assign({}, state, songs);
-      case RECEIVE_SONG:
-        return Object.assign({}, state, { [action.song.id]: action.song });
       default:
         return state;
     }

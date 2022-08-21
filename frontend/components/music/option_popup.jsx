@@ -10,7 +10,7 @@ export default ({ closeOptionPopup, optionType, musicLink }) => {
     useEffect(() => {
         const handleClick = e => {
             const optionPopup = document.getElementById('option-popup');
-            if (!optionPopup.contains(e.target)) closeOptionPopup();
+            if (!optionPopup || !optionPopup.contains(e.target)) closeOptionPopup();
         };
 
         document.addEventListener('click', handleClick);
@@ -26,7 +26,7 @@ export default ({ closeOptionPopup, optionType, musicLink }) => {
         switch (optionType) {
             case 'track':
                 return (
-                    <Link to='/' className='dropdown-element dropdown-link'>
+                    <Link to={musicLink} className='dropdown-element dropdown-link'>
                         <MusicNoteIcon />
                         <p>Read reviews</p>
                     </Link>
