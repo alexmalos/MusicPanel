@@ -14,10 +14,10 @@
     transition: box-shadow .25s;
     color: $darkLightGray;
     * { color: $darkLightGray; }
-}
 
-.profile-button:hover {
-    box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
+    &:hover {
+        box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
+    }
 }
 
 #navbar-profile-button {
@@ -61,10 +61,10 @@
     > p, span {
         margin-left: 12px;
     }
-}
 
-.dropdown-element:hover {
-    background-color: $lightGray;
+    &:hover {
+        background-color: $lightGray;
+    }
 }
 
 .dropdown-link {

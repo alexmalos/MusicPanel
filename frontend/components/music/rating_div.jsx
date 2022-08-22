@@ -2,7 +2,7 @@ import React from "react";
 import StarIcon from '@mui/icons-material/Star';
 import LockIcon from '@mui/icons-material/Lock';
 
-export default ({ loggedIn, openLoginModal, musicType }) => (
+export default ({ loggedIn, openLoginModal, renderModal, itemType, itemId, modalType }) => (
     <div className='rating-div'>
         <div className='rating-info'>
             <div className='info-div'>
@@ -34,13 +34,13 @@ export default ({ loggedIn, openLoginModal, musicType }) => (
         </div>
         {
             loggedIn ?
-                <button>
+                <button onClick={() => renderModal(modalType, itemId, itemType)}>
                     <StarIcon />
-                    Rate {musicType[0].toUpperCase() + musicType.slice(1)}
+                    Rate {itemType}
                 </button> :
                 <button onClick={openLoginModal}>
                     <LockIcon />
-                    Sign in to rate this {musicType}
+                    Sign in to rate this {itemType[0].toLowerCase() + itemType.slice(1)}
                 </button>
         }
     </div>

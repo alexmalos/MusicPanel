@@ -108,7 +108,7 @@ export default props => {
             <div className='right-body-div'>
                 <OptionMenu
                     loggedIn={loggedIn}
-                    openLoginModal={props.openLoginModal}
+                    openModal={props.openModal}
                     musicType='album'
                     spotify={album.spotify}
                 />

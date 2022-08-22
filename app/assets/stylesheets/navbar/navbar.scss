@@ -48,10 +48,8 @@ header { height: 56px; }
         border-radius: 100px;
         line-height: 38px;
         transition: background-color .2s;
-    }
 
-    button:hover, a:hover {
-        background-color: $lightGray;
+        &:hover { background-color: $lightGray; }
     }
 
     #more-button {
@@ -86,14 +84,14 @@ header { height: 56px; }
         color: $offWhite;
         background-color: $lightGray;
         margin-right: 8px;
-    }
 
-    #login:hover { background-color: $darkLightGray; }
+        &:hover { background-color: $darkLightGray; }
+    }
     
     #signup {
         color: white;
         background-color: $blue;
-    }
     
-    #signup:hover { background-color: $blueLight; }
+        &:hover { background-color: $blueLight; }
+    }
 }

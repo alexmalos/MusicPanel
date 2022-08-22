@@ -36,7 +36,7 @@
         font-weight: 600;
         line-height: 45px;
         transition: background-color .2s;
-    }
 
-    a:hover { background-color: $blueLight; }
+        &:hover { background-color: $blueLight; }
+    }
 }

@@ -3,7 +3,7 @@ import * as APIUtil from '../util/music_api_util';
 export const RECEIVE_ARTIST = 'RECEIVE_ARTIST';
 export const RECEIVE_ALBUM = 'RECEIVE_ALBUM';
 
-const receiveArtist = ({ artist, albums}) => ({
+const receiveArtist = ({ artist, albums }) => ({
     type: RECEIVE_ARTIST,
     artist,
     albums

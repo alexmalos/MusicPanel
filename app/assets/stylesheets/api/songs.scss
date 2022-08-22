@@ -27,36 +27,38 @@
             line-height: 14px;
             font-weight: 600;
         }
-    }
 
-    #track-back-link::before {
-        content: "";
-        position: absolute;
-        left: -12px;
-        width: 0;
-        border-top: 16px solid transparent;
-        border-bottom: 16px solid transparent;
-        border-right: 12px solid $lightGray;
-        transition: border-right .2s;
-    }
+        &::before {
+            content: "";
+            position: absolute;
+            left: -12px;
+            width: 0;
+            border-top: 16px solid transparent;
+            border-bottom: 16px solid transparent;
+            border-right: 12px solid $lightGray;
+            transition: border-right .2s;
+        }
 
-    #track-back-link:hover {
-        background-color: $darkLightGray;
-        transition: background-color 0ms;
-        animation: buttonLeft .3s cubic-bezier(.5,0,.51,.99);
-    }
+        &:hover {
+            background-color: $darkLightGray;
+            transition: background-color 0ms;
+            animation: buttonLeft .3s cubic-bezier(.5,0,.51,.99);
 
-    #track-back-link:hover::before {
-        border-right: 12px solid $darkLightGray;
-        transition: border-right 0ms;
+            &::before {
+                border-right: 12px solid $darkLightGray;
+                transition: border-right 0ms;
+            }
+        }
     }
 
     #track-header-info { padding: 32px 0 0; }
 
-    #album-cover-border { transition: box-shadow .25s; }
+    #album-cover-border {
+        transition: box-shadow .25s;
     
-    #album-cover-border:hover {
-        box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
+        &:hover {
+            box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
+        }
     }
 
     #album-title-link {
@@ -64,7 +66,7 @@
         margin-top: 12px;
         transition: color .2s;
         font-size: 16px;
-    }
 
-    #album-title-link:hover { color: $blue; }
+        &:hover { color: $blue; }
+    }
 }

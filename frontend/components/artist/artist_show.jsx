@@ -7,11 +7,13 @@ import parse from 'html-react-parser';
 import ModalContainer from '../modal/modal_container';
 import PageNotFound from '../page_not_found';
 
-export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType }) => {
+export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType }) => {
+    const loggedIn = Boolean(sessionId);
     const [artist, setArtist] = useState(null);
     const [albums, setAlbums] = useState(null);
     const [artistBio, setArtistBio] = useState(null);
     const [pageNotFound, setPageNotFound] = useState(false);
+    const [modal, setModal] = useState(null);
 
     const atPath = pathEnd => {
         const regexPath = new RegExp(`/artists/${artistId}${pathEnd}/?$`);
@@ -23,7 +25,7 @@ export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType })
             <ArtistHome
                 albums={albums.slice(0, 8)}
                 artist={artist}
-                openLoginModal={() => openModal('login')}
+                openModal={openModal}
                 loggedIn={loggedIn}
             />
         );
@@ -35,7 +37,38 @@ export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType })
             />
         );
         else return null;
-    }
+    };
+
+    useEffect(() => {
+        if (modalType === null) setModal(null);
+    }, [modalType]);
+
+    const renderModal = (modalType, itemId, itemType) => {
+        openModal(modalType, true);
+        switch (modalType) {
+            case 'artistBio':
+                setModal(
+                    <ModalContainer
+                        artistBio={artistBio}
+                        artistName={artist.name}
+                        artistWikiPath={artist.wikiPath}
+                    />
+                );
+                break;
+            case 'newReview':
+            case 'editReview':
+                setModal(
+                    <ModalContainer
+                        authorId={sessionId}
+                        itemId={itemId}
+                        itemType={itemType}
+                    />
+                );
+                break;
+            default:
+                break;
+        }
+    };
 
     useEffect(() => {
         setArtist(null);
@@ -92,7 +125,7 @@ export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType })
                         <div className='music-div'>
                             <div className='artist-photo-div'>
                                 <img src={artist.photoUrl} alt=""/>
-                                <div id="photo-border"></div>
+                                <div className="photo-border"></div>
                             </div>
                             <div className='music-info'>
                                 <h1>{artist.name}</h1>
@@ -101,7 +134,7 @@ export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType })
                                         <div className='artist-bio-div'>
                                             {artistBio}
                                             <div className='artist-bio-fade'></div>
-                                            <button onClick={() => openModal('artistBio', true)}>
+                                            <button onClick={() => renderModal('artistBio')}>
                                                 Read more...
                                             </button>
                                         </div> : null
@@ -111,7 +144,10 @@ export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType })
                         <RatingDiv
                             loggedIn={loggedIn}
                             openLoginModal={() => openModal('login')}
-                            musicType='artist'
+                            renderModal={renderModal}
+                            itemType='Artist'
+                            itemId={artistId}
+                            modalType='newReview'
                         />
                     </div>
                 </div>
@@ -140,14 +176,7 @@ export default ({ artistId, path, loggedIn, openModal, fetchArtist, modalType })
                 </div>
             </div>
             {artistBody()}
-            {
-                (modalType === 'artistBio') ?
-                <ModalContainer
-                    artistBio={artistBio}
-                    artistName={artist.name}
-                    artistWikiPath={artist.wikiPath}
-                /> : null
-            }
+            {modal}
         </div>
     );
     else return null;

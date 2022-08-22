@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 import RatingDiv from '../music/rating_div';
 import AlbumHome from './album_home';
 import PageNotFound from '../page_not_found';
+import ModalContainer from '../modal/modal_container';
 
-export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
+export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType }) => {
+    const loggedIn = Boolean(sessionId);
     const [album, setAlbum] = useState(null);
     const [artist, setArtist] = useState(null);
     const [tracks, setTracks] = useState(null);
     const [pageNotFound, setPageNotFound] = useState(false);
+    const [modal, setModal] = useState(null);
     
     const atPath = pathEnd => {
         const regexPath = new RegExp(`/albums/${albumId}${pathEnd}/?$`);
@@ -20,11 +23,26 @@ export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
                                     tracks={tracks}
                                     album={album}
                                     artist={artist}
-                                    openLoginModal={openLoginModal}
+                                    openModal={openModal}
                                     loggedIn={loggedIn}
                                 />
         else return null;
-    }
+    };
+
+    useEffect(() => {
+        if (modalType === null) setModal(null);
+    }, [modalType]);
+
+    const renderModal = (modalType, itemId, itemType) => {
+        openModal(modalType, true);
+        setModal(
+            <ModalContainer
+                authorId={sessionId}
+                itemId={itemId}
+                itemType={itemType}
+            />
+        );
+    };
 
     useEffect(() => {
         setAlbum(null);
@@ -38,8 +56,6 @@ export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
                 setArtist(artist);
                 setTracks(tracks);
             }, () => setPageNotFound(true));
-
-        console.log(queryParams());
     }, [albumId]);
 
     if (pageNotFound) return <PageNotFound />;
@@ -83,8 +99,11 @@ export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
                         </div>
                         <RatingDiv
                             loggedIn={loggedIn}
-                            openLoginModal={openLoginModal}
-                            musicType='album'
+                            openLoginModal={() => openModal('login')}
+                            renderModal={renderModal}
+                            itemType='Album'
+                            itemId={albumId}
+                            modalType='newReview'
                         />
                     </div>
                 </div>
@@ -113,6 +132,7 @@ export default ({ albumId, path, loggedIn, openLoginModal, fetchAlbum }) => {
                 </div>
             </div>
             {albumBody()}
+            {modal}
         </div>
     );
     else return null;

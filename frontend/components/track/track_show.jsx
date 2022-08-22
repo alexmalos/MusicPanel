@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import RatingDiv from '../music/rating_div';
 import PageNotFound from '../page_not_found';
+import ModalContainer from '../modal/modal_container';
 
-export default ({ trackId, path, loggedIn, openLoginModal, fetchTrack }) => {
+export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType }) => {
+    const loggedIn = Boolean(sessionId);
     const [album, setAlbum] = useState(null);
     const [artist, setArtist] = useState(null);
     const [tracks, setTracks] = useState(null);
     const [track, setTrack] = useState(null);
     const [pageNotFound, setPageNotFound] = useState(false);
+    const [modal, setModal] = useState(null);
 
     const atPath = pathEnd => {
         const regexPath = new RegExp(`/tracks/${trackId}${pathEnd}/?$`);
@@ -25,7 +28,22 @@ export default ({ trackId, path, loggedIn, openLoginModal, fetchTrack }) => {
         //                         />
         // else return null;
         return null;
-    }
+    };
+
+    useEffect(() => {
+        if (modalType === null) setModal(null);
+    }, [modalType]);
+
+    const renderModal = (modalType, itemId, itemType) => {
+        openModal(modalType, true);
+        setModal(
+            <ModalContainer
+                authorId={sessionId}
+                itemId={itemId}
+                itemType={itemType}
+            />
+        );
+    };
 
     useEffect(() => {
         setAlbum(null);
@@ -74,8 +92,11 @@ export default ({ trackId, path, loggedIn, openLoginModal, fetchTrack }) => {
                             </div>
                             <RatingDiv
                                 loggedIn={loggedIn}
-                                openLoginModal={openLoginModal}
-                                musicType='track'
+                                openLoginModal={() => openModal('login')}
+                                renderModal={renderModal}
+                                itemType='Track'
+                                itemId={trackId}
+                                modalType='newReview'
                             />
                         </div>
                     </div>
@@ -98,6 +119,7 @@ export default ({ trackId, path, loggedIn, openLoginModal, fetchTrack }) => {
                 </div>
             </div>
             {trackBody()}
+            {modal}
         </div>
     );
     else return null;

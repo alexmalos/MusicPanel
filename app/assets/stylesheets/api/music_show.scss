@@ -80,7 +80,7 @@
                     height: 300px;
                     * { border-radius: 1000px; }
 
-                    #photo-border {
+                    .photo-border {
                         position: absolute;
                         top: 0;
                         left: 0;
@@ -122,11 +122,11 @@
                             font-size: 14px;
                             line-height: 20px;
                             color: $offWhite;
-                        }
 
-                        button:hover {
-                            color: $blue;
-                            transition: color .2s;
+                            &:hover {
+                                color: $blue;
+                                transition: color .2s;
+                            }
                         }
                     }
 
@@ -172,18 +172,20 @@
                                 height: inherit;
                                 box-shadow: 0 1px 0 $borderColor inset,0 -1px 0 $borderColor inset,1px 0 0 $borderColor inset,-1px 0 0 $borderColor inset;
                                 transition: box-shadow .25s;
-                            }
 
-                            #link-border:hover {
-                                box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
+                                &:hover {
+                                    box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
+                                }
                             }
                         }
 
-                        #artist-text-link { margin-left: 8px; }
+                        #artist-text-link {
+                            margin-left: 8px;
 
-                        #artist-text-link:hover {
-                            color: $blue;
-                            transition: color .2s;
+                            &:hover {
+                                color: $blue;
+                                transition: color .2s;
+                            }
                         }
                     }
                 }
@@ -260,9 +262,9 @@
                         height: 20px;
                         margin-right: 8px;
                     }
-                }
 
-                button:hover { background-color: $blueLight; }
+                    &:hover { background-color: $blueLight; }
+                }
             }
         }
     }
@@ -290,9 +292,11 @@
                 color: $blue;
             }
 
-            .inactive { color: $offWhite; }
+            .inactive {
+                color: $offWhite;
     
-            .inactive:hover { background-color: $offBlack; }
+                &:hover { background-color: $offBlack; }
+            }
     
             .active {
                 background-color: $blue;
@@ -348,17 +352,17 @@
                 height: 24px;
                 width: 24px;
             }
-        }
         
-        .header-button:hover {
-            * {
-                color: $blue;
-                transition: color .2s;
+            &:hover {
+                * {
+                    color: $blue;
+                    transition: color .2s;
+                }
+    
+                .up-arrow { animation: arrowUp .3s cubic-bezier(.5,0,.51,.99); }
+                .down-arrow { animation: arrowDown .3s cubic-bezier(.5,0,.51,.99); }
+                .right-arrow { animation: arrowRight .3s cubic-bezier(.5,0,.51,.99); }
             }
-
-            .up-arrow { animation: arrowUp .3s cubic-bezier(.5,0,.51,.99); }
-            .down-arrow { animation: arrowDown .3s cubic-bezier(.5,0,.51,.99); }
-            .right-arrow { animation: arrowRight .3s cubic-bezier(.5,0,.51,.99); }
         }
 
         .tracklist {
@@ -402,17 +406,17 @@
                     }
 
                     .text-popup { transform: translateX(-50%) translateY(-100%) translateY(-1px); }
-                }
 
-                .track-options-button:hover {
-                    svg, path {
-                        color: $offWhite;
-                        transition: color 0ms;
-                    }
-
-                    .text-popup {
-                        opacity: 1;
-                        transition: opacity .3s;
+                    &:hover {
+                        svg, path {
+                            color: $offWhite;
+                            transition: color 0ms;
+                        }
+    
+                        .text-popup {
+                            opacity: 1;
+                            transition: opacity .3s;
+                        }
                     }
                 }
 
@@ -436,24 +440,24 @@
 
                         span { color: $highDarkGray; }
                     }
+
+                    &:hover {
+                        .text-popup {
+                            z-index: 4;
+                            opacity: 1;
+                            transition: opacity .3s;
+                        }
+                    }
                 }
 
-                .track-rating-button:hover {
-                    .text-popup {
-                        z-index: 4;
+                &:hover {
+                    background-color: $lightGray;
+                    transition: background-color 0ms;
+    
+                    .track-options-button {
                         opacity: 1;
                         transition: opacity .3s;
                     }
-                }
-            }
-
-            .track-div:hover {
-                background-color: $lightGray;
-                transition: background-color 0ms;
-
-                .track-options-button {
-                    opacity: 1;
-                    transition: opacity .3s;
                 }
             }
 
@@ -464,12 +468,12 @@
                 background: linear-gradient(#181a1c00,$darkGray);
                 width: calc(100% - 32px);
                 border-bottom: 1px solid $darkGray;
-            }
 
-            .expand-overlay:hover {
-                .text-popup {
-                    opacity: 1;
-                    transition: opacity .3s;
+                &:hover {
+                    .text-popup {
+                        opacity: 1;
+                        transition: opacity .3s;
+                    }
                 }
             }
         }
@@ -494,13 +498,13 @@
                 line-height: 20px;
                 font-weight: 600;
                 transition: color .2s;
-            }
 
-            button:hover, a:hover {
-                background-color: $lightGray;
-                transition: background-color 0ms;
-                color: $blue;
-                transition: color 0ms;
+                &:hover {
+                    background-color: $lightGray;
+                    transition: background-color 0ms;
+                    color: $blue;
+                    transition: color 0ms;
+                }
             }
 
             a {
@@ -531,11 +535,11 @@
                     text-decoration-color: #0c94ff33;
                     transition: text-decoration-color .2s;
                     line-height: normal;
-                }
 
-                a:hover {
-                    text-decoration-color: $blue;
-                    transition: text-decoration-color .13s;
+                    &:hover {
+                        text-decoration-color: $blue;
+                        transition: text-decoration-color .13s;
+                    }
                 }
             }
 

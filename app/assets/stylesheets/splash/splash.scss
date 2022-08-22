@@ -80,9 +80,9 @@
                     font-size: 16px;
                     color: white;
                     background-color: $blue;
-                }
 
-                button:hover { background-color: $blueLight; }
+                    &:hover { background-color: $blueLight; }
+                }
 
                 div {
                     display: flex;

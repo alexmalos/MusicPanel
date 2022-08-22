@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({ loggedIn, openLoginModal, musicType, spotify }) => (
+export default ({ loggedIn, openModal, musicType, spotify }) => (
     <div className='option-menu'>
         {
             loggedIn ?
@@ -9,7 +9,7 @@ export default ({ loggedIn, openLoginModal, musicType, spotify }) => (
                     <button key={2}>Add to Listen Later</button>,
                     <button key={3}>Add {musicType} to a list</button>
                 ] :
-                <button onClick={openLoginModal}>Sign in for more options</button>
+                <button onClick={() => openModal('login')}>Sign in for more options</button>
         }
         <a href={`https://open.spotify.com/${spotify}`} target='_blank'>
             Listen on Spotify

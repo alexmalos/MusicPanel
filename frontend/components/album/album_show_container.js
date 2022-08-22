@@ -3,15 +3,16 @@ import { openModal } from '../../actions/modal_actions';
 import { fetchAlbum } from '../../actions/music_actions';
 import AlbumShow from './album_show';
 
-const mapStateToProps = ({ session }, { match, location }) => ({
+const mapStateToProps = ({ session, ui }, { match, location }) => ({
     albumId: parseInt(match.params.albumId),
-    loggedIn: Boolean(session.id),
-    path: location.pathname
+    sessionId: session.id,
+    path: location.pathname,
+    modalType: ui.modal.modalType
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchAlbum: id => dispatch(fetchAlbum(id)),
-    openLoginModal: () => dispatch(openModal('login'))
+    openModal: (modal, data) => dispatch(openModal(modal, data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlbumShow);

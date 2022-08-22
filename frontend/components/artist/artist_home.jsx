@@ -4,7 +4,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import OptionMenu from '../music/option_menu';
 import DiscographyGrid from './discography_grid';
 
-export default ({ artist, albums, loggedIn, openLoginModal }) => {
+export default ({ artist, albums, loggedIn, openModal }) => {
     const artistBirthdayString = () => {
         const date = new Date(artist.birthday.split('-'));
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -32,7 +32,7 @@ export default ({ artist, albums, loggedIn, openLoginModal }) => {
             <div className='right-body-div'>
                 <OptionMenu
                     loggedIn={loggedIn}
-                    openLoginModal={openLoginModal}
+                    openModal={openModal}
                     musicType='artist'
                     spotify={artist.spotify}
                 />

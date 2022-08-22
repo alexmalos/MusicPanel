@@ -13,9 +13,11 @@
         margin-bottom: 4px;
         color: $highDarkGray;
 
-        a { color: $blue; }
+        a {
+            color: $blue;
 
-        a:hover { text-decoration: underline; }
+            &:hover { text-decoration: underline; }
+        }
     }
 }
 
@@ -55,17 +57,17 @@
                     pointer-events: none;
                     transform: translateX(-50%) translateY(-130%);
                 }
-            }
 
-            .album-options-button:hover {
-                background-color: $blue;
-                transition: opacity .2s, background-color 0ms;
-
-                svg, path { color: $offWhite; }
-
-                .text-popup {
-                    opacity: 1;
-                    transition: opacity .3s;
+                &:hover {
+                    background-color: $blue;
+                    transition: opacity .2s, background-color 0ms;
+    
+                    svg, path { color: $offWhite; }
+    
+                    .text-popup {
+                        opacity: 1;
+                        transition: opacity .3s;
+                    }
                 }
             }
 
@@ -92,10 +94,10 @@
                 box-shadow: 0 1px 0 rgba(228,230,234,0.4) inset,0 -1px 0 #e4e6ea66 inset,1px 0 0 #e4e6ea66 inset,-1px 0 0 #e4e6ea66 inset;
                 border-radius: 3px;
                 transition: box-shadow .25s;
-            }
     
-            .album-cover-border:hover {
-                box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
+                &:hover {
+                    box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
+                }
             }
     
             h6 {
@@ -117,12 +119,12 @@
         a:hover {
             h6 { color: $blue; }
         }
-    }
 
-    .album-div:hover {
-        .album-options-button {
-            opacity: 1;
-            transition: opacity 0ms,background-color .2s;
+        &:hover {
+            .album-options-button {
+                opacity: 1;
+                transition: opacity 0ms,background-color .2s;
+            }
         }
     }
 }

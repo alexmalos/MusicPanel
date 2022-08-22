@@ -5,7 +5,7 @@ import ArtistShow from './artist_show';
 
 const mapStateToProps = ({ session, ui }, { match, location }) => ({
     artistId: parseInt(match.params.artistId),
-    loggedIn: Boolean(session.id),
+    sessionId: session.id,
     path: location.pathname,
     modalType: ui.modal.modalType
 });
