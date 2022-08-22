@@ -4,8 +4,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import StarIcon from '@mui/icons-material/Star';
 
 export default props => {
-    const { authorId, itemType, itemId, entities } = props;
-
+    const { authorId, itemType, itemId, entities, setReviewInProgress } = props;
+    
     let item;
     switch (itemType) {
         case 'Artist':
@@ -39,8 +39,14 @@ export default props => {
     const [isReview, setIsReview] = useState(false);
 
     useEffect(() => {
-        if (state.title === '' && state.body === '') setIsReview(false);
-        else setIsReview(true);
+        if (state.title === '' && state.body === '') {
+            setIsReview(false);
+            setReviewInProgress(false);
+        }
+        else {
+            setIsReview(true);
+            setReviewInProgress(true);
+        }
     }, [state.title, state.body])
 
     const submitText = () => {
@@ -61,6 +67,8 @@ export default props => {
             item_type: itemType === 'Track' ? 'Song' : itemType,
             item_id: itemId
         });
+        if (review.title === '') delete review.title;
+        if (review.body === '') delete review.body;
         props.processForm(review);
     };
 

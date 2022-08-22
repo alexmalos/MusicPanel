@@ -1,0 +1,67 @@
+@import "../variables.scss";
+
+@keyframes alertScale {
+    0%{transform:scaleY(0)}to{transform:scaleY(1)}
+}
+
+@keyframes alertLine {
+    0%{width:100%}to{width:0}
+}
+
+.alert {
+    position: fixed;
+    top: 72px;
+    right: 16px;
+    z-index: 10;
+    
+    .alert-inner {
+        position: relative;
+        background-color: $green;
+        border-radius: 8px;
+        overflow: hidden;
+        animation: alertScale .1s ease-in-out;
+        max-width: 600px;
+        width: calc(100vw - 48px);
+        transform-origin: 50% 0;
+    
+        .alert-content {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            * { color: white; }
+
+            p, a {
+                font-size: 16px;
+                line-height: 24px;
+            }
+
+            a {
+                text-decoration: underline;
+                text-decoration-color: #ffffff80;
+
+                &:hover { text-decoration-color: white; }
+            }
+
+            button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+    
+        .alert-timer {
+            height: 4px;
+            background-color: #ffffff40;
+            animation: alertLine 4s linear;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    }
+}

@@ -1,4 +1,5 @@
 import * as APIUtil from '../util/review_api_util';
+import { openAlert } from './alert_actions';
 
 export const RECEIVE_REVIEWS = 'RECEIVE_REVIEWS';
 export const RECEIVE_REVIEW = 'RECEIVE_REVIEW';
@@ -32,15 +33,17 @@ export const fetchReview = id => dispatch => (
 );
 
 export const createReview = review => dispatch => (
-    APIUtil.createReview(review).then(review => (
-      dispatch(receiveReview(review))
-    ))
+    APIUtil.createReview(review).then(review => {
+      dispatch(receiveReview(review));
+      dispatch(openAlert(review, 'newReview'));
+    })
 );
 
 export const updateReview = review => dispatch => (
-  APIUtil.updateReview(review).then(review => (
-    dispatch(receiveReview(review))
-  ))
+  APIUtil.updateReview(review).then(review => {
+    dispatch(receiveReview(review));
+    dispatch(openAlert(review, 'editReview'));
+  })
 );
 
 export const deleteReview = id => dispatch => (

@@ -10,8 +10,9 @@ import ArtistShowContainer from "./artist/artist_show_container";
 import TrackShowContainer from "./track/track_show_container";
 import Navbar from "./navbar/navbar";
 import PageNotFound from "./page_not_found";
+import AlertContainer from "./alert/alert_container";
 
-const App = ({ modal }) => (
+const App = ({ modal, alert }) => (
   <div>
     <Navbar />
     <Switch>
@@ -23,12 +24,14 @@ const App = ({ modal }) => (
       <Route exact path="/" />
       <Route path="/" component={PageNotFound} />
     </Switch>
+    {alert ? <AlertContainer /> : null}
     {(modal.modalType && !modal.data) ? <ModalContainer /> : null}
   </div>
 );
 
-const mapStateToProps = state => ({
-  modal: state.ui.modal
+const mapStateToProps = ({ ui }) => ({
+  modal: ui.modal,
+  alert: ui.alert
 });
 
 export default connect(mapStateToProps)(App);

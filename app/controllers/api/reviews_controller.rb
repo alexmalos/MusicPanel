@@ -10,13 +10,13 @@ class Api::ReviewsController < ApplicationController
     end
 
     def create
-        review = Review.new(review_params)
-        render json: review.id if review.save!
+        @review = Review.new(review_params)
+        render "/api/reviews/show" if @review.save!
     end
 
     def update
-        review = Review.find(params[:id])
-        review.update(review_params)
+        @review = Review.find(params[:id])
+        @review.update(review_params)
     end
 
     def destroy

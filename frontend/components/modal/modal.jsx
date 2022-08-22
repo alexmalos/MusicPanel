@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import LoginFormContainer from '../session_form/login_form_container';
 import SignupFormContainer from '../session_form/signup_form_container';
 import ArtistBioModal from '../artist/artist_bio_modal';
@@ -7,17 +7,25 @@ import EditReviewFormContainer from '../reviews/edit_review_form_container';
 import NewReviewFormContainer from '../reviews/new_review_form_container';
 
 export default props => {
+    const closeModal = () => {
+        if (!reviewInProgress || window.confirm("Are you sure you want to discard this review? All changes will be lost.")) {
+            props.closeModal();
+        }
+    };
+
     useEffect(() => {
         const handleClick = e => {
             const modalWindow = document.getElementsByClassName('modal-window')[0];
             if (e.target.id !== 'create-account-button' && modalWindow &&
-                !modalWindow.contains(e.target)) props.closeModal();
+                !modalWindow.contains(e.target)) closeModal();
         };
 
         document.addEventListener('click', handleClick);
 
         return () => document.removeEventListener('click', handleClick);
     });
+
+    const [reviewInProgress, setReviewInProgress] = useState(false);
 
     let component, headerText;
     let wideModal = false;
@@ -42,6 +50,7 @@ export default props => {
                             authorId={props.authorId}
                             itemId={props.itemId}
                             itemType={props.itemType}
+                            setReviewInProgress={setReviewInProgress}
                         />;
             headerText = 'Create Review';
             wideModal = true;
@@ -62,7 +71,7 @@ export default props => {
                     <div id="modal-header">
                         <div id="left-placeholder"></div>
                             <h5>{headerText}</h5>
-                        <button id="close-button" onClick={props.closeModal}>
+                        <button id="close-button" onClick={closeModal}>
                             <CloseIcon/>
                         </button>
                     </div>
