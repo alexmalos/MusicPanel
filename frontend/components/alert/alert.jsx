@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 export default ({ alertType, review, closeAlert, entities }) => {
     useEffect(() => {
-        console.log(alertType);
         setTimeout(closeAlert, 4000);
     }, []);
 

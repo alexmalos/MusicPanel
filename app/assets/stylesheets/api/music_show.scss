@@ -232,6 +232,10 @@
                                     font-weight: normal;
                                 }
                             }
+
+                            .yellow {
+                                svg, path { color: $yellow; }
+                            }
                         }
 
                         .divider {

@@ -7,13 +7,14 @@ import parse from 'html-react-parser';
 import ModalContainer from '../modal/modal_container';
 import PageNotFound from '../page_not_found';
 
-export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType }) => {
+export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, entities }) => {
     const loggedIn = Boolean(sessionId);
     const [artist, setArtist] = useState(null);
     const [albums, setAlbums] = useState(null);
     const [artistBio, setArtistBio] = useState(null);
     const [pageNotFound, setPageNotFound] = useState(false);
     const [modal, setModal] = useState(null);
+    const [userReview, setUserReview] = useState(null);
 
     const atPath = pathEnd => {
         const regexPath = new RegExp(`/artists/${artistId}${pathEnd}/?$`);
@@ -38,6 +39,14 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType }
         );
         else return null;
     };
+
+    useEffect(() => {
+        setUserReview(Object.values(entities.reviews).find(review => review.authorId));
+        if (artist) {
+            setArtist(entities.artists[artistId]);
+            setAlbums(albums.map(album => entities.albums[album.id]));
+        }
+    }, [entities.reviews]);
 
     useEffect(() => {
         if (modalType === null) setModal(null);
@@ -146,8 +155,9 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType }
                             openLoginModal={() => openModal('login')}
                             renderModal={renderModal}
                             itemType='Artist'
-                            itemId={artistId}
+                            item={artist}
                             modalType='newReview'
+                            userReview={userReview}
                         />
                     </div>
                 </div>

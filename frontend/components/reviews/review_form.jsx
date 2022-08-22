@@ -42,8 +42,7 @@ export default props => {
         if (state.title === '' && state.body === '') {
             setIsReview(false);
             setReviewInProgress(false);
-        }
-        else {
+        } else {
             setIsReview(true);
             setReviewInProgress(true);
         }
@@ -216,6 +215,7 @@ export default props => {
                 </div>
                 <h5>Review</h5>
                 <input
+                    autoComplete="off"
                     className="form-input"
                     id="title-input"
                     type="text"

@@ -5,13 +5,14 @@ import AlbumHome from './album_home';
 import PageNotFound from '../page_not_found';
 import ModalContainer from '../modal/modal_container';
 
-export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType }) => {
+export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType, entities }) => {
     const loggedIn = Boolean(sessionId);
     const [album, setAlbum] = useState(null);
     const [artist, setArtist] = useState(null);
     const [tracks, setTracks] = useState(null);
     const [pageNotFound, setPageNotFound] = useState(false);
     const [modal, setModal] = useState(null);
+    const [userReview, setUserReview] = useState(null);
     
     const atPath = pathEnd => {
         const regexPath = new RegExp(`/albums/${albumId}${pathEnd}/?$`);
@@ -43,6 +44,15 @@ export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType }) 
             />
         );
     };
+
+    useEffect(() => {
+        setUserReview(Object.values(entities.reviews).find(review => review.authorId));
+        if (album) {
+            setArtist(entities.artists[album.artistId]);
+            setAlbum(entities.albums[albumId]);
+            setTracks(tracks.map(track => entities.songs[track.id]));
+        }
+    }, [entities.reviews]);
 
     useEffect(() => {
         setAlbum(null);
@@ -102,8 +112,9 @@ export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType }) 
                             openLoginModal={() => openModal('login')}
                             renderModal={renderModal}
                             itemType='Album'
-                            itemId={albumId}
+                            item={album}
                             modalType='newReview'
+                            userReview={userReview}
                         />
                     </div>
                 </div>

@@ -17,19 +17,19 @@ const receiveAlbum = ({ album, artist, tracks }) => ({
 });
 
 export const fetchArtist = id => dispatch => (
-  APIUtil.fetchArtist(id).then(artist => (
-    dispatch(receiveArtist(artist))
+  APIUtil.fetchArtist(id).then(data => (
+    dispatch(receiveArtist(data))
   ))
 );
 
 export const fetchAlbum = id => dispatch => (
-  APIUtil.fetchAlbum(id).then(album => (
-    dispatch(receiveAlbum(album))
+  APIUtil.fetchAlbum(id).then(data => (
+    dispatch(receiveAlbum(data))
   ))
 );
 
 export const fetchSong = id => dispatch => (
-  APIUtil.fetchSong(id).then(album => (
-    dispatch(receiveAlbum(album))
+  APIUtil.fetchSong(id).then(data => (
+    dispatch(receiveAlbum(data))
   ))
 );

@@ -3,11 +3,12 @@ import { openModal } from '../../actions/modal_actions';
 import { fetchAlbum } from '../../actions/music_actions';
 import AlbumShow from './album_show';
 
-const mapStateToProps = ({ session, ui }, { match, location }) => ({
+const mapStateToProps = ({ session, ui, entities }, { match, location }) => ({
     albumId: parseInt(match.params.albumId),
     sessionId: session.id,
     path: location.pathname,
-    modalType: ui.modal.modalType
+    modalType: ui.modal.modalType,
+    entities
 });
 
 const mapDispatchToProps = dispatch => ({

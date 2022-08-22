@@ -10,9 +10,12 @@ const receiveReviews = reviews => ({
     reviews
 });
 
-const receiveReview = review => ({
+const receiveReview = ({ review, artist, album, track }) => ({
     type: RECEIVE_REVIEW,
-    review
+    review,
+    artist,
+    album,
+    track
 });
 
 const removeReview = id => ({
@@ -27,22 +30,22 @@ export const fetchReviews = () => dispatch => (
 );
 
 export const fetchReview = id => dispatch => (
-  APIUtil.fetchReview(id).then(review => (
-    dispatch(receiveReview(review))
+  APIUtil.fetchReview(id).then(data => (
+    dispatch(receiveReview(data))
   ))
 );
 
 export const createReview = review => dispatch => (
-    APIUtil.createReview(review).then(review => {
-      dispatch(receiveReview(review));
-      dispatch(openAlert(review, 'newReview'));
+    APIUtil.createReview(review).then(data => {
+      dispatch(receiveReview(data));
+      dispatch(openAlert(data.review, 'newReview'));
     })
 );
 
 export const updateReview = review => dispatch => (
-  APIUtil.updateReview(review).then(review => {
-    dispatch(receiveReview(review));
-    dispatch(openAlert(review, 'editReview'));
+  APIUtil.updateReview(review).then(data => {
+    dispatch(receiveReview(data));
+    dispatch(openAlert(data.review, 'editReview'));
   })
 );
 

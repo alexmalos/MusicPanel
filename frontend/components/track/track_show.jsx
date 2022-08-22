@@ -4,7 +4,7 @@ import RatingDiv from '../music/rating_div';
 import PageNotFound from '../page_not_found';
 import ModalContainer from '../modal/modal_container';
 
-export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType }) => {
+export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType, entities }) => {
     const loggedIn = Boolean(sessionId);
     const [album, setAlbum] = useState(null);
     const [artist, setArtist] = useState(null);
@@ -12,6 +12,7 @@ export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType }) 
     const [track, setTrack] = useState(null);
     const [pageNotFound, setPageNotFound] = useState(false);
     const [modal, setModal] = useState(null);
+    const [userReview, setUserReview] = useState(null);
 
     const atPath = pathEnd => {
         const regexPath = new RegExp(`/tracks/${trackId}${pathEnd}/?$`);
@@ -29,6 +30,16 @@ export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType }) 
         // else return null;
         return null;
     };
+
+    useEffect(() => {
+        setUserReview(Object.values(entities.reviews).find(review => review.authorId));
+        if (track) {
+            setArtist(entities.artists[track.artistId]);
+            setAlbum(entities.albums[track.albumId]);
+            setTrack(entities.songs[trackId]);
+            setTracks(tracks.map(track => entities.songs[track.id]));
+        }
+    }, [entities.reviews]);
 
     useEffect(() => {
         if (modalType === null) setModal(null);
@@ -95,8 +106,9 @@ export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType }) 
                                 openLoginModal={() => openModal('login')}
                                 renderModal={renderModal}
                                 itemType='Track'
-                                itemId={trackId}
+                                item={track}
                                 modalType='newReview'
+                                userReview={userReview}
                             />
                         </div>
                     </div>
