@@ -104,11 +104,10 @@ export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType, en
                             <RatingDiv
                                 loggedIn={loggedIn}
                                 openLoginModal={() => openModal('login')}
-                                renderModal={renderModal}
+                                renderModal={() => renderModal('newReview', trackId, 'Track')}
                                 itemType='Track'
                                 item={track}
-                                modalType='newReview'
-                                userReview={userReview}
+                                userRating={userReview ? userReview.rating : null}
                             />
                         </div>
                     </div>

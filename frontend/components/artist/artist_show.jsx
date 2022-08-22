@@ -44,7 +44,7 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
         setUserReview(Object.values(entities.reviews).find(review => review.authorId));
         if (artist) {
             setArtist(entities.artists[artistId]);
-            setAlbums(albums.map(album => entities.albums[album.id]));
+            setAlbums(processAlbums(albums.map(album => entities.albums[album.id])));
         }
     }, [entities.reviews]);
 
@@ -79,6 +79,21 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
         }
     };
 
+    const processAlbums = albums => {
+        const processedAlbums = albums.map(album => {
+            Object.freeze(album);
+            const releaseDate = new Date(album.releaseDate.split('-'))
+            return Object.assign({}, album, { releaseDate });
+        });
+
+        processedAlbums.sort((a, b) => {
+            if (a.releaseDate < b.releaseDate) return 1;
+            else return -1;
+        });
+
+        return processedAlbums;
+    };
+
     useEffect(() => {
         setArtist(null);
         setAlbums(null);
@@ -88,19 +103,7 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
         fetchArtist(artistId)
             .then(({ artist, albums }) => {
                 setArtist(artist);
-
-                const processedAlbums = albums.map(album => {
-                    Object.freeze(album);
-                    const releaseDate = new Date(album.releaseDate.split('-'))
-                    return Object.assign({}, album, { releaseDate });
-                });
-        
-                processedAlbums.sort((a, b) => {
-                    if (a.releaseDate < b.releaseDate) return 1;
-                    else return -1;
-                });
-
-                setAlbums(processedAlbums);
+                setAlbums(processAlbums(albums));
             }, () => setPageNotFound(true));
     }, [artistId]);
 
@@ -153,11 +156,10 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
                         <RatingDiv
                             loggedIn={loggedIn}
                             openLoginModal={() => openModal('login')}
-                            renderModal={renderModal}
+                            renderModal={() => renderModal('newReview', artistId, 'Artist')}
                             itemType='Artist'
                             item={artist}
-                            modalType='newReview'
-                            userReview={userReview}
+                            userRating={userReview ? userReview.rating : null}
                         />
                     </div>
                 </div>

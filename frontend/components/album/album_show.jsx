@@ -110,11 +110,10 @@ export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType, en
                         <RatingDiv
                             loggedIn={loggedIn}
                             openLoginModal={() => openModal('login')}
-                            renderModal={renderModal}
+                            renderModal={() => renderModal('newReview', albumId, 'Album')}
                             itemType='Album'
                             item={album}
-                            modalType='newReview'
-                            userReview={userReview}
+                            userRating={userReview ? userReview.rating : null}
                         />
                     </div>
                 </div>

@@ -24,10 +24,10 @@ export default ({ alertType, review, closeAlert, entities }) => {
                 default:
                     break;
             }
-            text = <p>{`Thanks for rating ${itemText}!`} <Link to={`reviews/${review.id}`}>View rating.</Link></p>;
+            text = <p>{`Thanks for rating ${itemText}!`} <Link to={`/reviews/${review.id}`}>View rating.</Link></p>;
             break;
         case 'editReview':
-            text = <p>Your rating was changed. <Link to={`reviews/${review.id}`}>View it here.</Link></p>;
+            text = <p>Your rating was changed. <Link to={`/reviews/${review.id}`}>View it here.</Link></p>;
             break;
         default:
             break;

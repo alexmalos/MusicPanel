@@ -4,8 +4,7 @@ import { fetchReview, updateReview } from '../../actions/review_actions';
 import ReviewForm from './review_form';
 
 const mapStateToProps = ({ entities }) => ({
-    entities,
-    review: entities.reviews
+    entities
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -2,7 +2,7 @@ import React from "react";
 import StarIcon from '@mui/icons-material/Star';
 import LockIcon from '@mui/icons-material/Lock';
 
-export default ({ loggedIn, openLoginModal, renderModal, itemType, item, modalType, userReview }) => (
+export default ({ loggedIn, openLoginModal, renderModal, itemType, item, userRating }) => (
     <div className='rating-div'>
         <div className='rating-info'>
             <div className='info-div'>
@@ -24,9 +24,9 @@ export default ({ loggedIn, openLoginModal, renderModal, itemType, item, modalTy
             <div className='info-div'>
                 <div className='divider'></div>
                 <div className='inner-info-div'>
-                    <div className={`star-div${userReview ? ' yellow' : ''}`}>
+                    <div className={`star-div${userRating ? ' yellow' : ''}`}>
                         <StarIcon />
-                        <h3>{userReview ? userReview.rating / 2 : 0}<span> / 5</span></h3>
+                        <h3>{userRating ? userRating / 2 : 0}<span> / 5</span></h3>
                     </div>
                     <p>Your rating</p>
                 </div>
@@ -34,7 +34,7 @@ export default ({ loggedIn, openLoginModal, renderModal, itemType, item, modalTy
         </div>
         {
             loggedIn ?
-                <button onClick={() => renderModal(modalType, item.id, itemType)}>
+                <button onClick={renderModal}>
                     <StarIcon />
                     Rate {itemType}
                 </button> :
