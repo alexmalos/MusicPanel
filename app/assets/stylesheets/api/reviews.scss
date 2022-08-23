@@ -8,8 +8,11 @@
     display: flex;
     align-items: center;
     position: relative;
+    flex-direction: row;
 
     .background-stars {
+        display: flex;
+        flex-direction: row;
         position: absolute;
 
         svg, path { color: $gray; }
@@ -252,33 +255,33 @@
     }
 }
 
+.artist-image-link {
+    position: relative;
+    * { border-radius: 1000px; }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .link-border {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: inherit;
+        height: inherit;
+        box-shadow: 0 1px 0 $borderColor inset,0 -1px 0 $borderColor inset,1px 0 0 $borderColor inset,-1px 0 0 $borderColor inset;
+        transition: box-shadow .25s;
+
+        &:hover {
+            box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
+        }
+    }
+}
+
 #review-div {
     .background-overlay {
         background-image: linear-gradient(90deg,$offBlack,rgba(14,15,17,.978938) 2%,rgba(14,15,17,.913325) 4%,rgba(14,15,17,.805633) 6%,rgba(14,15,17,.670197) 8%,rgba(14,15,17,.530396) 10%,rgba(14,15,17,.407353) 12%,rgba(14,15,17,.312253) 14%,rgba(14,15,17,.247561) 16%,rgba(14,15,17,.21129) 18%,rgba(14,15,17,.2) 20%,rgba(14,15,17,.2) 80%,rgba(14,15,17,.21129) 82%,rgba(14,15,17,.247561) 84%,rgba(14,15,17,.312253) 86%,rgba(14,15,17,.407353) 88%,rgba(14,15,17,.530396) 90%,rgba(14,15,17,.670197) 92%,rgba(14,15,17,.805633) 94%,rgba(14,15,17,.913325) 96%,rgba(14,15,17,.978938) 98%,$offBlack),linear-gradient(0deg,$offBlack,rgba(14,15,17,.973673) 6%,rgba(14,15,17,.891657) 12%,rgba(14,15,17,.757042) 18%,rgba(14,15,17,.587746) 24%,rgba(14,15,17,.412995) 30%,rgba(14,15,17,.259191) 36%,rgba(14,15,17,.140316) 42%,rgba(14,15,17,.059451) 48%,rgba(14,15,17,.014113) 54%,rgba(14,15,17,0) 60%);
-    }
-
-    #artist-image-link {
-        position: relative;
-        * { border-radius: 1000px; }
-
-        img {
-            width: 100%;
-            height: 100%;
-        }
-
-        #link-border {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: inherit;
-            height: inherit;
-            box-shadow: 0 1px 0 $borderColor inset,0 -1px 0 $borderColor inset,1px 0 0 $borderColor inset,-1px 0 0 $borderColor inset;
-            transition: box-shadow .25s;
-
-            &:hover {
-                box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
-            }
-        }
     }
 
     #review-content {
@@ -292,7 +295,7 @@
             display: flex;
             align-items: flex-end;
 
-            #artist-image-link {
+            .artist-image-link {
                 height: 220px;
                 width: 220px;
             }
@@ -343,7 +346,7 @@
                     align-items: center;
                     margin-top: 16px;
 
-                    #artist-image-link {
+                    .artist-image-link {
                         height: 32px;
                         width: 32px;
                     }
@@ -514,6 +517,17 @@
             border-radius: 8px;
             background-color: $darkGray;
 
+            .first-review {
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            }
+
+            .last-review {
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                border-bottom: none!important;
+            }
+
             .review-div {
                 position: relative;
                 padding: 16px;
@@ -537,6 +551,89 @@
                     left: 0;
                     bottom: 0;
                     right: 0;
+                }
+
+                .review-item-info {
+                    display: flex;
+                    align-items: center;
+
+                    .album-cover-div {
+                        position: relative;
+                        
+                        * {
+                            width: 88px;
+                            height: 88px;
+                            border-radius: 4px;
+                            vertical-align: bottom;
+                        }
+                
+                        .cover-border {
+                            pointer-events: all;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            box-shadow: 0 1px 0 $borderColor inset,0 -1px 0 $borderColor inset,1px 0 0 $borderColor inset,-1px 0 0 $borderColor inset;
+                            transition: box-shadow .25s;
+        
+                            &:hover {
+                                box-shadow: 0 3px 0 #009fff inset, 0 -3px 0 #009fff inset, 3px 0 0 #009fff inset, -3px 0 0 #009fff inset;
+                            }
+                        }
+                    }
+
+                    .artist-image-link {
+                        width: 88px;
+                        height: 88px;
+                
+                        .link-border {
+                            position: absolute;
+                            pointer-events: all;
+                        }
+                    }
+
+                    .review-info-text {
+                        margin-left: 16px;
+
+                        .album-link-div {
+                            display: flex;
+                            align-items: center;
+
+                            svg {
+                                margin-left: 6px;
+                                margin-top: 2px;
+                            }
+
+                            svg, path {
+                                color: $gray;
+                                width: 14px;
+                                height: 14px;
+                            }
+                        }
+
+                        .album-link {
+                            pointer-events: all;
+                            font-size: 16px;
+                            font-weight: 600;
+                            line-height: normal;
+                            transition: color .2s;
+
+                            &:hover { color: $blue; }
+                        }
+
+                        p {
+                            margin-top: 4px;
+                            color: $highDarkGray;
+
+                            a {
+                                pointer-events: all;
+                                color: $highDarkGray;
+
+                                &:hover { text-decoration: underline; }
+                            }
+                        }
+                    }
                 }
 
                 .review-info {
@@ -609,8 +706,39 @@
                     }
                 }
 
-                .review-text-div {
-                    margin-top: 14px;
+                #rating-stars-top { margin-top: 14px; }
+
+                .review-text-div { margin-top: 14px; }
+
+                #review-index-text-div { margin-top: 12px; }
+
+                .reviewer-info {
+                    margin-top: 12px;
+                    display: flex;
+                    align-items: center;
+
+                    .profile-button {
+                        pointer-events: all;
+                        min-width: 32px;
+                        min-height: 32px;
+                        width: 32px;
+                        height: 32px;
+                    
+                        svg {
+                            width: 16px;
+                            height: 16px;
+                        }
+                    }
+
+                    .reviewer-username {
+                        margin-left: 8px;
+                        pointer-events: all;
+                        font-size: 16px;
+                        line-height: normal;
+                        font-weight: 600;
+
+                        &:hover { color: $blue; }
+                    }
                 }
             }
 
@@ -618,6 +746,72 @@
                 color: $highDarkGray;
                 padding: 64px 32px;
                 text-align: center;
+            }
+        }
+
+        .rating-grid {
+            display: grid;
+            grid-template-columns: repeat(7,1fr);
+            column-gap: 16px;
+            row-gap: 16px;
+
+            .rating-link {
+                flex: 1 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+                .profile-button {
+                    min-width: 100%;
+                    padding-top: 50%;
+                    padding-bottom: 50%;
+                    width: 100%;
+                    height: 0;
+                
+                    svg {
+                        width: 40px;
+                        height: 40px;
+                    }
+                }
+
+                h6 {
+                    line-height: normal;
+                    margin-top: 8px;
+                    text-align: center;
+                    transition: color .2s;
+                }
+
+                &:hover {
+                    h6 { color: $blue; }
+                }
+
+                .rating-stars {
+                    margin-top: 4px;
+
+                    .background-stars { height: 14px; }
+
+                    svg, path {
+                        width: 14px;
+                        height: 14px;
+                    }
+
+                    .preset-stars {
+                        margin-top: -2px;
+
+                        .star-div {
+                            z-index: 1;
+                            height: 14px;
+                            width: 7px;
+
+                            svg, path { z-index: 1; }
+                        }
+
+                        .right {
+                            svg { margin-left: -7px; }
+                        }
+                    }
+                }
             }
         }
     }

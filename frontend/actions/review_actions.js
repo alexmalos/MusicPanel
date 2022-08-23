@@ -5,18 +5,23 @@ export const RECEIVE_REVIEWS = 'RECEIVE_REVIEWS';
 export const RECEIVE_REVIEW = 'RECEIVE_REVIEW';
 export const REMOVE_REVIEW = 'DELETE_REVIEW';
 
-const receiveReviews = reviews => ({
+const receiveReviews = ({ reviews, artists, albums, tracks, users }) => ({
     type: RECEIVE_REVIEWS,
-    reviews
+    reviews,
+    artists,
+    albums,
+    tracks,
+    users
 });
 
-const receiveReview = ({ review, artist, album, track, user }) => ({
+const receiveReview = ({ review, artist, album, track, user, reviewParams }) => ({
     type: RECEIVE_REVIEW,
     review,
     artist,
     album,
     track,
-    user
+    user,
+    reviewParams
 });
 
 const removeReview = ({ review, artist, album, track }) => ({
@@ -28,8 +33,8 @@ const removeReview = ({ review, artist, album, track }) => ({
 });
 
 export const fetchReviews = () => dispatch => (
-  APIUtil.fetchReviews().then(reviews => (
-    dispatch(receiveReviews(reviews))
+  APIUtil.fetchReviews().then(data => (
+    dispatch(receiveReviews(data))
   ))
 );
 

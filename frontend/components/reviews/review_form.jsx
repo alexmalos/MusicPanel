@@ -88,8 +88,6 @@ export default props => {
             item_type: itemType === 'Track' ? 'Song' : itemType,
             item_id: itemId
         });
-        if (review.title === '') review.title = null;
-        if (review.body === '') review.body = null;
         props.processForm(review);
     };
 

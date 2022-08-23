@@ -37,6 +37,7 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
                 reviews={reviews.filter(review => review.body || review.title)}
                 itemTitle={artist.name}
                 itemType='Artist'
+                pageType='Reviews'
             />
         );
         else if (atPath('/releases')) return (

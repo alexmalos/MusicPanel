@@ -36,6 +36,15 @@ export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType, en
                 reviews={reviews.filter(review => review.body || review.title)}
                 itemTitle={album.title}
                 itemType='Album'
+                pageType='Reviews'
+            />
+        );
+        else if (atPath('/ratings')) return (
+            <MusicReviewsContainer
+                reviews={reviews}
+                itemTitle={album.title}
+                itemType='Album'
+                pageType='Ratings'
             />
         );
         else return null;

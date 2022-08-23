@@ -46,9 +46,9 @@ export default ({ reviewId, sessionId, openModal, fetchReview, modalType, entiti
             case 'Artist':
                 return (
                     <div id='item-info'>
-                        <Link to={`/artists/${artist.id}`} id='artist-image-link'>
+                        <Link to={`/artists/${artist.id}`} className='artist-image-link'>
                             <img src={artist.photoUrl} alt="" />
-                            <div id='link-border'></div>
+                            <div className='link-border'></div>
                         </Link>
                         <div id='info-text'>
                             <Link to={`/artists/${artist.id}`}>
@@ -77,9 +77,9 @@ export default ({ reviewId, sessionId, openModal, fetchReview, modalType, entiti
                                 <p>{album.trackIds.length} Tracks</p>
                             </div>
                             <div className='artist-link'>
-                                <Link to={`/artists/${artist.id}`} id='artist-image-link'>
+                                <Link to={`/artists/${artist.id}`} className='artist-image-link'>
                                     <img src={artist.photoUrl} alt="" />
-                                    <div id='link-border'></div>
+                                    <div className='link-border'></div>
                                 </Link>
                                 <Link to={`/artists/${artist.id}`} id='artist-text-link'>
                                     {artist.name}
@@ -107,9 +107,9 @@ export default ({ reviewId, sessionId, openModal, fetchReview, modalType, entiti
                                 <p>{album.releaseDate}</p>
                             </div>
                             <div className='artist-link'>
-                                <Link to={`/artists/${artist.id}`} id='artist-image-link'>
+                                <Link to={`/artists/${artist.id}`} className='artist-image-link'>
                                     <img src={artist.photoUrl} alt="" />
-                                    <div id='link-border'></div>
+                                    <div className='link-border'></div>
                                 </Link>
                                 <Link to={`/artists/${artist.id}`} id='artist-text-link'>
                                     {artist.name}

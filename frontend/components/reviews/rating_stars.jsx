@@ -1,8 +1,8 @@
 import React from "react";
 import StarIcon from '@mui/icons-material/Star';
 
-export default ({ rating, updateRating }) => (
-    <div className="rating-stars">
+export default ({ rating, updateRating, id }) => (
+    <div className="rating-stars" id={id}>
         <div className="background-stars">
             <StarIcon />
             <StarIcon />

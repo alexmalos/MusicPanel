@@ -1,9 +1,11 @@
 import { RECEIVE_ARTIST, RECEIVE_ALBUM } from "../actions/music_actions";
-import { RECEIVE_REVIEW, REMOVE_REVIEW } from "../actions/review_actions";
+import { RECEIVE_REVIEW, RECEIVE_REVIEWS, REMOVE_REVIEW } from "../actions/review_actions";
 
 export const artists = (state = {}, action) => {
   Object.freeze(state);
   switch(action.type) {
+    case RECEIVE_REVIEWS:
+      return Object.assign({}, state, action.artists);
     case RECEIVE_ARTIST:
     case RECEIVE_ALBUM:
     case RECEIVE_REVIEW:
@@ -20,6 +22,7 @@ export const albums = (state = {}, action) => {
     Object.freeze(state);
     switch(action.type) {
       case RECEIVE_ARTIST:
+      case RECEIVE_REVIEWS:
         return Object.assign({}, state, action.albums);
       case RECEIVE_ALBUM:
       case RECEIVE_REVIEW:
@@ -36,6 +39,7 @@ export const songs = (state = {}, action) => {
     Object.freeze(state);
     switch(action.type) {
       case RECEIVE_ALBUM:
+      case RECEIVE_REVIEWS:
         return Object.assign({}, state, action.tracks);
       case RECEIVE_REVIEW:
       case REMOVE_REVIEW:
