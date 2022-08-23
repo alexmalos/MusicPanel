@@ -4,6 +4,4 @@ json.reviewIds do
     json.array! song.reviews.map { |review| review.id }
 end
 
-ratingArray = song.reviews.map { |review| review.rating }
-averageRating = ratingArray.sum.to_f / ratingArray.length / 2
-json.averageRating averageRating.round(1)
+json.averageRating song.average_rating

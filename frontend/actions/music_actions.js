@@ -3,17 +3,21 @@ import * as APIUtil from '../util/music_api_util';
 export const RECEIVE_ARTIST = 'RECEIVE_ARTIST';
 export const RECEIVE_ALBUM = 'RECEIVE_ALBUM';
 
-const receiveArtist = ({ artist, albums }) => ({
+const receiveArtist = ({ artist, albums, reviews, users }) => ({
     type: RECEIVE_ARTIST,
     artist,
-    albums
+    albums,
+    reviews,
+    users
 });
 
-const receiveAlbum = ({ album, artist, tracks }) => ({
+const receiveAlbum = ({ album, artist, tracks, reviews, users }) => ({
     type: RECEIVE_ALBUM,
     album,
     artist,
-    tracks
+    tracks,
+    reviews,
+    users
 });
 
 export const fetchArtist = id => dispatch => (

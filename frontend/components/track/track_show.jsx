@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import RatingDiv from '../music/rating_div';
 import PageNotFound from '../page_not_found';
 import ModalContainer from '../modal/modal_container';
+import MusicReviewsContainer from '../music/music_reviews_container';
 
 export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType, entities }) => {
     const loggedIn = Boolean(sessionId);
@@ -13,6 +14,7 @@ export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType, en
     const [pageNotFound, setPageNotFound] = useState(false);
     const [modal, setModal] = useState(null);
     const [userReview, setUserReview] = useState(null);
+    const [reviews, setReviews] = useState(null);
 
     const atPath = pathEnd => {
         const regexPath = new RegExp(`/tracks/${trackId}${pathEnd}/?$`);
@@ -20,26 +22,40 @@ export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType, en
     };
 
     const trackBody = () => {
-        // if (atPath('')) return <AlbumHome
-        //                             tracks={tracks}
-        //                             album={album}
-        //                             artist={artist}
-        //                             openLoginModal={openLoginModal}
-        //                             loggedIn={loggedIn}
-        //                         />
-        // else return null;
-        return null;
+        if (atPath('/reviews')) return (
+            <MusicReviewsContainer
+                reviews={reviews.filter(review => review.body || review.title)}
+                itemTitle={track.title}
+                itemType='Track'
+            />
+        );
+        else return null;
+    };
+
+    const processReviews = () => {
+        const reviews = Object.values(entities.reviews);
+        return reviews.filter(review => review.itemId === trackId && review.itemType === 'Song');
     };
 
     useEffect(() => {
         setUserReview(Object.values(entities.reviews).find(review => review.authorId));
-        if (track) {
+        setTrack(entities.songs[trackId]);
+        if (artist && album && tracks && reviews) {
             setArtist(entities.artists[track.artistId]);
             setAlbum(entities.albums[track.albumId]);
-            setTrack(entities.songs[trackId]);
             setTracks(tracks.map(track => entities.songs[track.id]));
+            setReviews(processReviews());
         }
-    }, [entities.reviews]);
+    }, [entities.reviews, sessionId]);
+
+    const findUserReview = reviews => {
+        const userReview = Object.values(reviews).find(review => (
+            review.authorId === sessionId &&
+            review.itemId === trackId &&
+            review.itemType === 'Song'
+        ));
+        return userReview ? userReview : null;
+    };
 
     useEffect(() => {
         if (modalType === null) setModal(null);
@@ -47,13 +63,24 @@ export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType, en
 
     const renderModal = (modalType, itemId, itemType) => {
         openModal(modalType, true);
-        setModal(
-            <ModalContainer
-                authorId={sessionId}
-                itemId={itemId}
-                itemType={itemType}
-            />
-        );
+        if (userReview) {
+            setModal(
+                <ModalContainer
+                    authorId={sessionId}
+                    itemId={itemId}
+                    itemType={itemType}
+                    review={userReview}
+                />
+            );
+        } else {
+            setModal(
+                <ModalContainer
+                    authorId={sessionId}
+                    itemId={itemId}
+                    itemType={itemType}
+                />
+            );
+        }
     };
 
     useEffect(() => {
@@ -61,19 +88,23 @@ export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType, en
         setArtist(null);
         setTracks(null);
         setTrack(null);
+        setReviews(null);
+        setUserReview(null);
         setPageNotFound(false);
 
         fetchTrack(trackId)
-            .then(({ album, artist, tracks }) => {
+            .then(({ album, artist, tracks, reviews }) => {
                 setAlbum(album);
                 setArtist(artist);
-                setTracks(tracks);
-                setTrack(tracks.find(track => track.id === trackId))
+                setTracks(Object.values(tracks));
+                setTrack(Object.values(tracks).find(track => track.id === trackId));
+                setReviews(Object.values(reviews));
+                setUserReview(findUserReview(reviews));
             }, () => setPageNotFound(true));
     }, [trackId]);
 
     if (pageNotFound) return <PageNotFound />;
-    else if (album && artist && tracks && track) return (
+    else if (album && artist && tracks && track && reviews) return (
         <div>
             <div className='music-header'>
                 <div className='header-content'>
@@ -104,7 +135,7 @@ export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType, en
                             <RatingDiv
                                 loggedIn={loggedIn}
                                 openLoginModal={() => openModal('login')}
-                                renderModal={() => renderModal('newReview', trackId, 'Track')}
+                                renderModal={() => renderModal(userReview ? 'editReview' : 'newReview', trackId, 'Track')}
                                 itemType='Track'
                                 item={track}
                                 userRating={userReview ? userReview.rating : null}

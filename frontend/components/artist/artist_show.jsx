@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ArtistHome from './artist_home';
 import ArtistDiscography from './artist_discography';
+import MusicReviewsContainer from '../music/music_reviews_container';
 import RatingDiv from '../music/rating_div';
 import parse from 'html-react-parser';
 import ModalContainer from '../modal/modal_container';
@@ -15,6 +16,7 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
     const [pageNotFound, setPageNotFound] = useState(false);
     const [modal, setModal] = useState(null);
     const [userReview, setUserReview] = useState(null);
+    const [reviews, setReviews] = useState(null);
 
     const atPath = pathEnd => {
         const regexPath = new RegExp(`/artists/${artistId}${pathEnd}/?$`);
@@ -30,6 +32,13 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
                 loggedIn={loggedIn}
             />
         );
+        else if (atPath('/reviews')) return (
+            <MusicReviewsContainer
+                reviews={reviews.filter(review => review.body || review.title)}
+                itemTitle={artist.name}
+                itemType='Artist'
+            />
+        );
         else if (atPath('/releases')) return (
             <ArtistDiscography
                 albums={albums}
@@ -40,13 +49,28 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
         else return null;
     };
 
+    const processReviews = () => {
+        const reviews = Object.values(entities.reviews);
+        return reviews.filter(review => review.itemId === artistId && review.itemType === 'Artist');
+    };
+
     useEffect(() => {
-        setUserReview(Object.values(entities.reviews).find(review => review.authorId));
-        if (artist) {
-            setArtist(entities.artists[artistId]);
+        setUserReview(findUserReview(entities.reviews));
+        setArtist(entities.artists[artistId]);
+        if (albums && reviews) {
             setAlbums(processAlbums(albums.map(album => entities.albums[album.id])));
+            setReviews(processReviews());
         }
-    }, [entities.reviews]);
+    }, [entities.reviews, sessionId]);
+
+    const findUserReview = reviews => {
+        const userReview = Object.values(reviews).find(review => (
+            review.authorId === sessionId &&
+            review.itemId === artistId &&
+            review.itemType === 'Artist'
+        ));
+        return userReview ? userReview : null;
+    };
 
     useEffect(() => {
         if (modalType === null) setModal(null);
@@ -54,18 +78,25 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
 
     const renderModal = (modalType, itemId, itemType) => {
         openModal(modalType, true);
-        switch (modalType) {
-            case 'artistBio':
+        if (modalType === 'artistBio') {
+            setModal(
+                <ModalContainer
+                    artistBio={artistBio}
+                    artistName={artist.name}
+                    artistWikiPath={artist.wikiPath}
+                />
+            );
+        } else {
+            if (userReview) {
                 setModal(
                     <ModalContainer
-                        artistBio={artistBio}
-                        artistName={artist.name}
-                        artistWikiPath={artist.wikiPath}
+                        authorId={sessionId}
+                        itemId={itemId}
+                        itemType={itemType}
+                        review={userReview}
                     />
                 );
-                break;
-            case 'newReview':
-            case 'editReview':
+            } else {
                 setModal(
                     <ModalContainer
                         authorId={sessionId}
@@ -73,14 +104,12 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
                         itemType={itemType}
                     />
                 );
-                break;
-            default:
-                break;
+            }
         }
     };
 
     const processAlbums = albums => {
-        const processedAlbums = albums.map(album => {
+        const processedAlbums = Object.values(albums).map(album => {
             Object.freeze(album);
             const releaseDate = new Date(album.releaseDate.split('-'))
             return Object.assign({}, album, { releaseDate });
@@ -97,13 +126,17 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
     useEffect(() => {
         setArtist(null);
         setAlbums(null);
+        setReviews(null);
+        setUserReview(null);
         setArtistBio(null);
         setPageNotFound(false);
 
         fetchArtist(artistId)
-            .then(({ artist, albums }) => {
+            .then(({ artist, albums, reviews }) => {
                 setArtist(artist);
                 setAlbums(processAlbums(albums));
+                setReviews(Object.values(reviews));
+                setUserReview(findUserReview(reviews));
             }, () => setPageNotFound(true));
     }, [artistId]);
 
@@ -121,7 +154,7 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
     }, [artist]);
 
     if (pageNotFound) return <PageNotFound />;
-    else if (artist && albums) return (
+    else if (artist && albums && reviews) return (
         <div>
             <div className='music-header'>
                 <div className='header-content'>
@@ -156,7 +189,7 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
                         <RatingDiv
                             loggedIn={loggedIn}
                             openLoginModal={() => openModal('login')}
-                            renderModal={() => renderModal('newReview', artistId, 'Artist')}
+                            renderModal={() => renderModal(userReview ? 'editReview' : 'newReview', artistId, 'Artist')}
                             itemType='Artist'
                             item={artist}
                             userRating={userReview ? userReview.rating : null}

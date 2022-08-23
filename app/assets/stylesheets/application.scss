@@ -48,15 +48,19 @@
 
    i { font-style: italic; }
 
+   h1, h2 { font-weight: 700; }
+
    h1 {
       font-size: 40px;
       line-height: 54px;
-      font-weight: 700;
   }
 
-  h3, h4, h5 {
-   font-weight: 600;
+  h2 {
+      font-size: 32px;
+      line-height: 40px;
   }
+
+  h3, h4, h5 { font-weight: 600; }
 
   h3 {
       font-size: 24px;

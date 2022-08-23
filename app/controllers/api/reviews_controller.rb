@@ -16,12 +16,13 @@ class Api::ReviewsController < ApplicationController
 
     def update
         @review = Review.find(params[:id])
-        @review.update(review_params)
+        render "/api/reviews/show" if @review.update(review_params)
     end
 
     def destroy
-        review = Review.find(params[:id])
-        review.destroy
+        @review = Review.find(params[:id])
+        @review.destroy
+        render "/api/reviews/show"
     end
     
     private

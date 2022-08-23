@@ -12,7 +12,7 @@ import Navbar from "./navbar/navbar";
 import PageNotFound from "./page_not_found";
 import AlertContainer from "./alert/alert_container";
 
-const App = ({ modal, alert }) => (
+const App = ({ modal, alerts }) => (
   <div>
     <Navbar />
     <Switch>
@@ -25,14 +25,14 @@ const App = ({ modal, alert }) => (
       <Route exact path="/" />
       <Route path="/" component={PageNotFound} />
     </Switch>
-    {alert ? <AlertContainer /> : null}
+    {alerts.length > 0 ? <AlertContainer /> : null}
     {(modal.modalType && !modal.data) ? <ModalContainer /> : null}
   </div>
 );
 
 const mapStateToProps = ({ ui }) => ({
   modal: ui.modal,
-  alert: ui.alert
+  alerts: ui.alerts
 });
 
 export default connect(mapStateToProps)(App);

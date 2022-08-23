@@ -4,6 +4,44 @@
 
 @import "../variables.scss";
 
+.rating-stars {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .background-stars {
+        position: absolute;
+
+        svg, path { color: $gray; }
+    }
+
+    .input-stars, .preset-stars {
+        display: flex;
+        align-items: center;
+
+        .star-button, .star-div {
+            opacity: 0;
+            overflow: hidden;
+
+            svg, path {
+                color: $yellow;
+            }
+        }
+
+        .opaque { opacity: 1; }
+    }
+
+    .input-stars:hover {
+        .star-button {
+            opacity: 1;
+
+            &:hover ~ .star-button { opacity: 0; }
+        }
+
+        svg, path { color: $blue; }
+    }
+}
+
 #review-form {
     padding: 32px;
     display: flex;
@@ -86,55 +124,27 @@
                 }
 
                 .rating-stars {
-                    display: flex;
-                    align-items: center;
                     margin-top: 5px;
-                    position: relative;
                     cursor: pointer;
+
+                    .background-stars { height: 32px; }
 
                     svg, path {
                         width: 32px;
                         height: 32px;
                     }
 
-                    .background-stars {
-                        position: absolute;
-                        height: 32px;
-
-                        svg, path { color: $gray; }
-                    }
-
                     .input-stars {
-                        display: flex;
-                        align-items: center;
-
                         .star-button {
                             z-index: 11;
-                            opacity: 0;
                             height: 32px;
                             width: 16px;
-                            overflow: hidden;
 
-                            svg, path {
-                                z-index: 11;
-                                color: $yellow;
-                            }
+                            svg, path { z-index: 11; }
                         }
 
                         .right {
                             svg { margin-left: -16px; }
-                        }
-
-                        .opaque { opacity: 1; }
-
-                        &:hover {
-                            .star-button {
-                                opacity: 1;
-
-                                &:hover ~ .star-button { opacity: 0; }
-                            }
-
-                            svg, path { color: $blue; }
                         }
                     }
                 }
@@ -216,11 +226,408 @@
             height: 160px;
         }
 
-        .submit:disabled {
-            opacity: .5;
-            pointer-events: none;
+        .submitButtons {
+            display: flex;
+            align-items: center;
+            margin-top: 16px;
+
+            .submit { margin: 0; }
+            
+            .submit:disabled {
+                opacity: .5;
+                pointer-events: none;
+            }
+
+            .delete {
+                margin-right: 16px;
+                padding: 0 24px;
+                background-color: $red;
+                width: max-content;
+                white-space: nowrap;
+
+                &:hover { background-color: $redLight; }
+            }
         }
 
-        .submit { margin-top: 16px; }
+    }
+}
+
+#review-div {
+    .background-overlay {
+        background-image: linear-gradient(90deg,$offBlack,rgba(14,15,17,.978938) 2%,rgba(14,15,17,.913325) 4%,rgba(14,15,17,.805633) 6%,rgba(14,15,17,.670197) 8%,rgba(14,15,17,.530396) 10%,rgba(14,15,17,.407353) 12%,rgba(14,15,17,.312253) 14%,rgba(14,15,17,.247561) 16%,rgba(14,15,17,.21129) 18%,rgba(14,15,17,.2) 20%,rgba(14,15,17,.2) 80%,rgba(14,15,17,.21129) 82%,rgba(14,15,17,.247561) 84%,rgba(14,15,17,.312253) 86%,rgba(14,15,17,.407353) 88%,rgba(14,15,17,.530396) 90%,rgba(14,15,17,.670197) 92%,rgba(14,15,17,.805633) 94%,rgba(14,15,17,.913325) 96%,rgba(14,15,17,.978938) 98%,$offBlack),linear-gradient(0deg,$offBlack,rgba(14,15,17,.973673) 6%,rgba(14,15,17,.891657) 12%,rgba(14,15,17,.757042) 18%,rgba(14,15,17,.587746) 24%,rgba(14,15,17,.412995) 30%,rgba(14,15,17,.259191) 36%,rgba(14,15,17,.140316) 42%,rgba(14,15,17,.059451) 48%,rgba(14,15,17,.014113) 54%,rgba(14,15,17,0) 60%);
+    }
+
+    #artist-image-link {
+        position: relative;
+        * { border-radius: 1000px; }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #link-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: inherit;
+            height: inherit;
+            box-shadow: 0 1px 0 $borderColor inset,0 -1px 0 $borderColor inset,1px 0 0 $borderColor inset,-1px 0 0 $borderColor inset;
+            transition: box-shadow .25s;
+
+            &:hover {
+                box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
+            }
+        }
+    }
+
+    #review-content {
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 32px;
+    
+    
+        #item-info {
+            padding-top: 64px;
+            display: flex;
+            align-items: flex-end;
+
+            #artist-image-link {
+                height: 220px;
+                width: 220px;
+            }
+
+            #info-text {
+                margin-left: 24px;
+                margin-bottom: 16px;
+
+                a {
+                    font-size: 32px;
+                    line-height: 40px;
+                    font-weight: 700;
+                    transition: color .2s;
+
+                    &:hover { color: $blue; }
+                }
+
+                p {
+                    color: $highDarkGray;
+                    margin-top: 12px;
+                }
+
+                .info-text-line {
+                    margin-top: 12px;
+                    display: flex;
+                    align-items: center;
+
+                    p { margin: 0; }
+
+                    a {
+                        font-size: 14px;
+                        line-height: 20px;
+                        font-weight: normal;
+                    }
+
+                    .dot {
+                        margin: 0 12px;
+                        background-color: $highDarkGray;
+                        width: 6px;
+                        height: 6px;
+                        border-radius: 1000px;
+                    }
+
+                }
+
+                .artist-link {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 16px;
+
+                    #artist-image-link {
+                        height: 32px;
+                        width: 32px;
+                    }
+
+                    a {
+                        font-size: 16px;
+                        margin-left: 8px;
+                        line-height: 20px;
+                        font-weight: normal;
+                    }
+                }
+            }
+
+            .album-cover-div {
+                position: relative;
+                * {
+                    width: 220px;
+                    height: 220px;
+                    border-radius: 4px;
+                    vertical-align: bottom;
+                }
+        
+                .cover-border {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    box-shadow: 0 1px 0 $borderColor inset,0 -1px 0 $borderColor inset,1px 0 0 $borderColor inset,-1px 0 0 $borderColor inset;
+                    transition: box-shadow .25s;
+
+                    &:hover {
+                        box-shadow: 0 3px 0 #009fff inset, 0 -3px 0 #009fff inset, 3px 0 0 #009fff inset, -3px 0 0 #009fff inset;
+                    }
+                }
+            }
+        }
+
+        .review-body {
+            display: flex;
+            padding-bottom: 64px;
+
+            .left-body-div {
+                margin-right: 32px;
+                flex: 2 2;
+
+                .review-flex-div {
+                    margin-top: 64px;
+                    display: flex;
+                    align-items: flex-start;
+
+                    .profile-button {
+                        min-width: 60px;
+                        min-height: 60px;
+                        width: 60px;
+                        height: 60px;
+                        margin-right: 24px;
+                    
+                        svg {
+                            width: 30px;
+                            height: 30px;
+                        }
+                    }
+
+                    .review-inner-content {
+                        .review-info {
+                            flex: 1 1;
+    
+                            .user-info {
+                                color: $highDarkGray;
+                                line-height: 38px;
+                                font-size: 16px;
+                                
+                                a {
+                                    transition: color .2s;
+                                    font-weight: 600;
+    
+                                    &:hover { color: $blue; }
+                                }
+                            }
+    
+                            .rating-icons {
+                                margin-top: 4px;
+                                display: flex;
+                                align-items: center;
+    
+                                .rating-stars {
+                                    .background-stars { height: 24px; }
+                
+                                    svg, path {
+                                        width: 24px;
+                                        height: 24px;
+                                    }
+                
+                                    .preset-stars {
+                                        .star-div {
+                                            z-index: 1;
+                                            height: 24px;
+                                            width: 12px;
+                
+                                            svg, path { z-index: 1; }
+                                        }
+                
+                                        .right {
+                                            svg { margin-left: -12px; }
+                                        }
+                                    }
+                                }
+                                
+                                .lock-icon {
+                                    margin-left: 8px;
+                                    width: 20px;
+                                    height: 20px;
+                                    color: $gray;
+    
+                                    path {
+                                        width: 20px;
+                                        height: 20px;
+                                        color: $gray;
+                                    }
+                                }
+                            }
+    
+                            .review-date {
+                                color: $highDarkGray;
+                                margin-top: 12px;
+                            }
+                        }
+
+                        h4 { margin-top: 16px; }
+
+                        > p {
+                            margin-right: 16px;
+                            margin-top: 12px;
+                            font-size: 16px;
+                            line-height: 1.5;
+                        }
+                    }
+                }
+            }
+
+            .right-body-div {
+                flex: 1 1;
+                margin-top: 32px;
+            }
+        }
+    }
+}
+
+.music-reviews-body {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 32px 64px;
+    display: flex;
+
+    h4 {
+        margin-top: 32px;
+        margin-bottom: 12px;
+        pointer-events: none;
+        line-height: normal;
+    }
+
+    .left-body-div {
+        margin-right: 32px;
+        flex: 2 2;
+
+        .review-list {
+            border-radius: 8px;
+            background-color: $darkGray;
+
+            .review-div {
+                position: relative;
+                padding: 16px;
+                border-bottom: 1px solid $lightGray;
+                transition: background-color .2s;
+
+                &:hover {
+                    background-color: $lightGray;
+                    transition: background-color 0ms;
+                }
+
+                * {
+                    position: relative;
+                    pointer-events: none;
+                }
+
+                .link-overlay {
+                    position: absolute;
+                    pointer-events: all;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                }
+
+                .review-info {
+                    display: flex;
+                    align-items: center;
+
+                    .profile-button {
+                        pointer-events: all;
+                        min-width: 88px;
+                        min-height: 88px;
+                        width: 88px;
+                        height: 88px;
+                    
+                        svg {
+                            width: 44px;
+                            height: 44px;
+                        }
+                    }
+
+                    .review-info-text {
+                        margin-left: 16px;
+
+                        h5 {
+                            line-height: normal;
+                            color: $highDarkGray;
+
+                            a {
+                                pointer-events: all;
+                                color: $offWhite;
+                                transition: color .2s;
+                                pointer-events: all;
+
+                                &:hover { color: $blue; }
+                            }
+                        }
+
+                        p {
+                            margin-top: 8px;
+                            color: $highDarkGray;
+                        }
+                    }
+                }
+
+                .review-title { margin-top: 14px; }
+
+                .rating-stars {
+                    margin-top: 10px;
+
+                    .background-stars { height: 20px; }
+
+                    svg, path {
+                        width: 20px;
+                        height: 20px;
+                    }
+
+                    .preset-stars {
+                        position: absolute;
+
+                        .star-div {
+                            z-index: 1;
+                            height: 20px;
+                            width: 10px;
+
+                            svg, path { z-index: 1; }
+                        }
+
+                        .right {
+                            svg { margin-left: -10px; }
+                        }
+                    }
+                }
+
+                .review-text-div {
+                    margin-top: 14px;
+                }
+            }
+
+            .no-reviews {
+                color: $highDarkGray;
+                padding: 64px 32px;
+                text-align: center;
+            }
+        }
+    }
+
+    .right-body-div {
+        flex: 1 1;
+
+        .filter-div {
+            position: sticky;
+            top: 56px;
+        }
     }
 }

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ExplicitIcon from '@mui/icons-material/Explicit';
 import CheckIcon from '@mui/icons-material/Check';
-import StarIcon from '@mui/icons-material/Star';
+import RatingStars from "./rating_stars";
 
 export default props => {
-    const { authorId, itemType, itemId, entities, setReviewInProgress } = props;
+    const { authorId, itemType, itemId, entities, setReviewInProgress, formType } = props;
     
     let item;
     switch (itemType) {
@@ -34,17 +34,39 @@ export default props => {
     }
 
     let artist = entities.artists[item.artistId];
+
+    const deleteReview = e => {
+        e.preventDefault();
+        props.deleteReview(state.id);
+    };
+
+    const processReview = review => {
+        Object.freeze(review);
+        const newReview = Object.assign({}, review);
+        Object.keys(newReview).forEach(key => {
+            if (newReview[key] === null) newReview[key] = '';
+        });
+        return newReview;
+    };
     
-    const [state, setState] = useState(props.review);
+    const [state, setState] = useState(processReview(props.review));
     const [isReview, setIsReview] = useState(false);
 
     useEffect(() => {
+        const review = processReview(props.review);
+        // console.log([review, state]);
         if (state.title === '' && state.body === '') {
             setIsReview(false);
-            setReviewInProgress(false);
+            if (formType === 'editReview' && (state.title !== review.title || state.body !== review.body)) {
+                setReviewInProgress(true);
+            }
+            else setReviewInProgress(false);
         } else {
             setIsReview(true);
-            setReviewInProgress(true);
+            if (formType === 'editReview' && (state.title === review.title || state.body === review.body)) {
+                setReviewInProgress(false);
+            }
+            else setReviewInProgress(true);
         }
     }, [state.title, state.body])
 
@@ -52,7 +74,7 @@ export default props => {
         if (parseInt(state.rating) === 0) return 'Missing Rating';
         else if (isReview) return 'Post Review';
         else return `Rate ${itemType}`;
-    }
+    };
 
     const updateRating = rating => e => {
         e.preventDefault();
@@ -66,14 +88,16 @@ export default props => {
             item_type: itemType === 'Track' ? 'Song' : itemType,
             item_id: itemId
         });
-        if (review.title === '') delete review.title;
-        if (review.body === '') delete review.body;
+        if (review.title === '') review.title = null;
+        if (review.body === '') review.body = null;
         props.processForm(review);
     };
 
-    const update = field => e => (
-        setState(Object.assign({}, state, { [field]: e.target.value }))
-    );
+    const update = field => e => {
+        if (field === 'pinned' || field === 'private') {
+            setState(Object.assign({}, state, { [field]: e.target.checked }));
+        } else setState(Object.assign({}, state, { [field]: e.target.value }));
+    };
 
     return (
         <form id="review-form" onSubmit={handleSubmit}>
@@ -104,77 +128,10 @@ export default props => {
                                 <h5>Rating</h5>
                                 <p>{state.rating / 2} of 5</p>
                             </div>
-                            <div className="rating-stars">
-                                <div className="background-stars">
-                                    <StarIcon />
-                                    <StarIcon />
-                                    <StarIcon />
-                                    <StarIcon />
-                                    <StarIcon />
-                                </div>
-                                <div className="input-stars">
-                                    <button
-                                        className={`star-button${state.rating >= 1 ? ' opaque' : ''}`}
-                                        onClick={updateRating(1)}
-                                    >
-                                        <StarIcon />
-                                    </button>
-                                    <button
-                                        className={`star-button right${state.rating >= 2 ? ' opaque' : ''}`}
-                                        onClick={updateRating(2)}
-                                    >
-                                        <StarIcon />
-                                    </button>
-                                    <button
-                                        className={`star-button${state.rating >= 3 ? ' opaque' : ''}`}
-                                        onClick={updateRating(3)}
-                                    >
-                                        <StarIcon />
-                                    </button>
-                                    <button
-                                        className={`star-button right${state.rating >= 4 ? ' opaque' : ''}`}
-                                        onClick={updateRating(4)}
-                                    >
-                                        <StarIcon />
-                                    </button>
-                                    <button
-                                        className={`star-button${state.rating >= 5 ? ' opaque' : ''}`}
-                                        onClick={updateRating(5)}
-                                    >
-                                        <StarIcon />
-                                    </button>
-                                    <button
-                                        className={`star-button right${state.rating >= 6 ? ' opaque' : ''}`}
-                                        onClick={updateRating(6)}
-                                    >
-                                        <StarIcon />
-                                    </button>
-                                    <button
-                                        className={`star-button${state.rating >= 7 ? ' opaque' : ''}`}
-                                        onClick={updateRating(7)}
-                                    >
-                                        <StarIcon />
-                                    </button>
-                                    <button
-                                        className={`star-button right${state.rating >= 8 ? ' opaque' : ''}`}
-                                        onClick={updateRating(8)}
-                                    >
-                                        <StarIcon />
-                                    </button>
-                                    <button
-                                        className={`star-button${state.rating >= 9 ? ' opaque' : ''}`}
-                                        onClick={updateRating(9)}
-                                    >
-                                        <StarIcon />
-                                    </button>
-                                    <button
-                                        className={`star-button right${state.rating >= 10 ? ' opaque' : ''}`}
-                                        onClick={updateRating(10)}
-                                    >
-                                        <StarIcon />
-                                    </button>
-                                </div>
-                            </div>
+                            <RatingStars
+                                rating={state.rating}
+                                updateRating={updateRating}
+                            />
                         </div>
                     </div>
                     <div className="checkbox-div">
@@ -182,7 +139,7 @@ export default props => {
                         <input
                             id="private-input"
                             type="checkbox"
-                            value={state.private}
+                            checked={state.private}
                             onChange={update('private')}
                         />
                         <label htmlFor="private-input">
@@ -200,7 +157,7 @@ export default props => {
                             disabled={!isReview}
                             id="pinned-input"
                             type="checkbox"
-                            value={state.pinned}
+                            checked={isReview ? state.pinned : false}
                             onChange={update('pinned')}
                         />
                         <label htmlFor="pinned-input">
@@ -230,12 +187,21 @@ export default props => {
                     onChange={update('body')}
                     placeholder='Add a review...'
                 />
-                <button
-                    className="submit"
-                    type="submit"
-                    disabled={parseInt(state.rating) === 0}>
-                    {submitText()}
-                </button>
+                <div className="submitButtons">
+                    {
+                        formType === 'editReview' ?
+                            <button className="submit delete" onClick={deleteReview}>
+                                Delete
+                            </button> : null
+                    }
+                    <button
+                        className="submit"
+                        type="submit"
+                        disabled={parseInt(state.rating) === 0}
+                    >
+                        {submitText()}
+                    </button>
+                </div>
             </div>
         </form>
     );

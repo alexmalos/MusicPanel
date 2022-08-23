@@ -1,16 +1,16 @@
 import { connect } from 'react-redux';
-import { closeAlert } from '../../actions/alert_actions';
+import { closeAlert, fireAlert } from '../../actions/alert_actions';
 import Alert from './alert';
 
 const mapStateToProps = ({ entities, ui }) => ({
-    alertType: ui.alert.alertType,
-    review: ui.alert.review,
+    alerts: ui.alerts,
     entities
 
 });
 
 const mapDispatchToProps = dispatch => ({
-  closeAlert: () => dispatch(closeAlert())
+    fireAlert: alert => dispatch(fireAlert(alert)),
+    closeAlert: alert => dispatch(closeAlert(alert))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Alert);

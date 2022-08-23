@@ -10,17 +10,21 @@ const receiveReviews = reviews => ({
     reviews
 });
 
-const receiveReview = ({ review, artist, album, track }) => ({
+const receiveReview = ({ review, artist, album, track, user }) => ({
     type: RECEIVE_REVIEW,
     review,
     artist,
     album,
-    track
+    track,
+    user
 });
 
-const removeReview = id => ({
+const removeReview = ({ review, artist, album, track }) => ({
     type: REMOVE_REVIEW,
-    id
+    reviewId: review.id,
+    artist,
+    album,
+    track
 });
 
 export const fetchReviews = () => dispatch => (
@@ -38,19 +42,27 @@ export const fetchReview = id => dispatch => (
 export const createReview = review => dispatch => (
     APIUtil.createReview(review).then(data => {
       dispatch(receiveReview(data));
-      dispatch(openAlert(data.review, 'newReview'));
+      dispatch(openAlert({
+        review: data.review,
+        alertType: 'newReview',
+        fired: false
+      }));
     })
 );
 
 export const updateReview = review => dispatch => (
   APIUtil.updateReview(review).then(data => {
     dispatch(receiveReview(data));
-    dispatch(openAlert(data.review, 'editReview'));
+    dispatch(openAlert({
+        review: data.review,
+        alertType: 'editReview',
+        fired: false
+    }));
   })
 );
 
 export const deleteReview = id => dispatch => (
-    APIUtil.deleteReview(id).then(() => (
-      dispatch(removeReview(id))
+    APIUtil.deleteReview(id).then(data => (
+      dispatch(removeReview(data))
     ))
 );

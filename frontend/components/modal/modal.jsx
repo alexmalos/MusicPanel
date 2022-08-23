@@ -8,6 +8,7 @@ import NewReviewFormContainer from '../reviews/new_review_form_container';
 
 export default props => {
     const closeModal = () => {
+        // console.log(reviewInProgress);
         if (!reviewInProgress || window.confirm("Are you sure you want to discard this review? All changes will be lost.")) {
             props.closeModal();
         }
@@ -23,9 +24,10 @@ export default props => {
         document.addEventListener('click', handleClick);
 
         return () => document.removeEventListener('click', handleClick);
-    });
+    }, []);
 
-    const [reviewInProgress, setReviewInProgress] = useState(false);
+    const [reviewInProgress, setReviewInProgress] = useState((false));
+    // console.log(reviewInProgress);
 
     let component, headerText;
     let wideModal = false;
@@ -56,7 +58,13 @@ export default props => {
             wideModal = true;
             break;
         case 'editReview':
-            component = <EditReviewFormContainer />;
+            component = <EditReviewFormContainer
+                            authorId={props.authorId}
+                            itemId={props.itemId}
+                            itemType={props.itemType}
+                            setReviewInProgress={setReviewInProgress}
+                            review={props.review}
+                        />;
             headerText = 'Edit Review';
             wideModal = true;
             break;
