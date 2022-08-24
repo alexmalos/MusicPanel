@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_23_204602) do
+ActiveRecord::Schema.define(version: 2022_08_24_151211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,27 @@ ActiveRecord::Schema.define(version: 2022_08_23_204602) do
     t.string "members", default: [], array: true
     t.integer "formed"
     t.string "spotify", null: false
+  end
+
+  create_table "list_items", id: false, force: :cascade do |t|
+    t.integer "list_id", null: false
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.integer "order_number", null: false
+    t.index ["item_type", "item_id"], name: "index_list_items_on_item_type_and_item_id"
+    t.index ["list_id"], name: "index_list_items_on_list_id"
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.boolean "private", null: false
+    t.boolean "pinned", null: false
+    t.boolean "numbered", null: false
+    t.integer "author_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_lists_on_author_id"
   end
 
   create_table "reviews", force: :cascade do |t|

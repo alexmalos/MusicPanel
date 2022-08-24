@@ -13,7 +13,10 @@ const mapDispatchToProps = dispatch => ({
         dispatch(signup(user));
         dispatch(closeModal())
     },
-    loginDemo: () => dispatch(login({ username: 'demo', password: 'password' }))
+    loginDemo: () => {
+        dispatch(login({ username: 'demo', password: 'password' }));
+        dispatch(closeModal());
+    }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SessionForm);

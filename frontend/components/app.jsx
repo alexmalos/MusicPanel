@@ -5,6 +5,7 @@ import { AuthRoute } from "../util/route_util";
 import ModalContainer from "./modal/modal_container";
 import SplashContainer from "./splash/splash_container";
 import ReviewShowContainer from "./reviews/review_show_container";
+import ListShowContainer from "./lists/list_show_container";
 import AlbumShowContainer from "./album/album_show_container";
 import ArtistShowContainer from "./artist/artist_show_container";
 import TrackShowContainer from "./track/track_show_container";
@@ -20,10 +21,10 @@ const App = ({ modal, alerts }) => (
       <Route path="/artists/:artistId" component={ArtistShowContainer}/>
       <Route path="/albums/:albumId" component={AlbumShowContainer} />
       <Route path="/tracks/:trackId" component={TrackShowContainer}/>
-      <Route path="/reviews/:reviewId" component={ReviewShowContainer} />
+      <Route exact path="/reviews/:reviewId" component={ReviewShowContainer} />
+      <Route exact path="/lists/:listId" component={ListShowContainer} />
       <Route exact path="/reviews" component={ReviewIndex}/>
       <AuthRoute exact path="/" component={SplashContainer} />
-      <Route exact path="/" />
       <Route path="/" component={PageNotFound} />
     </Switch>
     {alerts.length > 0 ? <AlertContainer /> : null}

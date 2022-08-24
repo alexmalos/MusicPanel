@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { fetchReview } from '../../actions/review_actions';
 import ReviewShow from './review_show';
 
-const mapStateToProps = ({ session, ui, entities }, { match, location }) => ({
+const mapStateToProps = ({ session, ui, entities }, { match }) => ({
     reviewId: parseInt(match.params.reviewId),
     sessionId: session.id,
     modalType: ui.modal.modalType,

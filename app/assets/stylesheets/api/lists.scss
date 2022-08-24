@@ -1,0 +1,215 @@
+// Place all the styles related to the api/lists controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.list-body {
+    display: flex;
+    padding: 0 32px 64px;
+    max-width: 1200px;
+    margin: auto;
+
+    .left-body-div {
+        margin-right: 32px;
+        margin-top: 64px;
+        flex: 2 2;
+
+        .top-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .user-info {
+                display: flex;
+                align-items: center;
+    
+                .profile-button {
+                    min-width: 48px;
+                    min-height: 48px;
+                    width: 48px;
+                    height: 48px;
+                
+                    svg {
+                        width: 24px;
+                        height: 24px;
+                    }
+                }
+    
+                .user-username {
+                    margin-left: 8px;
+                    font-size: 16px;
+                    line-height: normal;
+                    font-weight: 600;
+                    transition: color .2s;
+    
+                    &:hover { color: $blue; }
+                }
+            }
+
+            .list-date {
+                color: $highDarkGray;
+                line-height: normal;
+            }
+        }
+
+        .list-title {
+            display: flex;
+            margin-top: 16px;
+            align-items: center;
+
+            .lock-icon {
+                margin-left: 8px;
+                width: 18px;
+                height: 18px;
+                color: $gray;
+
+                path { color: $gray; }
+            }
+        }
+
+        .list-description {
+            margin-top: 8px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .list-item-grid {
+            margin-top: 16px;
+            display: grid;
+            grid-template-columns: repeat(5,1fr);
+            column-gap: 16px;
+            row-gap: 16px;
+
+            .list-item {
+                .artist-image-div, .album-cover-div {
+                    position: relative;
+
+                    .artist-image-link, .album-cover-link {
+                        position: initial;
+                        width: 100%;
+                        height: 100%;
+                        
+                        * {
+                            width: 100%;
+                            height: 100%;
+                            min-width: 100%;
+                            vertical-align: bottom;
+                        }
+
+                        .link-border, .cover-border {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            box-shadow: 0 1px 0 rgba(228,230,234,0.4) inset,0 -1px 0 #e4e6ea66 inset,1px 0 0 #e4e6ea66 inset,-1px 0 0 #e4e6ea66 inset;
+                            border-radius: 3px;
+                            transition: box-shadow .25s;
+                
+                            &:hover {
+                                box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
+                            }
+                        }
+                    }
+            
+                    .artist-image-link * {
+                        border-radius: 1000px!important;
+                    }
+
+                    .album-cover-link {
+                        img { border-radius: 4px; }
+                        .cover-border { border-radius: 3px; }
+                    }
+                }
+
+                .item-link {
+                    display: block;
+                    margin-top: 12px;
+                    transition: color .25s;
+                    font-size: 16px;
+                    line-height: normal;
+                    font-weight: 600;
+                    text-align: center;
+                    text-overflow: ellipsis;
+
+                    &:hover { color: $blue; }
+                }
+
+                .artist-link {
+                    display: block;
+                    margin-top: 4px;
+                    text-align: center;
+                    color: $highDarkGray;
+                    font-size: 14px;
+                    line-height: normal;
+                    text-overflow: ellipsis;
+
+                    &:hover { text-decoration: underline; }
+                }
+            }
+        }
+    }
+
+    .right-body-div {
+        flex: 1 1;
+        margin-top: 64px;
+
+        .signup-message {
+            color: $darkGrayWhite;
+            font-size: 16px;
+            line-height: 24px;
+            padding: 24px 32px;
+            margin-bottom: 32px;
+            background-color: $darkGray;
+            border-radius: 8px;
+
+            a, button {
+                color: $offWhite;
+                font-weight: 500;
+                text-decoration: underline;
+                transition: text-decoration-color .2s;
+                text-decoration-color: #e4e6ea66;
+                font-size: 16px;
+                line-height: 24px;
+
+                &:hover {
+                    text-decoration-color: #e4e6eab3;
+                    transition: text-decoration-color .13s;
+                }
+            }
+        }
+
+        .option-menu {
+            background-color: $darkGray;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+
+            .first-option {
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            }
+
+            .last-option {
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                border-bottom: none;
+            }
+
+            button, a {
+                padding: 16px;
+                border-bottom: 1px solid $lightGray;
+                transition: background-color .2s, color .2s;
+                font-size: 16px;
+                line-height: 20px;
+                font-weight: 600;
+                text-align: center;
+
+                &:hover {
+                    background-color: $lightGray;
+                    transition: color 0ms, background-color 0ms;
+                    color: $blue;
+                }
+            }
+        }
+    }
+}

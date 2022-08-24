@@ -474,12 +474,12 @@
             display: flex;
             flex-direction: column;
 
-            #first-option {
+            .first-option {
                 border-top-left-radius: 8px;
                 border-top-right-radius: 8px;
             }
 
-            #last-option {
+            .last-option {
                 border-bottom-left-radius: 8px;
                 border-bottom-right-radius: 8px;
                 border-bottom: none;
@@ -488,18 +488,16 @@
             button, a {
                 padding: 16px;
                 border-bottom: 1px solid $lightGray;
-                transition: background-color .2s;
+                transition: background-color .2s, color .2s;
                 font-size: 16px;
                 line-height: 20px;
                 font-weight: 600;
-                transition: color .2s;
                 text-align: center;
 
                 &:hover {
                     background-color: $lightGray;
-                    transition: background-color 0ms;
+                    transition: background-color 0ms, color 0ms;
                     color: $blue;
-                    transition: color 0ms;
                 }
             }
         }

@@ -4,7 +4,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import StarIcon from '@mui/icons-material/Star';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import OptionPopup from '../music/option_popup';
-import OptionMenu from '../music/option_menu';
+import OptionMenu from '../music/music_option_menu';
 
 export default props => {
     const { album, sessionId, reviews } = props;

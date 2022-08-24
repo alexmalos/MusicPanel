@@ -5,7 +5,7 @@ import { Route, Redirect } from 'react-router-dom';
 const Auth = ({ component: Component, path, loggedIn, exact }) => (
   <Route path={path} exact={exact} render={props => (
     loggedIn ? (
-        <Redirect to="/" />
+        <Redirect to="/reviews" />
     ) : (
         <Component {...props} />
     )

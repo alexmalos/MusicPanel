@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import OptionMenu from '../music/option_menu';
+import OptionMenu from '../music/music_option_menu';
 import DiscographyGrid from './discography_grid';
 
 export default ({ artist, albums, loggedIn, openModal }) => {

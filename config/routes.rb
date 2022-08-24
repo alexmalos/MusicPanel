@@ -10,5 +10,6 @@ Rails.application.routes.draw do
     resources :albums, only: :show
     resources :tracks, only: :show
     resources :reviews, only: [:index, :show, :update, :create, :destroy]
+    resources :lists, only: [:index, :show, :update, :create, :destroy]
   end
 end

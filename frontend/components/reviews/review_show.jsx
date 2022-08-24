@@ -5,7 +5,7 @@ import ModalContainer from '../modal/modal_container';
 import PersonIcon from '@mui/icons-material/Person';
 import RatingStars from './rating_stars';
 import LockIcon from '@mui/icons-material/Lock';
-import OptionMenu from '../music/option_menu';
+import OptionMenu from '../music/music_option_menu';
 
 export default ({ reviewId, sessionId, openModal, fetchReview, modalType, entities }) => {
     const loggedIn = Boolean(sessionId);
