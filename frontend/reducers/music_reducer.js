@@ -35,7 +35,7 @@ export const albums = (state = {}, action) => {
     }
 };
 
-export const songs = (state = {}, action) => {
+export const tracks = (state = {}, action) => {
     Object.freeze(state);
     switch(action.type) {
       case RECEIVE_ALBUM:

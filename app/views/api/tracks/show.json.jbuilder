@@ -1,25 +1,25 @@
 json.album do
-    json.partial! "api/albums/album", album: @song.album
+    json.partial! "api/albums/album", album: @track.album
 end
 
 json.artist do
-    json.partial! "api/artists/artist", artist: @song.artist
+    json.partial! "api/artists/artist", artist: @track.artist
 end
 
 json.tracks do
-    @song.album.tracks.each do |track|
+    @track.album.tracks.each do |track|
         json.set! track.id do
-            json.partial! "api/songs/song", song: track
+            json.partial! "api/tracks/track", track: track
         end
     end
 end
 
-if @song.reviews.empty?
+if @track.reviews.empty?
     json.reviews({})
     json.users({})
 else
     json.reviews do
-        @song.reviews.each do |review|
+        @track.reviews.each do |review|
             json.set! review.id do
                 json.partial! "api/reviews/review", review: review
             end
@@ -27,7 +27,7 @@ else
     end
 
     json.users do
-        @song.reviewers.each do |user|
+        @track.reviewers.each do |user|
             json.set! user.id do
                 json.partial! "api/users/user", user: user
             end

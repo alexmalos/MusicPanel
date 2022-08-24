@@ -12,9 +12,9 @@ export const fetchAlbum = id => (
     })
 );
 
-export const fetchSong = id => (
+export const fetchTrack = id => (
     $.ajax({
         method: 'GET',
-        url: `/api/songs/${id}`
+        url: `/api/tracks/${id}`
     })
 );

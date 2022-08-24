@@ -26,7 +26,7 @@ genres = {
 User.delete_all
 Artist.delete_all
 Album.delete_all
-Song.delete_all
+Track.delete_all
 
 demo_user = User.create!(
     username: 'demo',
@@ -100,4 +100,4 @@ yeezus_tracklist = [
     'Bound 2'
 ]
 
-Song.create_album!(kanye, yeezus, yeezus_tracklist)
+Track.create_album!(kanye, yeezus, yeezus_tracklist)

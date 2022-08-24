@@ -43,16 +43,16 @@ export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType, en
 
     const processReviews = () => {
         const reviews = Object.values(entities.reviews);
-        return reviews.filter(review => review.itemId === trackId && review.itemType === 'Song');
+        return reviews.filter(review => review.itemId === trackId && review.itemType === 'Track');
     };
 
     useEffect(() => {
         setUserReview(Object.values(entities.reviews).find(review => review.authorId));
-        setTrack(entities.songs[trackId]);
+        setTrack(entities.tracks[trackId]);
         if (artist && album && tracks && reviews) {
             setArtist(entities.artists[track.artistId]);
             setAlbum(entities.albums[track.albumId]);
-            setTracks(tracks.map(track => entities.songs[track.id]));
+            setTracks(tracks.map(track => entities.tracks[track.id]));
             setReviews(processReviews());
         }
     }, [entities.reviews, sessionId]);
@@ -61,7 +61,7 @@ export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType, en
         const userReview = Object.values(reviews).find(review => (
             review.authorId === sessionId &&
             review.itemId === trackId &&
-            review.itemType === 'Song'
+            review.itemType === 'Track'
         ));
         return userReview ? userReview : null;
     };

@@ -2,8 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@import "../variables.scss";
-
 .rating-stars {
     display: flex;
     align-items: center;
@@ -612,7 +610,7 @@
                             }
                         }
 
-                        .album-link {
+                        .item-link {
                             pointer-events: all;
                             font-size: 16px;
                             font-weight: 600;

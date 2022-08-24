@@ -23,7 +23,7 @@ export default ({ reviewId, sessionId, openModal, fetchReview, modalType, entiti
                 return Boolean(artist);
             case 'Album':
                 return (artist && album);
-            case 'Song':
+            case 'Track':
                 return (artist && album && track)
             default:
                 break;
@@ -88,7 +88,7 @@ export default ({ reviewId, sessionId, openModal, fetchReview, modalType, entiti
                         </div>
                     </div>
                 );
-            case 'Song':
+            case 'Track':
                 return (
                     <div id='item-info'>
                         <Link to={`/albums/${album.id}`} className='album-cover-div'>

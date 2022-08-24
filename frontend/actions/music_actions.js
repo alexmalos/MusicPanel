@@ -11,13 +11,14 @@ const receiveArtist = ({ artist, albums, reviews, users }) => ({
     users
 });
 
-const receiveAlbum = ({ album, artist, tracks, reviews, users }) => ({
+const receiveAlbum = ({ album, artist, tracks, reviews, users, trackReviews }) => ({
     type: RECEIVE_ALBUM,
     album,
     artist,
     tracks,
     reviews,
-    users
+    users,
+    trackReviews
 });
 
 export const fetchArtist = id => dispatch => (
@@ -32,8 +33,8 @@ export const fetchAlbum = id => dispatch => (
   ))
 );
 
-export const fetchSong = id => dispatch => (
-  APIUtil.fetchSong(id).then(data => (
+export const fetchTrack = id => dispatch => (
+  APIUtil.fetchTrack(id).then(data => (
     dispatch(receiveAlbum(data))
   ))
 );

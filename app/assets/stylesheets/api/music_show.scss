@@ -237,6 +237,12 @@
 
                     &:hover { background-color: $blueLight; }
                 }
+
+                .yellow-button {
+                    background-color: $yellow;
+
+                    &:hover { background-color: $yellowLight; }
+                }
             }
         }
     }
@@ -398,7 +404,6 @@
                     display: flex;
                     align-items: center;
                     position: relative;
-                    svg, path { color: $highDarkGray; }
 
                     svg {
                         height: 16px;
@@ -420,6 +425,14 @@
                             transition: opacity .3s;
                         }
                     }
+                }
+
+                .yellow { 
+                    svg, path { color: $yellow; }
+                }
+
+                .gray { 
+                    svg, path { color: $highDarkGray; }
                 }
 
                 &:hover {

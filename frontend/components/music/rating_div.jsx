@@ -1,6 +1,7 @@
 import React from "react";
 import StarIcon from '@mui/icons-material/Star';
 import LockIcon from '@mui/icons-material/Lock';
+import EditIcon from '@mui/icons-material/Edit';
 
 export default ({ loggedIn, openLoginModal, renderModal, itemType, item, userRating }) => (
     <div className='rating-div'>
@@ -34,11 +35,16 @@ export default ({ loggedIn, openLoginModal, renderModal, itemType, item, userRat
         </div>
         {
             loggedIn ?
-                <button onClick={renderModal}>
-                    <StarIcon />
-                    Rate {itemType}
-                </button> :
-                <button onClick={openLoginModal}>
+                userRating ?
+                    <button onClick={renderModal} className='yellow-button'>
+                        <EditIcon />
+                        Edit rating
+                    </button> :
+                    <button onClick={renderModal}>
+                        <StarIcon />
+                        Rate {itemType}
+                    </button>
+                : <button onClick={openLoginModal}>
                     <LockIcon />
                     Sign in to rate this {itemType[0].toLowerCase() + itemType.slice(1)}
                 </button>

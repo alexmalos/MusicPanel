@@ -19,9 +19,9 @@ when 'Album'
     json.artist do
         json.partial! "api/artists/artist", artist: @review.item.artist
     end
-when 'Song'
+when 'Track'
     json.track do
-        json.partial! "api/songs/song", song: @review.item
+        json.partial! "api/tracks/track", track: @review.item
     end
 
     json.album do

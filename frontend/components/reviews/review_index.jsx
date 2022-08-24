@@ -28,7 +28,7 @@ const ReviewIndex = ({ fetchReviews }) => {
                             <div className='link-border'></div>
                         </Link>
                         <div className="review-info-text">
-                            <Link to={`/artists/${review.itemId}`}>{state.artists[review.itemId].name}</Link>
+                            <Link className='item-link' to={`/artists/${review.itemId}`}>{state.artists[review.itemId].name}</Link>
                             <p>Artist</p>
                         </div>
                     </div>
@@ -42,7 +42,7 @@ const ReviewIndex = ({ fetchReviews }) => {
                         </Link>
                         <div className="review-info-text">
                             <div className="album-link-div">
-                                <Link className="album-link" to={`/albums/${review.itemId}`}>{state.albums[review.itemId].title}</Link>
+                                <Link className="item-link" to={`/albums/${review.itemId}`}>{state.albums[review.itemId].title}</Link>
                                 {
                                     state.albums[review.itemId].explicit ?
                                         <ExplicitIcon /> : null
@@ -54,7 +54,7 @@ const ReviewIndex = ({ fetchReviews }) => {
                         </div>
                     </div>
                 );
-            case 'Song':
+            case 'Track':
                 return (
                     <div className="review-item-info">
                         <Link to={`/albums/${state.tracks[review.itemId].albumId}`} className='album-cover-div'>
@@ -62,7 +62,7 @@ const ReviewIndex = ({ fetchReviews }) => {
                             <div className='cover-border' id="album-cover-border"></div>
                         </Link>
                         <div className="review-info-text">
-                            <Link className="album-link" to={`/albums/${state.tracks[review.itemId].albumId}`}>{state.tracks[review.itemId].title}</Link>
+                            <Link className="item-link" to={`/albums/${state.tracks[review.itemId].albumId}`}>{state.tracks[review.itemId].title}</Link>
                             <p className="artist-info-text">
                                 <Link to={`/artists/${state.tracks[review.itemId].artistId}`}>{state.artists[state.tracks[review.itemId].artistId].name}</Link> • Track
                             </p>

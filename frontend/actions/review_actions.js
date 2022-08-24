@@ -14,14 +14,13 @@ const receiveReviews = ({ reviews, artists, albums, tracks, users }) => ({
     users
 });
 
-const receiveReview = ({ review, artist, album, track, user, reviewParams }) => ({
+const receiveReview = ({ review, artist, album, track, user }) => ({
     type: RECEIVE_REVIEW,
     review,
     artist,
     album,
     track,
-    user,
-    reviewParams
+    user
 });
 
 const removeReview = ({ review, artist, album, track }) => ({

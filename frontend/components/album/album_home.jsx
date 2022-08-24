@@ -7,7 +7,7 @@ import OptionPopup from '../music/option_popup';
 import OptionMenu from '../music/option_menu';
 
 export default props => {
-    const { album, loggedIn } = props;
+    const { album, sessionId, reviews } = props;
 
     const [tracklistExpanded, setTracklistExpanded] = useState(false);
     const [tracks, setTracks] = useState(props.tracks.slice(0, 7));
@@ -17,6 +17,20 @@ export default props => {
     let expandableTracklist;
     if (props.tracks.length > 7) expandableTracklist = true;
     else expandableTracklist = false;
+
+    const renderModal = trackId => {
+        const userReview = reviews.find(review => (
+            review.authorId === sessionId &&
+            review.itemId === trackId &&
+            review.itemType === 'Track'
+        ));
+
+        props.renderModal(trackId, userReview);
+    };
+
+    useEffect(() => {
+        setTracks(props.tracks.slice(0, tracks.length));
+    }, [props.tracks]);
 
     const toggleTracklist = () => {
         setTracklistExpanded(!tracklistExpanded);
@@ -70,7 +84,7 @@ export default props => {
                                 <p className='track-number'>{track.trackNumber}</p>
                                 <p className='track-title'>{track.title}</p>
                                 {
-                                    loggedIn ?
+                                    sessionId ?
                                         <div className='track-options-div'>
                                             <button className='track-options-button'
                                             track-id={track.id}
@@ -89,9 +103,12 @@ export default props => {
                                         </div> :
                                         null
                                 }
-                                <button className='track-rating-button'>
+                                <button
+                                    className={`track-rating-button${track.reviewIds.length > 0 ? ' yellow' : ' gray'}`}
+                                    onClick={() => renderModal(track.id)}
+                                >
                                     <StarIcon />
-                                    <span>0<span> / 5</span></span>
+                                    <span>{track.averageRating}<span> / 5</span></span>
                                     <p className='text-popup'>Rate this track</p>
                                 </button>
                             </div>
@@ -107,7 +124,7 @@ export default props => {
             </div>
             <div className='right-body-div'>
                 <OptionMenu
-                    loggedIn={loggedIn}
+                    loggedIn={Boolean(sessionId)}
                     openModal={props.openModal}
                     musicType='album'
                     spotify={album.spotify}

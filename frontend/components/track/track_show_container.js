@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { openModal } from '../../actions/modal_actions';
-import { fetchSong } from '../../actions/music_actions';
+import { fetchTrack } from '../../actions/music_actions';
 import TrackShow from './track_show';
 
 const mapStateToProps = ({ session, ui, entities }, { match, location }) => ({
@@ -12,7 +12,7 @@ const mapStateToProps = ({ session, ui, entities }, { match, location }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchTrack: id => dispatch(fetchSong(id)),
+    fetchTrack: id => dispatch(fetchTrack(id)),
     openModal: (modal, data) => dispatch(openModal(modal, data))
 });
 

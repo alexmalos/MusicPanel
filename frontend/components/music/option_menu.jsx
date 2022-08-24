@@ -5,9 +5,8 @@ export default ({ loggedIn, openModal, musicType, spotify }) => (
         {
             loggedIn ?
                 [
-                    <button key={1} id='first-option'>Write Review</button>,
-                    <button key={2}>Add to Listen Later</button>,
-                    <button key={3}>Add {musicType} to a list</button>
+                    <button key={1} id='first-option'>Add to Listen Later</button>,
+                    <button key={2}>Add {musicType} to a list</button>
                 ] :
                 <button onClick={() => openModal('login')}>Sign in for more options</button>
         }

@@ -23,8 +23,8 @@ export default ({ alerts, fireAlert, closeAlert, entities }) => {
                     case 'Album':
                         itemText = entities.albums[review.itemId].title;
                         break;
-                    case 'Song':
-                        itemText = entities.songs[review.itemId].title;
+                    case 'Track':
+                        itemText = entities.tracks[review.itemId].title;
                         break;
                     default:
                         break;

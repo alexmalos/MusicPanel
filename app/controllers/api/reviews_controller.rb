@@ -5,7 +5,7 @@ class Api::ReviewsController < ApplicationController
         @reviews = Review.full_reviews
         @artists = reviews_items(@reviews, 'Artist')
         @albums = reviews_items(@reviews, 'Album')
-        @tracks = reviews_items(@reviews, 'Song')
+        @tracks = reviews_items(@reviews, 'Track')
         @users = reviews_users(@reviews)
     end
 
@@ -23,6 +23,7 @@ class Api::ReviewsController < ApplicationController
         @review = Review.find(params[:id])
         if @review.update(review_params)
             @review.nilify_blanks
+            @review.save!
             render "/api/reviews/show"
         end
     end

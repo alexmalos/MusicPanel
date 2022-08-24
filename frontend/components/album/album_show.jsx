@@ -7,7 +7,7 @@ import ModalContainer from '../modal/modal_container';
 import MusicReviewsContainer from '../music/music_reviews_container';
 
 export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType, entities }) => {
-    const loggedIn = Boolean(sessionId);
+
     const [album, setAlbum] = useState(null);
     const [artist, setArtist] = useState(null);
     const [tracks, setTracks] = useState(null);
@@ -28,7 +28,9 @@ export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType, en
                 album={album}
                 artist={artist}
                 openModal={openModal}
-                loggedIn={loggedIn}
+                sessionId={sessionId}
+                reviews={Object.values(entities.reviews)}
+                renderModal={(trackId, userReview) => renderModal(trackId, 'Track', userReview)}
             />
         );
         else if (atPath('/reviews')) return (
@@ -54,9 +56,9 @@ export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType, en
         if (modalType === null) setModal(null);
     }, [modalType]);
 
-    const renderModal = (modalType, itemId, itemType) => {
-        openModal(modalType, true);
+    const renderModal = (itemId, itemType, userReview) => {
         if (userReview) {
+            openModal('editReview', true);
             setModal(
                 <ModalContainer
                     authorId={sessionId}
@@ -66,6 +68,7 @@ export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType, en
                 />
             );
         } else {
+            openModal('newReview', true);
             setModal(
                 <ModalContainer
                     authorId={sessionId}
@@ -86,7 +89,7 @@ export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType, en
         setAlbum(entities.albums[albumId]);
         if (artist && tracks && reviews) {
             setArtist(entities.artists[album.artistId]);
-            setTracks(tracks.map(track => entities.songs[track.id]));
+            setTracks(tracks.map(track => entities.tracks[track.id]));
             setReviews(processReviews());
         }
     }, [entities.reviews, sessionId]);
@@ -158,9 +161,9 @@ export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType, en
                             </div>
                         </div>
                         <RatingDiv
-                            loggedIn={loggedIn}
+                            loggedIn={Boolean(sessionId)}
                             openLoginModal={() => openModal('login')}
-                            renderModal={() => renderModal(userReview ? 'editReview' : 'newReview', albumId, 'Album')}
+                            renderModal={() => renderModal(albumId, 'Album', userReview)}
                             itemType='Album'
                             item={album}
                             userRating={userReview ? userReview.rating : null}

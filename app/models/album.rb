@@ -3,7 +3,7 @@ class Album < ApplicationRecord
     validates :explicit, inclusion: [true, false]
 
     belongs_to :artist
-    has_many :tracks, class_name: :Song
+    has_many :tracks
     has_many :reviews, as: :item
     has_many :reviewers, through: :reviews, source: :author
     

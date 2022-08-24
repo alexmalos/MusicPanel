@@ -15,7 +15,7 @@ export default props => {
             item = entities.albums[itemId];
             break;
         case 'Track':
-            item = entities.songs[itemId];
+            item = entities.tracks[itemId];
             break;
         default:
             break;
@@ -85,7 +85,7 @@ export default props => {
         e.preventDefault();
         const review = Object.assign({}, state, {
             author_id: authorId,
-            item_type: itemType === 'Track' ? 'Song' : itemType,
+            item_type: itemType,
             item_id: itemId
         });
         props.processForm(review);
