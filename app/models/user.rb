@@ -6,6 +6,10 @@ class User < ApplicationRecord
     attr_reader :password
     after_initialize :ensure_session_token
 
+    has_many :reviews, foreign_key: :author_id
+
+    has_one_attached :profile_photo
+
     def self.find_by_credentials(username, password)
         user = User.find_by(username: username)
         return nil unless user
@@ -29,5 +33,10 @@ class User < ApplicationRecord
         self.session_token = SecureRandom::urlsafe_base64
         self.save!
         self.session_token
+    end
+
+    def nilify_blanks
+        self.name = nil if self.name == ''
+        self.biography = nil if self.biography == ''
     end
 end

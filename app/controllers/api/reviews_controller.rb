@@ -2,10 +2,10 @@ class Api::ReviewsController < ApplicationController
     before_action :require_logged_in, only: [:create, :update, :destroy]
 
     def index
-        @reviews = Review.full_reviews
-        @artists = reviews_items(@reviews, 'Artist')
-        @albums = reviews_items(@reviews, 'Album')
+        @reviews = Review.full_reviews.select { |review| !review.private }
         @tracks = reviews_items(@reviews, 'Track')
+        @albums = (reviews_items(@reviews, 'Album') + @tracks.map { |track| track.album }).uniq
+        @artists = (reviews_items(@reviews, 'Artist') + @albums.map { |album| album.artist }).uniq
         @users = reviews_users(@reviews)
     end
 

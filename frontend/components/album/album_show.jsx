@@ -127,14 +127,14 @@ export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType, en
         <div>
             <div className='music-header'>
                 <div className='header-content'>
-                    <div className='background-div'>
+                    {album.backgroundUrl ? <div className='background-div'>
                         <div className='inner-background-div'>
                             <img src={album.smallBackgroundUrl} alt=""
                             className='small-background-image'/>
                             <img src={album.backgroundUrl} alt="" />
                             <div className='background-overlay'></div>
                         </div>
-                    </div>
+                    </div> : null}
                     <div className='header-info'>
                         <div className='music-div'>
                             <div className='album-cover-div'>

@@ -1,3 +1,196 @@
 // Place all the styles related to the api/users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.zeropacity { opacity: 0; }
+
+.user-header {
+    background-color: $darkGray;
+    border-bottom: 1px solid $lightGray;
+
+    .header-content {
+        position: relative;
+        padding-bottom: 32px;
+        z-index: 1;
+    
+        .header-info {
+            max-width: 1200px;
+            margin: auto;
+            padding: 64px 32px 0;
+            display: flex;
+
+            .header-flex {
+                display: flex;
+                width: 100%;
+
+                .user-div {
+                    display: flex;
+                    align-items: flex-start;
+                    flex: 3 3;
+                    margin-right: 32px;
+
+                    .profile-pic {
+                        width: 120px;
+                        height: 120px;
+                        border-radius: 1000px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: $lightGray;
+                        box-shadow: 0 1px 0 $borderColor inset,0 -1px 0 $borderColor inset,1px 0 0 $borderColor inset,-1px 0 0 $borderColor inset;
+                        transition: box-shadow .25s;
+                        color: $darkLightGray;
+                        * { color: $darkLightGray; }
+    
+                        svg {
+                            width: 50%;
+                            height: 50%;
+                        }
+                    }
+
+                    .user-info {
+                        margin-left: 16px;
+                        
+                        h5 { color: $highDarkGray; }
+
+                        h1 {
+                            font-size: 40px;
+                            line-height: 50px;
+                            text-align: left;
+                        }
+
+                        p {
+                            color: $highDarkGray;
+                            margin-top: 4px;
+                            font-size: 16px;
+                        }
+                    }
+                }
+
+                .review-numbers-div {
+                    flex: 1 1;
+    
+                    .rating-info {
+                        display: flex;
+                        align-items: center;
+    
+                        .info-link {
+                            display: flex;
+                            flex: 1 1;
+                            
+                            .inner-info-div {
+                                display: flex;
+                                flex: 1 1;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+
+                                h3 {
+                                    transition: color .2s;
+                                }
+    
+                                p {
+                                    margin-top: 4px;
+                                    color: $highDarkGray;
+                                }
+                            }
+    
+                            .divider {
+                                width: 1px;
+                                background-color: $darkLightGray;
+                                height: 80px;
+                            }
+
+                            // &:hover {
+                            //     h3 { color: $blue; }
+                            // }
+                        }
+                    }
+    
+                    .button {
+                        display: block;
+                        width: 100%;
+                        margin-top: 16px;
+                        height: 45px;
+                        background-color: $lightGray;
+                        border-radius: 4px;
+                        font-size: 16px;
+                        font-weight: 600;
+                        line-height: 45px;
+                        text-align: center;
+                        transition: background-color .2s;
+    
+                        &:hover {
+                            background-color: $darkLightGray;
+                            transition: background-color 0ms;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .header-tabs {
+        display: flex;
+        align-items: flex-start;
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 32px;
+
+        .tab-div {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+            a {
+                border-radius: 4px;
+                transition: all .2s;
+                margin: 4px;
+                padding: 12px 24px;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: normal;
+                color: $blue;
+            }
+
+            .inactive {
+                color: $offWhite;
+    
+                &:hover { background-color: $offBlack; }
+            }
+    
+            .active {
+                background-color: $blue;
+                border-top-left-radius: 2px;
+                border-top-right-radius: 2px;
+            }
+    
+            div {
+                height: 4px;
+                width: 100%;
+            }
+        }
+
+    }
+}
+
+.user-rating-icons {
+    display: flex;
+    align-items: center;
+    
+    .lock-icon {
+        margin-top: 10px;
+        margin-left: 6px;
+        width: 16px;
+        height: 16px;
+        color: $gray;
+
+        path { color: $gray; }
+    }
+}
+
+.user-reviews-profile-link {
+    pointer-events: all;
+    transition: color .2s;
+    &:hover { color: $blue; }
+}

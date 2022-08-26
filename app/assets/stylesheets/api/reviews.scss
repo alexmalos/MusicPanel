@@ -730,12 +730,6 @@
                     }
                 }
             }
-
-            .no-reviews {
-                color: $highDarkGray;
-                padding: 64px 32px;
-                text-align: center;
-            }
         }
 
         .rating-grid {
@@ -816,4 +810,10 @@
             top: 56px;
         }
     }
+}
+
+.no-reviews {
+    color: $highDarkGray;
+    padding: 64px 32px;
+    text-align: center;
 }

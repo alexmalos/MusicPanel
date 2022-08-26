@@ -5,8 +5,17 @@ json.trackIds do
 end
 
 json.coverUrl url_for(album.cover)
-json.backgroundUrl url_for(album.background)
-json.smallBackgroundUrl url_for(album.small_background)
+
+if user.background.attachment
+    json.backgroundUrl url_for(album.background)
+    json.smallBackgroundUrl url_for(album.small_background)
+else
+    json.backgroundUrl nil
+    json.smallBackgroundUrl nil
+end
+
+# json.backgroundUrl url_for(album.background)
+# json.smallBackgroundUrl url_for(album.small_background)
 
 json.reviewIds do
     json.array! album.reviews.map { |review| review.id }

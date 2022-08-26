@@ -4,6 +4,7 @@ import {
     RECEIVE_REVIEW,
     REMOVE_REVIEW,
 } from '../actions/review_actions';
+import { RECEIVE_USER } from '../actions/user_actions';
 
 export default (state = {}, action) => {
     Object.freeze(state);
@@ -11,6 +12,7 @@ export default (state = {}, action) => {
     switch (action.type) {
         case RECEIVE_REVIEWS:
         case RECEIVE_ARTIST:
+        case RECEIVE_USER:
             return Object.assign({}, state, action.reviews);
         case RECEIVE_ALBUM:
             return Object.assign({}, state, action.reviews, action.trackReviews);

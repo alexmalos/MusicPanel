@@ -9,7 +9,7 @@ class Api::SessionsController < ApplicationController
           render json: ["Both fields have to be filled."], status: 401
         elsif @user
           login!(@user)
-          render "api/users/show"
+          render "api/users/user"
         else
           render json: ["Unable to login with provided credentials."], status: 401
         end

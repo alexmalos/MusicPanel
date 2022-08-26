@@ -14,6 +14,8 @@ import ReviewIndex from "./reviews/review_index";
 import Navbar from "./navbar/navbar";
 import PageNotFound from "./page_not_found";
 import AlertContainer from "./alert/alert_container";
+import UserShowContainer from "./users/user_show_container";
+import UserReviewsContainer from "./users/user_reviews_container";
 
 const App = ({ modal, alerts }) => (
   <div>
@@ -32,8 +34,9 @@ const App = ({ modal, alerts }) => (
         <MusicIndexContainer musicType='tracks' />
       </Route>
       <Route exact path="/reviews/:reviewId" component={ReviewShowContainer} />
-      {/* <Route exact path="/users" component={} /> */}
-      <Route exact path="/lists/:listId" component={ListShowContainer} />
+      <Route exact path="/users/:userId/reviews" component={UserReviewsContainer} />
+      <Route exact path="/users/:userId" component={UserShowContainer} />
+      {/* <Route exact path="/lists/:listId" component={ListShowContainer} /> */}
       <Route exact path="/reviews" component={ReviewIndex}/>
       <AuthRoute exact path="/" component={SplashContainer} />
       <Route path="/" component={PageNotFound} />
