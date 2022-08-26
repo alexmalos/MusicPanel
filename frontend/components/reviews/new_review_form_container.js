@@ -11,8 +11,7 @@ const mapStateToProps = ({ entities }) => ({
         private: false,
         title: '',
         body: ''
-    },
-    formType: 'newReview'
+    }
 });
 
 const mapDispatchToProps = dispatch => ({

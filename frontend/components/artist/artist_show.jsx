@@ -190,7 +190,7 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
                         <RatingDiv
                             loggedIn={loggedIn}
                             openLoginModal={() => openModal('login')}
-                            renderModal={() => renderModal(userReview ? 'editReview' : 'newReview', artistId, 'Artist')}
+                            renderModal={() => renderModal(userReview ? (userReview.title || userReview.body ? 'editReview' : 'editRating') : 'newReview', artistId, 'Artist')}
                             itemType='Artist'
                             item={artist}
                             userRating={userReview ? userReview.rating : null}

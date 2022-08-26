@@ -5,10 +5,10 @@ import ModalContainer from '../modal/modal_container';
 import PersonIcon from '@mui/icons-material/Person';
 import RatingStars from './rating_stars';
 import LockIcon from '@mui/icons-material/Lock';
-import OptionMenu from '../music/music_option_menu';
+import OptionMenu from '../option_menu/option_menu';
 
-export default ({ reviewId, sessionId, openModal, fetchReview, modalType, entities }) => {
-    const loggedIn = Boolean(sessionId);
+export default ({ reviewId, sessionId, openModal, fetchReview, modalType, reviews }) => {
+
     const [review, setReview] = useState(null);
     const [album, setAlbum] = useState(null);
     const [artist, setArtist] = useState(null);
@@ -28,6 +28,27 @@ export default ({ reviewId, sessionId, openModal, fetchReview, modalType, entiti
             default:
                 break;
         }
+    };
+
+    useEffect(() => {
+        if (modalType === null) setModal(null);
+    }, [modalType]);
+
+    useEffect(() => {
+        if (review) setReview(reviews[review.id]);
+    }, [reviews]);
+
+    const renderModal = () => {
+        if (review.title || review.body) openModal('editReview', true);
+        else openModal('editRating', true);
+        setModal(
+            <ModalContainer
+                authorId={review.authorId}
+                itemId={review.itemId}
+                itemType={review.itemType}
+                review={review}
+            />
+        );
     };
 
     const isReview = () => {
@@ -179,15 +200,19 @@ export default ({ reviewId, sessionId, openModal, fetchReview, modalType, entiti
                         </div>
                     </div>
                     <div className='right-body-div'>
-                        {/* <OptionMenu
-                            loggedIn={loggedIn}
-                            openModal={openModal}
-                            musicType='artist'
-                            spotify={artist.spotify}
-                        /> */}
+                        <OptionMenu
+                            sessionId={sessionId}
+                            openLoginModal={() => openModal('login')}
+                            user={user}
+                            itemId={review.id}
+                            itemType='review'
+                            renderModal={renderModal}
+                            reviewType={review.title || review.body ? 'review' : 'rating'}
+                        />
                     </div>
                 </div>
             </div>
+            {modal}
         </div>
     );
     else return null;

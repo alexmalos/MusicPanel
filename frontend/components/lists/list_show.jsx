@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PageNotFound from '../page_not_found';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
-import OptionMenu from './list_option_menu';
+import OptionMenu from '../option_menu/option_menu';
 
 export default ({ listId, sessionId, fetchList, entities, openModal }) => {
 
@@ -113,7 +113,8 @@ export default ({ listId, sessionId, fetchList, entities, openModal }) => {
                     sessionId={sessionId}
                     openModal={openModal}
                     user={user}
-                    listId={list.id}
+                    itemId={list.id}
+                    itemType='list'
                 />
             </div>
         </div>

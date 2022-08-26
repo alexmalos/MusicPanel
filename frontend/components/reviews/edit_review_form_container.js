@@ -5,8 +5,7 @@ import { deleteReview } from '../../actions/review_actions';
 import ReviewForm from './review_form';
 
 const mapStateToProps = ({ entities }) => ({
-    entities,
-    formType: 'editReview'
+    entities
 });
 
 const mapDispatchToProps = dispatch => ({

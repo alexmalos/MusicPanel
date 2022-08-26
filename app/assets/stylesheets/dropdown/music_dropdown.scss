@@ -1,0 +1,28 @@
+.music-button-div {
+    position: relative;
+
+    #music-dropdown {
+        position: absolute;
+        top: 42px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: $darkGray;
+        padding: 7px;
+        border-radius: 8px;
+        border: 1px solid $lightGray;
+        width: max-content;
+
+        .dropdown-link {
+            display: block;
+            padding: 12px;
+            color: $offWhite;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 24px;
+            font-weight: 600;
+            height: min-content;
+        
+            &:hover { background-color: $lightGray; }
+        }
+    }
+}

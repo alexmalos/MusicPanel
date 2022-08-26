@@ -18,3 +18,24 @@ export const fetchTrack = id => (
         url: `/api/tracks/${id}`
     })
 );
+
+export const fetchArtists = () => (
+    $.ajax({
+        method: 'GET',
+        url: '/api/artists'
+    })
+);
+
+export const fetchAlbums = () => (
+    $.ajax({
+        method: 'GET',
+        url: '/api/albums'
+    })
+);
+
+export const fetchTracks = () => (
+    $.ajax({
+        method: 'GET',
+        url: '/api/tracks'
+    })
+);

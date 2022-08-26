@@ -64,8 +64,21 @@ export default props => {
                             itemType={props.itemType}
                             setReviewInProgress={setReviewInProgress}
                             review={props.review}
+                            formType='editReview'
                         />;
             headerText = 'Edit Review';
+            wideModal = true;
+            break;
+        case 'editRating':
+            component = <EditReviewFormContainer
+                            authorId={props.authorId}
+                            itemId={props.itemId}
+                            itemType={props.itemType}
+                            setReviewInProgress={setReviewInProgress}
+                            review={props.review}
+                            formType='editRating'
+                        />;
+            headerText = 'Edit Rating';
             wideModal = true;
             break;
         default:

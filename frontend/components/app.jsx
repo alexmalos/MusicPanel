@@ -9,6 +9,7 @@ import ListShowContainer from "./lists/list_show_container";
 import AlbumShowContainer from "./album/album_show_container";
 import ArtistShowContainer from "./artist/artist_show_container";
 import TrackShowContainer from "./track/track_show_container";
+import MusicIndexContainer from "./music/music_index_container";
 import ReviewIndex from "./reviews/review_index";
 import Navbar from "./navbar/navbar";
 import PageNotFound from "./page_not_found";
@@ -21,7 +22,17 @@ const App = ({ modal, alerts }) => (
       <Route path="/artists/:artistId" component={ArtistShowContainer}/>
       <Route path="/albums/:albumId" component={AlbumShowContainer} />
       <Route path="/tracks/:trackId" component={TrackShowContainer}/>
+      <Route exact path="/artists">
+        <MusicIndexContainer musicType='artists' />
+      </Route>
+      <Route exact path="/albums">
+        <MusicIndexContainer musicType='albums' />
+      </Route>
+      <Route exact path="/tracks">
+        <MusicIndexContainer musicType='tracks' />
+      </Route>
       <Route exact path="/reviews/:reviewId" component={ReviewShowContainer} />
+      {/* <Route exact path="/users" component={} /> */}
       <Route exact path="/lists/:listId" component={ListShowContainer} />
       <Route exact path="/reviews" component={ReviewIndex}/>
       <AuthRoute exact path="/" component={SplashContainer} />

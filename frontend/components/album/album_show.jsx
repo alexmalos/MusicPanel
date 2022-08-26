@@ -58,7 +58,8 @@ export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType, en
 
     const renderModal = (itemId, itemType, userReview) => {
         if (userReview) {
-            openModal('editReview', true);
+            if (userReview.title || userReview.body) openModal('editReview', true);
+            else openModal('editRating', true);
             setModal(
                 <ModalContainer
                     authorId={sessionId}

@@ -57,13 +57,13 @@ export default props => {
         // console.log([review, state]);
         if (state.title === '' && state.body === '') {
             setIsReview(false);
-            if (formType === 'editReview' && (state.title !== review.title || state.body !== review.body)) {
+            if (formType && (state.title !== review.title || state.body !== review.body)) {
                 setReviewInProgress(true);
             }
             else setReviewInProgress(false);
         } else {
             setIsReview(true);
-            if (formType === 'editReview' && (state.title === review.title || state.body === review.body)) {
+            if (formType && (state.title === review.title || state.body === review.body)) {
                 setReviewInProgress(false);
             }
             else setReviewInProgress(true);
@@ -72,8 +72,16 @@ export default props => {
 
     const submitText = () => {
         if (parseInt(state.rating) === 0) return 'Missing Rating';
-        else if (isReview) return 'Post Review';
-        else return `Rate ${itemType}`;
+        if (formType === 'editReview') {
+            if (isReview) return 'Update Review';
+            else return 'Review needed';
+        } else if (formType === 'editRating') {
+            if (isReview) return 'Post Review';
+            else return 'Update Rating'
+        } else {
+            if (isReview) return 'Post Review';
+            else return `Rate ${itemType}`;
+        }
     };
 
     const updateRating = rating => e => {
@@ -187,7 +195,7 @@ export default props => {
                 />
                 <div className="submitButtons">
                     {
-                        formType === 'editReview' ?
+                        formType ?
                             <button className="submit delete" onClick={deleteReview}>
                                 Delete
                             </button> : null
@@ -195,7 +203,7 @@ export default props => {
                     <button
                         className="submit"
                         type="submit"
-                        disabled={parseInt(state.rating) === 0}
+                        disabled={parseInt(state.rating) === 0 || (formType === 'editReview' && !isReview)}
                     >
                         {submitText()}
                     </button>

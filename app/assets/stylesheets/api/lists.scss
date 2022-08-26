@@ -75,7 +75,7 @@
         .list-item-grid {
             margin-top: 16px;
             display: grid;
-            grid-template-columns: repeat(5,1fr);
+            grid-template-columns: repeat(5,minmax(0, 1fr));
             column-gap: 16px;
             row-gap: 16px;
 
@@ -130,6 +130,8 @@
                     font-weight: 600;
                     text-align: center;
                     text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
 
                     &:hover { color: $blue; }
                 }
@@ -148,11 +150,13 @@
             }
         }
     }
+}
 
+.list-body, .review-body {
     .right-body-div {
         flex: 1 1;
         margin-top: 64px;
-
+    
         .signup-message {
             color: $darkGrayWhite;
             font-size: 16px;
@@ -161,7 +165,7 @@
             margin-bottom: 32px;
             background-color: $darkGray;
             border-radius: 8px;
-
+    
             a, button {
                 color: $offWhite;
                 font-weight: 500;
@@ -170,31 +174,31 @@
                 text-decoration-color: #e4e6ea66;
                 font-size: 16px;
                 line-height: 24px;
-
+    
                 &:hover {
                     text-decoration-color: #e4e6eab3;
                     transition: text-decoration-color .13s;
                 }
             }
         }
-
+    
         .option-menu {
             background-color: $darkGray;
             border-radius: 8px;
             display: flex;
             flex-direction: column;
-
+    
             .first-option {
                 border-top-left-radius: 8px;
                 border-top-right-radius: 8px;
             }
-
+    
             .last-option {
                 border-bottom-left-radius: 8px;
                 border-bottom-right-radius: 8px;
                 border-bottom: none;
             }
-
+    
             button, a {
                 padding: 16px;
                 border-bottom: 1px solid $lightGray;
@@ -203,13 +207,30 @@
                 line-height: 20px;
                 font-weight: 600;
                 text-align: center;
-
+                display: flex;
+                align-items: center;
+                justify-content: center;
+    
                 &:hover {
                     background-color: $lightGray;
                     transition: color 0ms, background-color 0ms;
                     color: $blue;
+    
+                    svg, path {
+                        color: $blue;
+                        transition: color 0ms;
+                    }
                 }
+    
+                svg {
+                    height: 16px;
+                    width: 16px;
+                    padding: 0 8px;
+                }
+    
+                svg, path { transition: color .2s; }
             }
+    
         }
     }
 }

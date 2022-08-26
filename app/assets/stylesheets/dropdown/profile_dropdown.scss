@@ -56,13 +56,9 @@
     color: $offWhite;
     border-radius: 4px;
 
-    > p, span {
-        margin-left: 12px;
-    }
+    > p, span { margin-left: 12px; }
 
-    &:hover {
-        background-color: $lightGray;
-    }
+    &:hover { background-color: $lightGray; }
 }
 
 .dropdown-link {

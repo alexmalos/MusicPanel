@@ -6,6 +6,8 @@ import SubjectIcon from '@mui/icons-material/Subject';
 import ListIcon from '@mui/icons-material/List';
 
 export default props => {
+    const { currentUser, closeDropdown } = props;
+
     useEffect(() => {
         const handleClick = e => {
             const profileDropdown = document.getElementById('profile-dropdown');
@@ -19,7 +21,7 @@ export default props => {
 
     return (
         <div id="profile-dropdown">
-            <Link to='/' className='dropdown-element'>
+            <Link to={`/users/${currentUser.id}`} className='dropdown-element' onClick={closeDropdown}>
                 <div className='profile-button' id='dropdown-profile-button'>
                     <PersonIcon />
                 </div>
@@ -29,14 +31,14 @@ export default props => {
                 </div>
             </Link>
             <div className='dropdown-divider'></div>
-            <Link to='/reviews' className='dropdown-element dropdown-link'>
+            <Link to={`/users/${currentUser.id}/reviews`} className='dropdown-element dropdown-link' onClick={closeDropdown}>
                 <SubjectIcon />
                 <p>Reviews</p>
             </Link>
-            <Link to='/lists' className='dropdown-element dropdown-link'>
+            {/* <Link to='/lists' className='dropdown-element dropdown-link'>
                 <ListIcon />
                 <p>Lists</p>
-            </Link>
+            </Link> */}
             <div className='dropdown-divider'></div>
             <button className='dropdown-element dropdown-button' onClick={props.logout}>
                 <CancelIcon />

@@ -83,7 +83,7 @@ export default props => {
                             <div className='track-div' key={track.id} track-id={track.id}>
                                 <p className='track-number'>{track.trackNumber}</p>
                                 <p className='track-title'>{track.title}</p>
-                                {
+                                {/* {
                                     sessionId ?
                                         <div className='track-options-div'>
                                             <button className='track-options-button'
@@ -102,7 +102,7 @@ export default props => {
                                             }
                                         </div> :
                                         null
-                                }
+                                } */}
                                 <button
                                     className={`track-rating-button${track.reviewIds.length > 0 ? ' yellow' : ' gray'}`}
                                     onClick={() => renderModal(track.id)}
