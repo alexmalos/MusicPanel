@@ -11,7 +11,7 @@ export default ({ openModal }) => (
                     <button onClick={() => openModal('signup')}>Create Account</button>
                     <div>
                         <a href='https://github.com/alexmalos/MusicPanel' target="_blank">GitHub</a>
-                        <a>LinkedIn</a>
+                        {/* <a>LinkedIn</a> */}
                     </div>
                 </div>
             </div>
