@@ -6,7 +6,7 @@ end
 
 json.coverUrl url_for(album.cover)
 
-if user.background.attachment
+if album.background.attachment
     json.backgroundUrl url_for(album.background)
     json.smallBackgroundUrl url_for(album.small_background)
 else
