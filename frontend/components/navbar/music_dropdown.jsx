@@ -5,7 +5,7 @@ export default ({ closeDropdown }) => {
     useEffect(() => {
         const handleClick = e => {
             const musicDropdown = document.getElementById('music-dropdown');
-            if (!musicDropdown.contains(e.target)) closeDropdown();
+            if (!musicDropdown || !musicDropdown.contains(e.target)) closeDropdown();
         };
 
         document.addEventListener('click', handleClick);
