@@ -8,7 +8,7 @@ end
 
 json.listItems do 
     json.array! @list.list_items do |list_item|
-        json.extract! list_item, :item_id, :order_number, :item_type, :list_id
+        json.extract! list_item, :item_id, :order_number, :item_type, :list_id, :id
     end
 end
 

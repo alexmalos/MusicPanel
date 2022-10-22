@@ -35,10 +35,10 @@ export default props => {
                 <SubjectIcon />
                 <p>Reviews</p>
             </Link>
-            {/* <Link to='/lists' className='dropdown-element dropdown-link'>
+            <Link to='/lists' className='dropdown-element dropdown-link'>
                 <ListIcon />
                 <p>Lists</p>
-            </Link> */}
+            </Link>
             <div className='dropdown-divider'></div>
             <button className='dropdown-element dropdown-button' onClick={props.logout}>
                 <CancelIcon />

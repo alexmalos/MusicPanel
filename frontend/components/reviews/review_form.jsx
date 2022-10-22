@@ -193,7 +193,7 @@ export default props => {
                     onChange={update('body')}
                     placeholder='Add a review...'
                 />
-                <div className="submitButtons">
+                <div className="submit-buttons">
                     {
                         formType ?
                             <button className="submit delete" onClick={deleteReview}>

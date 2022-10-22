@@ -6,7 +6,7 @@ import DiscographyGrid from './discography_grid';
 
 export default ({ artist, albums, loggedIn, openModal }) => {
     const artistBirthdayString = () => {
-        const date = new Date(artist.birthday.split('-'));
+        const date = new Date(...(artist.birthday.split('-')));
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return date.toLocaleDateString('en-US', options);
     };

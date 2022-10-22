@@ -6,6 +6,8 @@ import ModalContainer from "./modal/modal_container";
 import SplashContainer from "./splash/splash_container";
 import ReviewShowContainer from "./reviews/review_show_container";
 import ListShowContainer from "./lists/list_show_container";
+import EditListContainer from "./lists/edit_list_container";
+import NewListContainer from "./lists/new_list_container";
 import AlbumShowContainer from "./album/album_show_container";
 import ArtistShowContainer from "./artist/artist_show_container";
 import TrackShowContainer from "./track/track_show_container";
@@ -36,7 +38,9 @@ const App = ({ modal, alerts }) => (
       <Route exact path="/reviews/:reviewId" component={ReviewShowContainer} />
       <Route exact path="/users/:userId/reviews" component={UserReviewsContainer} />
       <Route exact path="/users/:userId" component={UserShowContainer} />
-      {/* <Route exact path="/lists/:listId" component={ListShowContainer} /> */}
+      <Route exact path="/lists/:listId/edit" component={EditListContainer} />
+      <Route exact path="/lists/new" component={NewListContainer} />
+      <Route exact path="/lists/:listId" component={ListShowContainer} />
       <Route exact path="/reviews" component={ReviewIndex}/>
       <AuthRoute exact path="/" component={SplashContainer} />
       <Route path="/" component={PageNotFound} />

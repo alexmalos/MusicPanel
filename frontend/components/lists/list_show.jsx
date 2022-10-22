@@ -89,7 +89,7 @@ export default ({ listId, sessionId, fetchList, entities, openModal }) => {
                         </Link>
                         <Link to={`/users/${list.authorId}`} className='user-username'>{entities.users[list.authorId].username}</Link>
                     </div>
-                    <p className='list-date'>{listDateString()}</p>
+                    <p className='list-date'>Updated {listDateString()}</p>
                 </div>
                 <div className='list-title'>
                     <h4>{list.title}</h4>

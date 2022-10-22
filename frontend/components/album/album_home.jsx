@@ -39,7 +39,7 @@ export default props => {
     };
 
     const albumReleaseDateString = () => {
-        const date = new Date(album.releaseDate.split('-'));
+        const date = new Date(...(album.releaseDate.split('-')));
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return date.toLocaleDateString('en-US', options);
     };

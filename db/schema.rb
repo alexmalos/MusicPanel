@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_26_072837) do
+ActiveRecord::Schema.define(version: 2022_09_21_034225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2022_08_26_072837) do
     t.string "spotify", null: false
   end
 
-  create_table "list_items", id: false, force: :cascade do |t|
+  create_table "list_items", force: :cascade do |t|
     t.integer "list_id", null: false
     t.string "item_type", null: false
     t.integer "item_id", null: false

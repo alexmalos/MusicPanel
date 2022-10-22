@@ -18,7 +18,9 @@ export default props => {
         const handleClick = e => {
             const modalWindow = document.getElementsByClassName('modal-window')[0];
             if (e.target.id !== 'create-account-button' && modalWindow &&
-                !modalWindow.contains(e.target)) closeModal();
+            !modalWindow.contains(e.target) && e.target.id !== 'delete-button') {
+                closeModal();
+            }
         };
 
         document.addEventListener('click', handleClick);
@@ -26,7 +28,7 @@ export default props => {
         return () => document.removeEventListener('click', handleClick);
     }, []);
 
-    const [reviewInProgress, setReviewInProgress] = useState((false));
+    const [reviewInProgress, setReviewInProgress] = useState(false);
     // console.log(reviewInProgress);
 
     let component, headerText;
@@ -80,6 +82,10 @@ export default props => {
                         />;
             headerText = 'Edit Rating';
             wideModal = true;
+            break;
+        case 'deleteList':
+            component = props.component;
+            headerText = 'Delete List';
             break;
         default:
             return null;

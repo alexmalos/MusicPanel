@@ -45,9 +45,8 @@ export const fetchList = id => dispatch => (
   ))
 );
 
-export const createList = list => dispatch => (
-    APIUtil.createList(list).then(data => {
-      dispatch(receiveList(data));
+export const createList = data => dispatch => (
+    APIUtil.createList(data).then(data => {
       dispatch(openAlert({
         list: data.list,
         alertType: 'newList',
@@ -56,9 +55,8 @@ export const createList = list => dispatch => (
     })
 );
 
-export const updateList = list => dispatch => (
-  APIUtil.updateList(list).then(data => {
-    dispatch(receiveList(data));
+export const updateList = data => dispatch => (
+  APIUtil.updateList(data).then(data => {
     dispatch(openAlert({
         list: data.list,
         alertType: 'editList',

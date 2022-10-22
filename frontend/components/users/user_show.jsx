@@ -34,7 +34,8 @@ export default ({ sessionId, userId, fetchUser, entities }) => {
 
         fetchUser(userId).then(({ user, reviews }) => {
             setUser(user);
-            setReviews(Object.values(reviews));
+            if (reviews) setReviews(Object.values(reviews));
+            else setReviews([]);
         }, () => setPageNotFound(true));
     }, [userId]);
 
