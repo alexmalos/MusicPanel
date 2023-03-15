@@ -6,16 +6,20 @@ import ModalContainer from "./modal/modal_container";
 import SplashContainer from "./splash/splash_container";
 import ReviewShowContainer from "./reviews/review_show_container";
 import ListShowContainer from "./lists/list_show_container";
+import EditListContainer from "./lists/edit_list_container";
+import NewListContainer from "./lists/new_list_container";
 import AlbumShowContainer from "./album/album_show_container";
 import ArtistShowContainer from "./artist/artist_show_container";
 import TrackShowContainer from "./track/track_show_container";
 import MusicIndexContainer from "./music/music_index_container";
 import ReviewIndex from "./reviews/review_index";
+import ListIndex from "./lists/list_index";
 import Navbar from "./navbar/navbar";
 import PageNotFound from "./page_not_found";
 import AlertContainer from "./alert/alert_container";
 import UserShowContainer from "./users/user_show_container";
 import UserReviewsContainer from "./users/user_reviews_container";
+import UserListsContainer from "./users/user_lists_container";
 
 const App = ({ modal, alerts }) => (
   <div>
@@ -35,9 +39,13 @@ const App = ({ modal, alerts }) => (
       </Route>
       <Route exact path="/reviews/:reviewId" component={ReviewShowContainer} />
       <Route exact path="/users/:userId/reviews" component={UserReviewsContainer} />
+      <Route exact path="/users/:userId/lists" component={UserListsContainer} />
       <Route exact path="/users/:userId" component={UserShowContainer} />
-      {/* <Route exact path="/lists/:listId" component={ListShowContainer} /> */}
+      <Route exact path="/lists/:listId/edit" component={EditListContainer} />
+      <Route exact path="/lists/new" component={NewListContainer} />
+      <Route exact path="/lists/:listId" component={ListShowContainer} />
       <Route exact path="/reviews" component={ReviewIndex}/>
+      <Route exact path="/lists" component={ListIndex}/>
       <AuthRoute exact path="/" component={SplashContainer} />
       <Route path="/" component={PageNotFound} />
     </Switch>

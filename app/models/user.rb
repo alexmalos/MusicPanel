@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
     has_many :reviews, foreign_key: :author_id
 
+    has_many :lists, foreign_key: :author_id
+
     has_one_attached :profile_photo
 
     def self.find_by_credentials(username, password)

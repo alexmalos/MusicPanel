@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-export default ({ sessionId, openLoginModal, user, itemId, itemType, renderModal, reviewType }) => {
+export default ({ sessionId, openModal, user, itemId, itemType, renderModal, reviewType }) => {
     const editOption = () => {
         if (itemType === 'list') return (
             <Link to={`/lists/${itemId}/edit`} className='first-option last-option'>
@@ -24,7 +24,7 @@ export default ({ sessionId, openLoginModal, user, itemId, itemType, renderModal
                         <Link to={`/users/${user.id}`}>{user.username[0].toUpperCase() + user.username.slice(1)}</Link> is using MusicPanel to keep track of all the music they listen to and to share their passion for music with friends.
                         <br />
                         <br />
-                        <button onClick={openLoginModal}>Create an account</button> to {itemType === 'list' ? 'curate lists of your own' : 'write and share your own reviews'}.
+                        <button onClick={() => openModal('signup')}>Create an account</button> to {itemType === 'list' ? 'curate lists of your own' : 'write and share your own reviews'}.
                     </p>
             }
             <div className='option-menu'>

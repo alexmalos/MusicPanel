@@ -83,6 +83,22 @@
                 .artist-image-div, .album-cover-div {
                     position: relative;
 
+                    .list-item-order-number {
+                        z-index: 1;
+                        position: absolute;
+                        bottom: 0;
+                        left: 50%;
+                        transform: translateX(-50%) translateY(33%);
+                        background-color: $darkGrayWhite;
+                        border-radius: 1000px;
+                        width: 24px;
+                        height: 24px;
+                        text-align: center;
+                        line-height: 24px;
+                        font-size: 11px;
+                        color: $darkGray;
+                    }
+
                     .artist-image-link, .album-cover-link {
                         position: initial;
                         width: 100%;
@@ -152,6 +168,338 @@
     }
 }
 
+.list-edit {
+    padding: 0 32px 64px;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 48px;
+
+    .list-edit-flex { display: flex; }
+
+    #list-back-link {
+        margin-bottom: 16px;
+        display: block;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        height: 32px;
+        padding: 0px 16px;
+        background-color: $lightGray;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        transition: background-color .2s;
+        
+        p {
+            font-size: 14px;
+            line-height: 14px;
+            font-weight: 600;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: -12px;
+            width: 0;
+            border-top: 16px solid transparent;
+            border-bottom: 16px solid transparent;
+            border-right: 12px solid $lightGray;
+            transition: border-right .2s;
+        }
+
+        &:hover {
+            background-color: $darkLightGray;
+            transition: background-color 0ms;
+            animation: buttonLeft .3s cubic-bezier(.5,0,.51,.99);
+
+            &::before {
+                border-right: 12px solid $darkLightGray;
+                transition: border-right 0ms;
+            }
+        }
+    }
+
+    .left-body-div {
+        margin-right: 32px;
+        margin-top: 16px;
+        flex: 2 2;
+
+        h4 {
+            padding-bottom: 12px;
+            pointer-events: none;
+        }
+
+        .empty-list-text {
+            padding: 64px 32px;
+            margin-top: 16px;
+            color: $highDarkGray;
+            text-align: center;
+        }
+
+        .list-container {
+            display: flex;
+            flex-direction: column;
+
+            .item-container {
+                margin-top: 16px;
+                cursor: grab;
+                
+                .list-item {
+                    &:hover, &:active { background-color: $lightGray; }
+                    background-color: $darkGray;
+                    border-radius: 4px;
+                    padding: 16px;
+                    transition: background-color .2s;
+                    display: flex;
+                    align-items: center;
+
+                    .order-number {
+                        margin-right: 16px;
+                        width: 20px;
+                        text-align: center;
+                    }
+        
+                    .artist-image-div, .album-cover-div {
+                        position: relative;
+                        min-width: 60px;
+                        min-height: 60px;
+                        width: 60px;
+                        height: 60px;
+        
+                        .artist-image-link, .album-cover-link {
+                            position: initial;
+                            width: 100%;
+                            height: 100%;
+                            
+                            * {
+                                width: 100%;
+                                height: 100%;
+                                min-width: 100%;
+                                vertical-align: bottom;
+                            }
+        
+                            .link-border, .cover-border {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                box-shadow: 0 1px 0 rgba(228,230,234,0.4) inset,0 -1px 0 #e4e6ea66 inset,1px 0 0 #e4e6ea66 inset,-1px 0 0 #e4e6ea66 inset;
+                                border-radius: 3px;
+                                transition: box-shadow .25s;
+                            }
+                        }
+                
+                        .artist-image-link * {
+                            border-radius: 1000px!important;
+                        }
+        
+                        .album-cover-link {
+                            img { border-radius: 4px; }
+                            .cover-border { border-radius: 3px; }
+                        }
+                    }
+    
+                    .item-flex {
+                        width: 100%;
+                        margin-left: 16px;
+                        .item-link {
+                            margin: 0;
+                            text-align: left;
+                        }
+                    }
+        
+                    .item-link {
+                        width: 100%;
+                        margin-left: 16px;
+                        font-size: 16px;
+                        line-height: normal;
+                        font-weight: 600;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+        
+                    .artist-link {
+                        color: $highDarkGray;
+                        margin-top: 4px;
+                        line-height: normal;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+    
+                    svg, path {
+                        color: $highDarkGray;
+                        width: 24px;
+                        height: 24px;
+                        transition: color .2s;
+                    }
+    
+                    .delete {
+                        cursor: pointer;
+                        width: 24px;
+                        height: 24px;
+                        &:hover {
+                            color: $red;
+                            path { color: $red; }
+                        }
+                    }
+    
+                    .reorder {
+                        margin-left: 16px;
+                        &:hover {
+                            color: $blue;
+                            path { color: $blue; }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .right-body-div {
+        flex: 1 1;
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+
+        > * { margin-top: 24px; }
+
+        h4 { margin-top: 0; }
+        
+        button { margin-top: 16px; }
+
+        .checkbox-flex {
+            display: flex;
+            justify-content: space-between;
+
+            > * { flex: 1 1; }
+        }
+
+        .form-input {
+            display: block;
+            margin-top: 16px;
+            // width: 100%;
+        }
+
+        #update-button:disabled {
+            opacity: .5;
+            pointer-events: none;
+        }
+
+        #delete-button {
+            background-color: $red;
+
+            &:hover { background-color: $redLight; }
+        }
+
+        .checkbox-div {
+            input { display: none; }
+
+            label {
+                display: flex;
+                align-items: center;
+                margin-top: 8px;
+                width: fit-content;
+                cursor: pointer;
+
+                .checkbox-span {
+                    background-color: $darkGray;
+                    border: 1px solid $darkLightGray;
+                    height: 24px;
+                    width: 24px;
+                    border-radius: 4px;
+                    transition: border .2s;
+                    cursor: pointer;
+                    position: relative;
+                    
+                    svg, path {
+                        width: 20px;
+                        height: 20px;
+                        top: 2px;
+                        left: 2px;
+                        position: absolute;
+                        opacity: 0;
+                        color: white;
+                    }
+
+                    &:hover { border: 1px solid $gray; }
+                }
+
+
+                .checkbox-text {
+                    color: $highDarkGray;
+                    margin-left: 8px;
+                    transition: color .2s;
+                }
+            }
+
+            input:checked + label {
+                .checkbox-span {
+                    background-color: $green;
+                    border: 1px solid $green;
+                    transition: border 0ms;
+                    
+                    svg, path { opacity: 1; }
+                }
+
+                .checkbox-text { color: $offWhite; }
+            }
+
+            input:disabled + label { pointer-events: none; }
+        }
+    
+        .option-menu {
+            background-color: $darkGray;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+    
+            .first-option {
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            }
+    
+            .last-option {
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                border-bottom: none !important;
+            }
+    
+            button, a {
+                padding: 16px;
+                border-bottom: 1px solid $lightGray;
+                transition: background-color .2s, color .2s;
+                font-size: 16px;
+                line-height: 20px;
+                font-weight: 600;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+    
+                &:hover {
+                    background-color: $lightGray;
+                    transition: color 0ms, background-color 0ms;
+                    color: $blue;
+    
+                    svg, path {
+                        color: $blue;
+                        transition: color 0ms;
+                    }
+                }
+    
+                svg {
+                    height: 16px;
+                    width: 16px;
+                    padding: 0 8px;
+                }
+    
+                svg, path { transition: color .2s; }
+            }
+        }
+    }
+}
+
 .list-body, .review-body {
     .right-body-div {
         flex: 1 1;
@@ -196,7 +544,7 @@
             .last-option {
                 border-bottom-left-radius: 8px;
                 border-bottom-right-radius: 8px;
-                border-bottom: none;
+                border-bottom: none !important;
             }
     
             button, a {
@@ -231,6 +579,204 @@
                 svg, path { transition: color .2s; }
             }
     
+        }
+    }
+}
+
+.edit-list-modal {
+    padding: 16px;
+
+    p { color: $highDarkGray; }
+
+    .button-div {
+        margin-top: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    button, a {
+        height: 40px;
+        padding: 0 24px;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 4px;
+    }
+
+    #no-button {
+        margin-right: 16px;
+
+        &:hover {
+            background-color: $darkLightGray;
+            transition: background-color 0ms;
+        }
+    }
+
+    #delete-link {
+        line-height: 40px;
+        background-color: $red;
+
+        &:hover {
+            background-color: $redLight;
+            transition: background-color 0ms;
+        }
+    }
+}
+
+.music-lists-body, .user-lists-body, .user-home-body {
+    display: flex;
+
+    h4 {
+        margin-top: 32px;
+        margin-bottom: 12px;
+        pointer-events: none;
+        line-height: normal;
+    }
+
+    .left-body-div {
+        margin-right: 32px;
+        flex: 2 2;
+
+        .list-list, .pinned-items {
+            border-radius: 8px;
+            background-color: $darkGray;
+
+            .first-list {
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            }
+
+            .last-list {
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                border-bottom: none!important;
+            }
+
+            .list-div {
+                position: relative;
+                padding: 16px;
+                border-bottom: 1px solid $lightGray;
+                transition: background-color .2s;
+
+                &:hover {
+                    background-color: $lightGray;
+                    transition: background-color 0ms;
+                }
+
+                * {
+                    position: relative;
+                    pointer-events: none;
+                }
+
+                .link-overlay {
+                    position: absolute;
+                    pointer-events: all;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                }
+
+                .list-items-row {
+                    display: flex;
+                    align-items: center;
+
+                    .shifted { margin-left: -35px; }
+
+                    .album-cover-div {
+                        position: relative;
+                        
+                        * {
+                            width: 88px;
+                            height: 88px;
+                            border-radius: 4px;
+                            vertical-align: bottom;
+                        }
+                
+                        .cover-border {
+                            pointer-events: all;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            box-shadow: 0 1px 0 $borderColor inset,0 -1px 0 $borderColor inset,1px 0 0 $borderColor inset,-1px 0 0 $borderColor inset;
+                            transition: box-shadow .25s;
+        
+                            &:hover {
+                                box-shadow: 0 3px 0 #009fff inset, 0 -3px 0 #009fff inset, 3px 0 0 #009fff inset, -3px 0 0 #009fff inset;
+                            }
+                        }
+                    }
+
+                    .artist-image-link {
+                        width: 88px;
+                        height: 88px;
+                
+                        .link-border {
+                            position: absolute;
+                            pointer-events: all;
+                        }
+                    }
+                }
+
+                .list-title-div {
+                    display: flex;
+
+                    .lock-icon {
+                        margin-top: 16px;
+                        margin-left: 6px;
+                        width: 16px;
+                        height: 16px;
+                        color: $gray;
+                
+                        path { color: $gray; }
+                    }
+                }
+
+                .list-title { margin-top: 14px; }
+
+                .list-text-div { margin-top: 8px; }
+
+                .list-author-info {
+                    margin-top: 12px;
+                    display: flex;
+                    align-items: center;
+
+                    .profile-button {
+                        pointer-events: all;
+                        min-width: 32px;
+                        min-height: 32px;
+                        width: 32px;
+                        height: 32px;
+                    
+                        svg {
+                            width: 16px;
+                            height: 16px;
+                        }
+                    }
+
+                    .list-author-username {
+                        margin-left: 8px;
+                        pointer-events: all;
+                        font-size: 16px;
+                        line-height: normal;
+                        font-weight: 600;
+
+                        &:hover { color: $blue; }
+                    }
+                }
+            }
+        }
+    }
+
+    .right-body-div {
+        flex: 1 1;
+
+        .filter-div {
+            position: sticky;
+            top: 56px;
         }
     }
 }

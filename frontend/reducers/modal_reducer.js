@@ -1,21 +1,30 @@
 import {
     OPEN_MODAL,
-    CLOSE_MODAL
+    CLOSE_MODAL,
+    CLOSE_MODAL_CONFIRM
 } from '../actions/modal_actions';
 
 const _nullModal = Object.freeze({
     modalType: null,
-    data: false
+    data: false,
+    modalConfirm: null
 });
 
-export default (state = _nullModal, { type, modalType, data }) => {
+export default (state = _nullModal, { type, modalType, data, modalConfirm }) => {
     switch (type) {
         case OPEN_MODAL:
             document.body.classList.add('modal-open');
-            return { modalType, data };
+            return { modalType, data, modalConfirm };
         case CLOSE_MODAL:
-            document.body.classList.remove('modal-open');
-            return _nullModal;
+            if (state.modalConfirm && !window.confirm(state.modalConfirm)) return state;
+            else {
+                document.body.classList.remove('modal-open');
+                return _nullModal;
+            }
+        case CLOSE_MODAL_CONFIRM:
+            const newState = Object.assign({}, state);
+            newState.modalConfirm = modalConfirm;
+            return newState;
         default:
             return state;
     }

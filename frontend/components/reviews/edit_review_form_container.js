@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
-import { closeModal } from '../../actions/modal_actions';
+import { closeModal, closeModalConfirm } from '../../actions/modal_actions';
 import { updateReview } from '../../actions/review_actions';
 import { deleteReview } from '../../actions/review_actions';
+import { openAlert } from '../../actions/alert_actions';
 import ReviewForm from './review_form';
 
 const mapStateToProps = ({ entities }) => ({
@@ -15,8 +16,10 @@ const mapDispatchToProps = dispatch => ({
     },
     deleteReview: id => {
         dispatch(deleteReview(id));
-        dispatch(closeModal());
-    }
+        // dispatch(closeModal());
+    },
+    closeModalConfirm: modalConfirm => dispatch(closeModalConfirm(modalConfirm)),
+    openAlert: data => dispatch(openAlert(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);

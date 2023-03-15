@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import ExplicitIcon from '@mui/icons-material/Explicit';
 import CheckIcon from '@mui/icons-material/Check';
 import RatingStars from "./rating_stars";
 
 export default props => {
-    const { authorId, itemType, itemId, entities, setReviewInProgress, formType } = props;
+    const { authorId, itemType, itemId, entities, formType, closeModalConfirm, openAlert } = props;
+    const pathname = useLocation().pathname;
     
     let item;
     switch (itemType) {
@@ -37,6 +39,7 @@ export default props => {
 
     const deleteReview = e => {
         e.preventDefault();
+        closeModalConfirm(null);
         props.deleteReview(state.id);
     };
 
@@ -58,15 +61,15 @@ export default props => {
         if (state.title === '' && state.body === '') {
             setIsReview(false);
             if (formType && (state.title !== review.title || state.body !== review.body)) {
-                setReviewInProgress(true);
+                closeModalConfirm("Are you sure you want to discard this review? All changes will be lost.");
             }
-            else setReviewInProgress(false);
+            else closeModalConfirm(null);
         } else {
             setIsReview(true);
             if (formType && (state.title === review.title || state.body === review.body)) {
-                setReviewInProgress(false);
+                closeModalConfirm(null);
             }
-            else setReviewInProgress(true);
+            else closeModalConfirm("Are you sure you want to discard this review? All changes will be lost.");
         }
     }, [state.title, state.body])
 
@@ -96,7 +99,15 @@ export default props => {
             item_type: itemType,
             item_id: itemId
         });
+        closeModalConfirm(null);
         props.processForm(review);
+        if (formType && !pathname.includes(review.id)) {
+            openAlert({
+                review,
+                alertType: isReview ? 'editReview' : 'editRating',
+                fired: false
+            });
+        }
     };
 
     const update = field => e => {
@@ -193,7 +204,7 @@ export default props => {
                     onChange={update('body')}
                     placeholder='Add a review...'
                 />
-                <div className="submitButtons">
+                <div className="submit-buttons">
                     {
                         formType ?
                             <button className="submit delete" onClick={deleteReview}>

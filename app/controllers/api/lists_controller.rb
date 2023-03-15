@@ -19,14 +19,27 @@ class Api::ListsController < ApplicationController
     def create
         @list = List.new(list_params)
         @list.nilify_blank_description
-        @artists = @list.items('Artist')
-        @albums = @list.items('Album')
-        @tracks = @list.items('Track')
-        render "/api/lists/show" if @list.save!
+        if @list.save!
+            params[:list_items].each do |item|
+                item = item[1]
+                list_item = ListItem.new(list_item_params(item))
+                list_item.list_id = @list.id
+                list_item.save
+            end
+            @artists = @list.items('Artist')
+            @albums = @list.items('Album')
+            @tracks = @list.items('Track')
+            render "/api/lists/show"
+        end
     end
 
     def update
         @list = List.find(params[:id])
+        params[:list_items].each do |item|
+            item = item[1]
+            list_item = ListItem.find(item[:id])
+            list_item.update(list_item_params(item))
+        end
         if @list.update(list_params)
             @list.nilify_blank_description
             @list.save!
@@ -44,6 +57,10 @@ class Api::ListsController < ApplicationController
         @tracks = @list.items('Track')
         @list.destroy
         render "/api/lists/show"
+    end
+
+    def list_item_params(item)
+        item.permit(:id, :list_id, :order_number, :item_type, :item_id)
     end
     
     private

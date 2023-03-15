@@ -45,24 +45,19 @@ export const fetchReview = id => dispatch => (
 
 export const createReview = review => dispatch => (
     APIUtil.createReview(review).then(data => {
-      dispatch(receiveReview(data));
       dispatch(openAlert({
         review: data.review,
-        alertType: 'newReview',
+        alertType: data.review.title || data.review.body ? 'newReview' : 'newRating',
         fired: false
       }));
+      return dispatch(receiveReview(data));
     })
 );
 
 export const updateReview = review => dispatch => (
-  APIUtil.updateReview(review).then(data => {
-    dispatch(receiveReview(data));
-    dispatch(openAlert({
-        review: data.review,
-        alertType: 'editReview',
-        fired: false
-    }));
-  })
+  APIUtil.updateReview(review).then(data => (
+    dispatch(receiveReview(data))
+  ))
 );
 
 export const deleteReview = id => dispatch => (

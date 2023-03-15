@@ -8,6 +8,11 @@ json.albums do
             json.partial! "api/albums/album", album: album
         end
     end
+    Album.where("'#{@artist.name}' = ANY (collaborators)").each do |album|
+        json.set! album.id do
+            json.partial! "api/albums/album", album: album
+        end
+    end
 end
 
 if @artist.reviews.empty?

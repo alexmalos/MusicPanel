@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import PageNotFound from '../page_not_found';
 import ModalContainer from '../modal/modal_container';
 import PersonIcon from '@mui/icons-material/Person';
@@ -16,6 +17,7 @@ export default ({ reviewId, sessionId, openModal, fetchReview, modalType, review
     const [pageNotFound, setPageNotFound] = useState(false);
     const [modal, setModal] = useState(null);
     const [user, setUser] = useState(null);
+    const [loaded, setLoaded] = useState(false);
 
     const contentLoaded = () => {
         switch (review.itemType) {
@@ -151,6 +153,7 @@ export default ({ reviewId, sessionId, openModal, fetchReview, modalType, review
         setTrack(null);
         setUser(null);
         setPageNotFound(false);
+        setLoaded(false);
 
         fetchReview(reviewId)
             .then(({ album, artist, track, review, user }) => {
@@ -159,6 +162,7 @@ export default ({ reviewId, sessionId, openModal, fetchReview, modalType, review
                 setArtist(artist);
                 setTrack(track);
                 setUser(user);
+                setLoaded(true);
             }, () => setPageNotFound(true));
     }, [reviewId]);
 
@@ -215,5 +219,6 @@ export default ({ reviewId, sessionId, openModal, fetchReview, modalType, review
             {modal}
         </div>
     );
+    else if (loaded && user && !review) return <Redirect to={`/users/${user.id}`} />
     else return null;
 };

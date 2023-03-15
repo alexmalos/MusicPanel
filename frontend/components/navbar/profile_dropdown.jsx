@@ -11,7 +11,7 @@ export default props => {
     useEffect(() => {
         const handleClick = e => {
             const profileDropdown = document.getElementById('profile-dropdown');
-            if (!profileDropdown.contains(e.target)) props.closeDropdown();
+            if (profileDropdown && !profileDropdown.contains(e.target)) props.closeDropdown();
         };
 
         document.addEventListener('click', handleClick);
@@ -35,10 +35,10 @@ export default props => {
                 <SubjectIcon />
                 <p>Reviews</p>
             </Link>
-            {/* <Link to='/lists' className='dropdown-element dropdown-link'>
+            <Link to={`/users/${currentUser.id}/lists`} className='dropdown-element dropdown-link' onClick={closeDropdown}>
                 <ListIcon />
                 <p>Lists</p>
-            </Link> */}
+            </Link>
             <div className='dropdown-divider'></div>
             <button className='dropdown-element dropdown-button' onClick={props.logout}>
                 <CancelIcon />

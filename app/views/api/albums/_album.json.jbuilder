@@ -4,6 +4,12 @@ json.trackIds do
     json.array! album.tracks.map { |track| track.id }
 end
 
+if album.collaborators.length > 0
+    json.collaborators do
+        json.array! album.collaborators.map { |collaborator| { name: collaborator, id: Artist.find_by(name: collaborator) ? Artist.find_by(name:collaborator).id : nil } }
+    end
+end
+
 json.coverUrl url_for(album.cover)
 
 if album.background.attachment

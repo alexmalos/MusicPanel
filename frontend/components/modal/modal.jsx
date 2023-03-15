@@ -7,18 +7,9 @@ import EditReviewFormContainer from '../reviews/edit_review_form_container';
 import NewReviewFormContainer from '../reviews/new_review_form_container';
 
 export default props => {
-    const closeModal = () => {
-        // console.log(reviewInProgress);
-        if (!reviewInProgress || window.confirm("Are you sure you want to discard this review? All changes will be lost.")) {
-            props.closeModal();
-        }
-    };
-
     useEffect(() => {
         const handleClick = e => {
-            const modalWindow = document.getElementsByClassName('modal-window')[0];
-            if (e.target.id !== 'create-account-button' && modalWindow &&
-                !modalWindow.contains(e.target)) closeModal();
+            if (['modal-overlay', 'modal-content'].includes(e.target.id)) props.closeModal();
         };
 
         document.addEventListener('click', handleClick);
@@ -26,11 +17,10 @@ export default props => {
         return () => document.removeEventListener('click', handleClick);
     }, []);
 
-    const [reviewInProgress, setReviewInProgress] = useState((false));
-    // console.log(reviewInProgress);
-
-    let component, headerText;
+    let headerText;
     let wideModal = false;
+    let component = props.component;
+
     switch (props.modalType) {
         case 'login':
             component = <LoginFormContainer />;
@@ -52,7 +42,6 @@ export default props => {
                             authorId={props.authorId}
                             itemId={props.itemId}
                             itemType={props.itemType}
-                            setReviewInProgress={setReviewInProgress}
                         />;
             headerText = 'Create Review';
             wideModal = true;
@@ -62,7 +51,6 @@ export default props => {
                             authorId={props.authorId}
                             itemId={props.itemId}
                             itemType={props.itemType}
-                            setReviewInProgress={setReviewInProgress}
                             review={props.review}
                             formType='editReview'
                         />;
@@ -74,12 +62,23 @@ export default props => {
                             authorId={props.authorId}
                             itemId={props.itemId}
                             itemType={props.itemType}
-                            setReviewInProgress={setReviewInProgress}
                             review={props.review}
                             formType='editRating'
                         />;
             headerText = 'Edit Rating';
             wideModal = true;
+            break;
+        case 'deleteList':
+            headerText = 'Delete List';
+            break;
+        case 'managePins':
+            headerText = 'Manage Pins';
+            break;
+        case 'editProfile':
+            headerText = 'Profile';
+            break;
+        case 'changePfp':
+            headerText = 'Change Profile Picture';
             break;
         default:
             return null;
@@ -89,13 +88,25 @@ export default props => {
         <div id="modal-overlay">
             <div id="modal-content">
                 <div className="modal-window" id={wideModal ? 'wide-modal-window' : ''}>
-                    <div id="modal-header">
-                        <div id="left-placeholder"></div>
+                    {
+                        props.modalType === 'addToList' || props.modalType === 'managePins' || props.modalType == 'editProfile' ?
+                        <div id="modal-header">
+                            <button id="close-button" onClick={props.closeModal}>
+                                <CloseIcon/>
+                            </button>
+                            <h5>{props.headerText || headerText}</h5>
+                            <div id='header-placeholder'>
+                                <button id="save-button" disabled={props.saveDisabled} onClick={props.handleSave}>Save</button>
+                            </div>
+                        </div> :
+                        <div id="modal-header">
+                            <div id="header-placeholder"></div>
                             <h5>{headerText}</h5>
-                        <button id="close-button" onClick={closeModal}>
-                            <CloseIcon/>
-                        </button>
-                    </div>
+                            <button id="close-button" onClick={props.closeModal}>
+                                <CloseIcon/>
+                            </button>
+                        </div>
+                    }
                     {component}
                 </div>
             </div>

@@ -4,8 +4,9 @@ import PageNotFound from "../page_not_found";
 import RatingStars from "../reviews/rating_stars";
 import LockIcon from '@mui/icons-material/Lock';
 import ExplicitIcon from '@mui/icons-material/Explicit';
+import UserCollectionTabBar from "./user_collection_tab_bar";
 
-export default ({ sessionId, userId, fetchUser, entities, processForm }) => {
+export default ({ sessionId, userId, fetchUser, entities }) => {
     const [user, setUser] = useState(null);
     const [reviews, setReviews] = useState(null);
     const [pageNotFound, setPageNotFound] = useState(false);
@@ -13,16 +14,8 @@ export default ({ sessionId, userId, fetchUser, entities, processForm }) => {
     const reviewDivClass = idx => {
         let classText = 'review-div';
         if (idx === 0) classText += ' first-review';
-        if (idx === Object.keys(reviews).length - 1) classText += ' last-review';
+        if (idx === reviews.length - 1) classText += ' last-review';
         return classText;
-    };
-
-    const fullReviews = () => {
-        if (sessionId === userId) {
-            return reviews.filter(review => review.title || review.body);
-        } else {
-            return reviews.filter(review => (review.title || review.body) && !review.private);
-        }
     };
 
     useEffect(() => {
@@ -32,8 +25,11 @@ export default ({ sessionId, userId, fetchUser, entities, processForm }) => {
 
         fetchUser(userId).then(({ user, reviews }) => {
             setUser(user);
-            if (reviews) setReviews(Object.values(reviews));
-            else reviews = [];
+            if (sessionId === userId) {
+                setReviews(Object.values(reviews).filter(review => review.title || review.body));
+            } else {
+                setReviews(Object.values(reviews).filter(review => (review.title || review.body) && !review.private));
+            }
         }, () => setPageNotFound(true));
     }, [userId]);
 
@@ -93,71 +89,17 @@ export default ({ sessionId, userId, fetchUser, entities, processForm }) => {
         }
     };
 
-    // const [state, setState] = useState({ name: '', biography: '' });
-    // const [profilePhoto, setProfilePhoto] = useState(null);
-
-    // const handleSubmit = e => {
-    //     e.preventDefault();
-    //     const formData = new FormData();
-    //     formData.append('user[name]', state.name);
-    //     formData.append('user[biography]', state.biography);
-    //     formData.append('user[profile_photo]', profilePhoto.file)
-    //     processForm(user.id, formData);
-    // };
-
-    // const update = field => e => (
-    //     setState(Object.assign({}, state, { [field]: e.target.value }))
-    // );
-
-    // const handleFile = e => {
-    //     const file = e.currentTarget.files[0];
-    //     const fileReader = new FileReader();
-    //     fileReader.onloadend = () => {
-
-    //         setProfilePhoto({ file, url: fileReader.result })
-    //     };
-    //     if (file) fileReader.readAsDataURL(file);
-    // };
-    
-    // return (
-    //     <div className="settings-page">
-    //         <h4>Profile</h4>
-    //         <form id="profile-form" onSubmit={handleSubmit}>
-    //             <input type="file" onChange={handleFile}/>
-    //             <div className="form-input-div">
-    //                 <label className="form-text" htmlFor="name-input">Name</label>
-    //                 <input
-    //                     className="form-input"
-    //                     id="name-input"
-    //                     type="text"
-    //                     value={state.name}
-    //                     onChange={update('name')}
-    //                 />
-    //             </div>
-    //             <div className="form-input-div form-section">
-    //                 <label className="form-text" htmlFor="biography-input">Biography</label>
-    //                 <textarea
-    //                     className="form-input"
-    //                     id="biography-input"
-    //                     value={state.biography}
-    //                     onChange={update('biography')}
-    //                 />
-    //             </div>
-    //             <button className="submit" type="submit">Save</button>
-    //         </form>
-    //     </div>
-    // );
-
     if (pageNotFound) return <PageNotFound />;
     else if (user && reviews) return (
-        <div>
-            <div className="music-reviews-body">
+        <div className="user-collection">
+            <UserCollectionTabBar user={user} />
+            <div className="user-reviews-body">
                 <div className='left-body-div'>
                     <h4>Reviews by <Link className="user-reviews-profile-link" to={`/users/${user.id}`}>{user.username}</Link></h4>
                     <div className="review-list">
                         {
                             reviews.length > 0 ?
-                            fullReviews().map((review, idx) => (
+                            reviews.map((review, idx) => (
                                 <div className={reviewDivClass(idx)} key={review.id}>
                                     <Link to={`/reviews/${review.id}`} className='link-overlay'></Link>
                                     {reviewItemInfo(review)}
@@ -166,7 +108,6 @@ export default ({ sessionId, userId, fetchUser, entities, processForm }) => {
                                         <RatingStars id={review.title ? null : 'rating-stars-top'} rating={review.rating} />
                                         {review.private ? <LockIcon className='lock-icon'/> : null}
                                     </div>
-                                    {/* <RatingStars id={review.title ? null : 'rating-stars-top'} rating={review.rating}/> */}
                                     {
                                         review.body ?
                                             <div className="review-text-div" id="review-index-text-div">

@@ -12,19 +12,21 @@ export const fetchList = id => (
     })
 );
 
-export const createList = list => (
+export const createList = data => (
     $.ajax({
         url: '/api/lists',
         method: 'POST',
-        data: { list }
+        dataType: 'json',
+        data
     })
 );
 
-export const updateList = list => (
+export const updateList = data => (
     $.ajax({
-        url: `/api/lists/${list.id}`,
+        url: `/api/lists/${data.list.id}`,
         method: 'PATCH',
-        data: { list }
+        dataType: 'json',
+        data
     })
 );
 
@@ -32,5 +34,14 @@ export const deleteList = id => (
     $.ajax({
         url: `/api/lists/${id}`,
         method: 'DELETE'
+    })
+);
+
+export const createListItems = data => (
+    $.ajax({
+        url: '/api/list_items',
+        method: 'POST',
+        dataType: 'json',
+        data
     })
 );
