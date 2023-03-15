@@ -42,7 +42,7 @@ artists.each do |artist|
     new_artist.small_background.attach(
         io: open("https://music-panel-seeds.s3.amazonaws.com/#{artist_path}-background-small.jpeg"),
         filename: "#{artist_path}-background-small.jpeg"
-    )
+    ) #comment
 
     artist["albums"].each do |album|
         album["release_date"] = Date.new(*album["release_date"])
