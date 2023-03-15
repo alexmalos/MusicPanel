@@ -1,28 +1,47 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import ModalContainer from "../modal/modal_container";
 import PageNotFound from "../page_not_found";
 import PersonIcon from '@mui/icons-material/Person';
 import RatingStars from "../reviews/rating_stars";
 import ExplicitIcon from '@mui/icons-material/Explicit';
+import LockIcon from '@mui/icons-material/Lock';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import PushPinIcon from '@mui/icons-material/PushPin';
+import { Croppie } from "croppie";
 
-export default ({ sessionId, userId, fetchUser, entities }) => {
+export default ({ sessionId, userId, fetchUser, entities, openModal, modalType, updateList }) => {
     const [user, setUser] = useState(null);
     const [reviews, setReviews] = useState(null);
+    const [lists, setLists] = useState(null);
     const [pageNotFound, setPageNotFound] = useState(false);
+    const [currentPinnedTab, setCurrentPinnedTab] = useState('reviews');
 
-    const reviewDivClass = idx => {
-        let classText = 'review-div';
-        if (idx === 0) classText += ' first-review';
-        if (idx === Object.keys(reviews).length - 1) classText += ' last-review';
-        return classText;
+    const itemDivClass = (item, idx) => {
+        if (item.rating) {
+            let classText = 'review-div';
+            if (idx === 0) classText += ' first-review';
+            if (idx === pinnedItems().length - 1) classText += ' last-review';
+            return classText;
+        } else {
+            let classText = 'list-div';
+            if (idx === 0) classText += ' first-list';
+            if (idx === pinnedItems().length - 1) classText += ' last-list';
+            return classText;
+        }
     };
 
-    const pinnedReviews = () => {
+    const pinnedItems = () => {
+        let items;
         if (sessionId === userId) {
-            return reviews.filter(review => (review.title || review.body) && review.pinned);
+            items = fullReviews().filter(review => review.pinned).concat(lists.filter(list => list.pinned))
         } else {
-            return reviews.filter(review => (review.title || review.body) && review.pinned && !review.private);
+            items = fullReviews().filter(review => review.pinned && !review.private).concat(lists.filter(list => list.pinned && !list.private))
         }
+        return items.sort((a, b) => {
+            if (a.timestamp < b.timestamp) return 1;
+            else return -1;
+        });
     };
 
     const fullReviews = () => reviews.filter(review => review.title || review.body);
@@ -30,14 +49,45 @@ export default ({ sessionId, userId, fetchUser, entities }) => {
     useEffect(() => {
         setUser(null);
         setReviews(null);
+        setLists(null);
         setPageNotFound(false);
 
-        fetchUser(userId).then(({ user, reviews }) => {
+        fetchUser(userId).then(({ user, reviews, lists }) => {
             setUser(user);
-            if (reviews) setReviews(Object.values(reviews));
-            else setReviews([]);
+            setReviews(Object.values(reviews));
+            setLists(Object.values(lists));
         }, () => setPageNotFound(true));
     }, [userId]);
+
+    function readFile(input) {
+        let $uploadCrop = $('#croppie').croppie({
+			viewport: {
+				width: 200,
+				height: 200,
+				type: 'circle'
+			},
+			enableExif: true,
+            boundary: {
+                width: 200,
+                height: 200
+            }
+		});
+
+        if (input.files && input.files[0]) {
+           let reader = new FileReader();
+           
+           reader.onload = e => {
+               $('.croppie').addClass('ready');
+               $uploadCrop.croppie('bind', {
+                   url: e.target.result
+               });
+           }
+           
+           reader.readAsDataURL(input.files[0]);
+       } else {
+           alert("Sorry - your browser doesn't support the FileReader API");
+       }
+   }
 
     const reviewItemInfo = review => {
         switch (review.itemType) {
@@ -94,9 +144,80 @@ export default ({ sessionId, userId, fetchUser, entities }) => {
                 return null;
         }
     };
+
+    const listItemImage = ({ itemType, itemId }, idx) => {
+        switch (itemType) {
+            case 'Artist':
+                return (
+                    <Link to={`/artists/${itemId}`} className={`artist-image-link ${idx > 0 ? 'shifted' : ''}`} style={{ zIndex: 10 - idx }} key={idx}>
+                        <img src={entities.artists[itemId].photoUrl} alt="" />
+                        <div className='link-border'></div>
+                    </Link>
+                );
+            case 'Album':
+                return (
+                    <Link to={`/albums/${itemId}`} className={`album-cover-div ${idx > 0 ? 'shifted' : ''}`} style={{ zIndex: 10 - idx }} key={idx}>
+                        <img src={entities.albums[itemId].coverUrl} alt=""/>
+                        <div className='cover-border' id="album-cover-border"></div>
+                    </Link>
+                );
+            case 'Track':
+                return (
+                    <Link to={`/albums/${entities.tracks[itemId].albumId}`} className={`album-cover-div ${idx > 0 ? 'shifted' : ''}`} style={{ zIndex: 10 - idx }} key={idx}>
+                        <img src={entities.albums[entities.tracks[itemId].albumId].coverUrl} alt=""/>
+                        <div className='cover-border' id="album-cover-border"></div>
+                    </Link>
+                );
+            default:
+                return null;
+        }
+    };
+
+    const modal = () => {
+        switch (modalType) {
+            case 'managePins':
+                return (
+                    <div>
+                        <div className="pin-tabs">
+                            <button onClick={() => setCurrentPinnedTab('reviews')}
+                            className={currentPinnedTab === 'reviews' ? 'active' : ''}>Reviews</button>
+                            <button onClick={() => setCurrentPinnedTab('lists')}
+                            className={currentPinnedTab === 'lists' ? 'active' : ''}>Lists</button>
+                        </div>
+                        {
+                            currentPinnedTab === 'reviews' ?
+                            <div>
+    
+                            </div> :
+                            <div>
+    
+                            </div>
+                        }
+                    </div>
+                );
+            case 'editProfile':
+                return (
+                    <div>
+                        <button id="change-pfp-button" onClick={() => openModal('changePfp', true)}>
+                            <span>
+                                <PersonIcon />
+                            </span>
+                            Change profile picture
+                        </button>
+                        <p></p>
+                    </div>
+                );
+            case 'changePfp':
+                return (
+                    <div></div>
+                );
+            default:
+                break;
+        }
+    };
     
     if (pageNotFound) return <PageNotFound />;
-    else if (user && reviews) return (
+    else if (user && reviews && lists) return (
         <div>
             <div className='user-header'>
                 <div className='header-content'>
@@ -128,7 +249,7 @@ export default ({ sessionId, userId, fetchUser, entities }) => {
                                         </div>
                                     </div>
                                 </div>
-                                {/* {sessionId === userId ? <Link className="button">Edit Profile</Link> : null} */}
+                                {sessionId === userId ? <button onClick={() => openModal('editProfile', true)}>Edit Profile</button> : null}
                             </div>
                         </div>
                     </div>
@@ -145,34 +266,72 @@ export default ({ sessionId, userId, fetchUser, entities }) => {
                     </div>
                 </div>
             </div>
-            <div className="music-reviews-body">
+            <div className="user-home-body">
                 <div className='left-body-div'>
-                    <h4>Pinned</h4>
-                    <div className="review-list">
+                    <Link to={`/users/${userId}/pinned`} className='header-button'>
+                        <span>Pinned</span>
+                        <ChevronRightIcon className='right-arrow' />
+                    </Link>
+                    <div className="pinned-items">
                         {
-                            pinnedReviews().map((review, idx) => (
-                                <div className={reviewDivClass(idx)} key={review.id}>
-                                    <Link to={`/reviews/${review.id}`} className='link-overlay'></Link>
-                                    {reviewItemInfo(review)}
-                                    {review.title ? <h5 className="review-title">{review.title}</h5> : null}
-                                    <RatingStars id={review.title ? null : 'rating-stars-top'} rating={review.rating}/>
-                                    {
-                                        review.body ?
-                                            <div className="review-text-div" id="review-index-text-div">
-                                                <p>{review.body}</p>
-                                            </div> : null
-                                    }
-                                </div>
-                            ))
+                            (pinnedItems().length > 0) ? pinnedItems().map((item, idx) => {
+                                if (item.rating) return (
+                                    <div className={itemDivClass(item, idx)} key={item.id}>
+                                        <Link to={`/reviews/${item.id}`} className='link-overlay'></Link>
+                                        {reviewItemInfo(item)}
+                                        {item.title ? <h5 className="review-title">{item.title}</h5> : null}
+                                        <div className='user-rating-icons'>
+                                            <RatingStars id={item.title ? null : 'rating-stars-top'} rating={item.rating} />
+                                            {item.private ? <LockIcon className='lock-icon'/> : null}
+                                        </div>
+                                        {
+                                            item.body ?
+                                                <div className="review-text-div" id="review-index-text-div">
+                                                    <p>{item.body}</p>
+                                                </div> : null
+                                        }
+                                    </div>
+                                );
+                                else return (
+                                    <div className={itemDivClass(item, idx)} key={item.id}>
+                                        <Link to={`/lists/${item.id}`} className='link-overlay'></Link>
+                                        <div className="list-items-row">
+                                            {item.listItems.slice(0, 10).map((item, idx) => listItemImage(item, idx))}
+                                        </div>
+                                        <div className='list-title-div'>
+                                            <h5 className="list-title">{item.title}</h5>
+                                            {item.private ? <LockIcon className='lock-icon'/> : null}
+                                        </div>
+                                        {
+                                            item.description ?
+                                                <div className="list-text-div">
+                                                    <p>{item.description}</p>
+                                                </div> : null
+                                        }
+                                    </div>
+                                );
+                            }) :
+                            <div className="no-pins">
+                                <p>{sessionId === userId ? 'You have' : `${user.username} has`} no pinned content.</p>
+                                {sessionId === userId ? <button onClick={() => openModal('managePins', true)}>
+                                    <PushPinIcon />
+                                    <p>Pin a review.</p>
+                                </button> : null}
+                            </div>
+                            
                         }
                     </div>
                 </div>
                 <div className='right-body-div'>
                     <div className="filter-div">
                         {/* <h4>Filters</h4> */}
+                        <input type="file" id="upload" accept="image/*" onChange={event => readFile(event.currentTarget)}></input>
+                        <div id="croppie"></div>
                     </div>
                 </div>
             </div>
+            
+            <ModalContainer component={modal()} />
         </div>
     );
 };

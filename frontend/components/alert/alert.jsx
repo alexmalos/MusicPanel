@@ -11,10 +11,11 @@ export default ({ alerts, fireAlert, closeAlert, entities }) => {
         }
     }, [alerts]);
 
-    const alertText = ({ review, alertType }) => {
+    const alertText = ({ review, list, alertType }) => {
         let text;
         switch (alertType) {
             case 'newReview':
+            case 'newRating':
                 let itemText;
                 switch (review.itemType) {
                     case 'Artist':
@@ -29,10 +30,17 @@ export default ({ alerts, fireAlert, closeAlert, entities }) => {
                     default:
                         break;
                 }
-                text = <p>{`Thanks for rating ${itemText}!`} <Link to={`/reviews/${review.id}`}>View rating.</Link></p>;
+                text = <p>{`Thanks for ${alertType === 'newReview' ? 'reviewing' : 'rating'} ${itemText}!`} <Link to={`/reviews/${review.id}`}>View {alertType === 'newReview' ? 'review' : 'rating'}.</Link></p>;
                 break;
             case 'editReview':
-                text = <p>Your rating was changed. <Link to={`/reviews/${review.id}`}>View it here.</Link></p>;
+            case 'editRating':
+                text = <p>Your {alertType === 'editReview' ? 'review' : 'rating'} was changed. <Link to={`/reviews/${review.id}`}>View it here.</Link></p>;
+                break;
+            case 'newList':
+                text = <p>Thanks for creating this list!</p>
+                break;
+            case 'editList':
+                text = <p>Successfully updated list. <Link to={`/lists/${list.id}`}>View it here.</Link></p>
                 break;
             default:
                 break;

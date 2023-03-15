@@ -83,6 +83,22 @@
                 .artist-image-div, .album-cover-div {
                     position: relative;
 
+                    .list-item-order-number {
+                        z-index: 1;
+                        position: absolute;
+                        bottom: 0;
+                        left: 50%;
+                        transform: translateX(-50%) translateY(33%);
+                        background-color: $darkGrayWhite;
+                        border-radius: 1000px;
+                        width: 24px;
+                        height: 24px;
+                        text-align: center;
+                        line-height: 24px;
+                        font-size: 11px;
+                        color: $darkGray;
+                    }
+
                     .artist-image-link, .album-cover-link {
                         position: initial;
                         width: 100%;
@@ -446,7 +462,7 @@
             .last-option {
                 border-bottom-left-radius: 8px;
                 border-bottom-right-radius: 8px;
-                border-bottom: none;
+                border-bottom: none !important;
             }
     
             button, a {
@@ -528,7 +544,7 @@
             .last-option {
                 border-bottom-left-radius: 8px;
                 border-bottom-right-radius: 8px;
-                border-bottom: none;
+                border-bottom: none !important;
             }
     
             button, a {
@@ -604,6 +620,163 @@
         &:hover {
             background-color: $redLight;
             transition: background-color 0ms;
+        }
+    }
+}
+
+.music-lists-body, .user-lists-body, .user-home-body {
+    display: flex;
+
+    h4 {
+        margin-top: 32px;
+        margin-bottom: 12px;
+        pointer-events: none;
+        line-height: normal;
+    }
+
+    .left-body-div {
+        margin-right: 32px;
+        flex: 2 2;
+
+        .list-list, .pinned-items {
+            border-radius: 8px;
+            background-color: $darkGray;
+
+            .first-list {
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            }
+
+            .last-list {
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                border-bottom: none!important;
+            }
+
+            .list-div {
+                position: relative;
+                padding: 16px;
+                border-bottom: 1px solid $lightGray;
+                transition: background-color .2s;
+
+                &:hover {
+                    background-color: $lightGray;
+                    transition: background-color 0ms;
+                }
+
+                * {
+                    position: relative;
+                    pointer-events: none;
+                }
+
+                .link-overlay {
+                    position: absolute;
+                    pointer-events: all;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                }
+
+                .list-items-row {
+                    display: flex;
+                    align-items: center;
+
+                    .shifted { margin-left: -35px; }
+
+                    .album-cover-div {
+                        position: relative;
+                        
+                        * {
+                            width: 88px;
+                            height: 88px;
+                            border-radius: 4px;
+                            vertical-align: bottom;
+                        }
+                
+                        .cover-border {
+                            pointer-events: all;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            box-shadow: 0 1px 0 $borderColor inset,0 -1px 0 $borderColor inset,1px 0 0 $borderColor inset,-1px 0 0 $borderColor inset;
+                            transition: box-shadow .25s;
+        
+                            &:hover {
+                                box-shadow: 0 3px 0 #009fff inset, 0 -3px 0 #009fff inset, 3px 0 0 #009fff inset, -3px 0 0 #009fff inset;
+                            }
+                        }
+                    }
+
+                    .artist-image-link {
+                        width: 88px;
+                        height: 88px;
+                
+                        .link-border {
+                            position: absolute;
+                            pointer-events: all;
+                        }
+                    }
+                }
+
+                .list-title-div {
+                    display: flex;
+
+                    .lock-icon {
+                        margin-top: 16px;
+                        margin-left: 6px;
+                        width: 16px;
+                        height: 16px;
+                        color: $gray;
+                
+                        path { color: $gray; }
+                    }
+                }
+
+                .list-title { margin-top: 14px; }
+
+                .list-text-div { margin-top: 8px; }
+
+                .list-author-info {
+                    margin-top: 12px;
+                    display: flex;
+                    align-items: center;
+
+                    .profile-button {
+                        pointer-events: all;
+                        min-width: 32px;
+                        min-height: 32px;
+                        width: 32px;
+                        height: 32px;
+                    
+                        svg {
+                            width: 16px;
+                            height: 16px;
+                        }
+                    }
+
+                    .list-author-username {
+                        margin-left: 8px;
+                        pointer-events: all;
+                        font-size: 16px;
+                        line-height: normal;
+                        font-weight: 600;
+
+                        &:hover { color: $blue; }
+                    }
+                }
+            }
+        }
+    }
+
+    .right-body-div {
+        flex: 1 1;
+
+        .filter-div {
+            position: sticky;
+            top: 56px;
         }
     }
 }

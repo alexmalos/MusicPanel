@@ -24,9 +24,10 @@ class Api::UsersController < ApplicationController
     def show
       @user = User.find(params[:id])
       @reviews = @user.reviews
-      @artists = reviews_items(@reviews, 'Artist')
-      @albums = reviews_items(@reviews, 'Album')
-      @tracks = reviews_items(@reviews, 'Track')
+      @lists = @user.lists
+      @artists = (reviews_items(@reviews, 'Artist') + lists_items(@lists, 'Artist')).uniq
+      @albums = (reviews_items(@reviews, 'Album') + lists_items(@lists, 'Album')).uniq
+      @tracks = (reviews_items(@reviews, 'Track') + lists_items(@lists, 'Artist')).uniq
     end
 
     def update
@@ -51,5 +52,9 @@ class Api::UsersController < ApplicationController
     def reviews_items(reviews, item_type)
         type_reviews = reviews.select { |review| review.item_type == item_type }
         type_reviews.map { |review| review.item }
+    end
+
+    def lists_items(lists, item_type)
+        lists.map { |list| list.items(item_type) }.flatten.uniq
     end
 end

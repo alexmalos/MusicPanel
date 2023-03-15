@@ -52,21 +52,24 @@ export const createList = data => dispatch => (
         alertType: 'newList',
         fired: false
       }));
+      return dispatch(receiveList(data));
     })
 );
 
 export const updateList = data => dispatch => (
-  APIUtil.updateList(data).then(data => {
-    dispatch(openAlert({
-        list: data.list,
-        alertType: 'editList',
-        fired: false
-    }));
-  })
+  APIUtil.updateList(data).then(data => (
+    dispatch(receiveList(data))
+  ))
 );
 
 export const deleteList = id => dispatch => (
     APIUtil.deleteList(id).then(data => (
       dispatch(removeList(data))
     ))
+);
+
+export const createListItems = data => dispatch => (
+  APIUtil.createListItems(data).then(data => {
+    dispatch(receiveLists(data))
+  })
 );

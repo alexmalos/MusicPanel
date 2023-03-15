@@ -9,7 +9,7 @@ body.modal-open {
     left: 0;
     height: 100vh;
     width: 100vw;
-    z-index: 10;
+    z-index: 101;
     overflow-y: auto;
 }
 
@@ -19,7 +19,7 @@ body.modal-open {
     align-items: center;
     margin-top: 48px;
     margin-bottom: 80px;
-    min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 128px);
 }
 
 @keyframes modal-popup {
@@ -50,9 +50,61 @@ body.modal-open {
     }
 }
 
-#left-placeholder {
+#change-pfp-button {
+    padding: 32px;
+    width: 100%;
+    font-size: 14px;
+    line-height: 20px;
+
+    span {
+        margin: auto;
+        margin-bottom: 16px;
+        display: flex;
+        border-radius: 1000px;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+        min-width: 60px;
+        min-height: 60px;
+        background-color: $lightGray;
+        box-shadow: 0 1px 0 $borderColor inset,0 -1px 0 $borderColor inset,1px 0 0 $borderColor inset,-1px 0 0 $borderColor inset;
+        color: $darkLightGray;
+        * { color: $darkLightGray; }
+
+        svg {
+            width: 30px;
+            height: 30px;
+        }
+    }
+}
+
+#header-placeholder {
     width: 38px;
     height: 38px;
+    position: relative;
+}
+
+#save-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: max-content;
+    background-color: $blue;
+    border-radius: 4px;
+    transition: background-color .2s;
+    height: 38px;
+    padding: 0 24px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+
+    &:hover { background-color: $blueLight; }
+
+    &:disabled {
+        pointer-events: none;
+        opacity: .5;
+    }
 }
 
 #close-button {
@@ -162,5 +214,132 @@ body.modal-open {
         font-size: 14px;
         font-weight: 500;
         line-height: 20px;
+    }
+}
+
+#add-to-list-modal {
+    padding: 8px;
+
+    .list-modal-item {
+        padding: 8px;
+        border-radius: 4px;
+        transition: background-color .2s;
+        display: flex;
+        align-items: center;
+        color: $offWhite;
+        cursor: pointer;
+        input { display: none; }
+
+        &:hover {
+            transition: background-color 0ms;
+            background-color: $darkLightGray050;
+        }
+
+        .list-icon {
+            height: 60px;
+            width: 60px;
+            min-height: 60px;
+            min-width: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            background-color: $lightGray;
+            position: relative;
+
+            svg, path {
+                height: 30px;
+                width: 30px;
+                color: $darkLightGray;
+            }
+
+            .list-icon-border {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                box-shadow: 0 1px 0 rgba(228,230,234,0.4) inset,0 -1px 0 #e4e6ea66 inset,1px 0 0 #e4e6ea66 inset,-1px 0 0 #e4e6ea66 inset;
+                border-radius: 3px;
+                transition: box-shadow .25s;
+    
+                &:hover {
+                    box-shadow: 0 3px 0 $blue inset,0 -3px 0 $blue inset,3px 0 0 $blue inset,-3px 0 0 $blue inset;
+                }
+            }
+        }
+
+        .new-list-icon {
+            background-color: $darkLightGray;
+
+            svg, path {
+                height: 24px;
+                width: 24px;
+                color: $offWhite;
+            }
+        }
+
+        .list-text {
+            margin-left: 16px;
+            flex: 1 1;
+            text-align: left;
+
+            h6 { font-size: 16px; }
+
+            p {
+                color: $highDarkGray;
+                margin-top: 4px;
+                font-weight: normal;
+                line-height: normal;
+            }
+        }
+
+        .list-input-label {
+            display: flex;
+            align-items: center;
+            width: fit-content;
+
+            .checkbox-span {
+                background-color: $darkGray;
+                border: 1px solid $lightGray;
+                height: 24px;
+                width: 24px;
+                border-radius: 4px;
+                transition: border .2s;
+                cursor: pointer;
+                position: relative;
+                
+                svg, path {
+                    width: 20px;
+                    height: 20px;
+                    top: 2px;
+                    left: 2px;
+                    position: absolute;
+                    opacity: 0;
+                    color: white;
+                }
+
+                &:hover { border: 1px solid $darkLightGray; }
+            }
+
+
+            .checkbox-text {
+                color: $highDarkGray;
+                margin-left: 8px;
+                transition: color .2s;
+            }
+        }
+
+        input:checked + label {
+            .checkbox-span {
+                background-color: $green;
+                border: 1px solid $green;
+                transition: border 0ms;
+                
+                svg, path { opacity: 1; }
+            }
+        }
+
+        input:disabled + label { pointer-events: none; }
     }
 }

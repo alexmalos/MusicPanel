@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import OptionMenu from '../music/music_option_menu';
+import OptionMenu from '../music/music_option_menu_container';
 import DiscographyGrid from './discography_grid';
 
-export default ({ artist, albums, loggedIn, openModal }) => {
+export default ({ artist, albums, loggedIn }) => {
     const artistBirthdayString = () => {
         const date = new Date(...(artist.birthday.split('-')));
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -32,9 +32,8 @@ export default ({ artist, albums, loggedIn, openModal }) => {
             <div className='right-body-div'>
                 <OptionMenu
                     loggedIn={loggedIn}
-                    openModal={openModal}
                     musicType='artist'
-                    spotify={artist.spotify}
+                    item={artist}
                 />
                 <h4>Information</h4>
                 <div className='info-div'>
@@ -60,10 +59,6 @@ export default ({ artist, albums, loggedIn, openModal }) => {
                             </div> : null
                     }
                     <div className='info-element'>
-                        <h5>Label</h5>
-                        <p>{artist.label}</p>
-                    </div>
-                    <div className='info-element'>
                         <h5>Origin</h5>
                         <p>{artist.origin}</p>
                     </div>
@@ -71,7 +66,9 @@ export default ({ artist, albums, loggedIn, openModal }) => {
                         artist.website ?
                             <div className='info-element'>
                                 <h5>Website</h5>
-                                <a href={artist.website} target='_blank'>{artist.website.slice(12)}</a>
+                                <a href={artist.website} target='_blank'>{
+                                artist.website.includes("www.") ? artist.website.slice(artist.website.indexOf("www.") + 4) : artist.website.slice(artist.website.indexOf("://") + 3)
+                                }</a>
                             </div> : null
                     }
                     {

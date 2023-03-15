@@ -67,7 +67,7 @@ export default ({ trackId, path, sessionId, openModal, fetchTrack, modalType, en
     };
 
     useEffect(() => {
-        if (modalType === null) setModal(null);
+        if (!['editReview', 'editRating', 'newReview'].includes(modalType)) setModal(null);
     }, [modalType]);
 
     const renderModal = (modalType, itemId, itemType) => {

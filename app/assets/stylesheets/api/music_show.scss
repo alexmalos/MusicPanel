@@ -482,10 +482,10 @@
             .last-option {
                 border-bottom-left-radius: 8px;
                 border-bottom-right-radius: 8px;
-                border-bottom: none;
+                border-bottom: none !important;
             }
 
-            button, a {
+            .music-option-button {
                 padding: 16px;
                 border-bottom: 1px solid $lightGray;
                 transition: background-color .2s, color .2s;

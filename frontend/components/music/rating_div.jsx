@@ -36,7 +36,7 @@ export default ({ loggedIn, openLoginModal, renderModal, itemType, item, userRat
         {
             loggedIn ?
                 userRating ?
-                    <button onClick={renderModal} className='yellow-button'>
+                    <button onClick={renderModal} className='yellow-button' >
                         <EditIcon />
                         Edit rating
                     </button> :

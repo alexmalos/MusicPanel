@@ -32,7 +32,7 @@ export default ({ albums, loggedIn }) => {
                                 <img src={album.coverUrl} alt="" />
                                 <div className='album-cover-border'></div>
                             </Link>
-                            {
+                            {/* {
                                 loggedIn ?
                                     <div className='album-options-div'>
                                         <button className='album-options-button'
@@ -51,7 +51,7 @@ export default ({ albums, loggedIn }) => {
                                         }
                                     </div> :
                                     null
-                            }
+                            } */}
                         </div>
                         <Link className='album-info-link' to={`/albums/${album.id}`}>
                             <h6>{album.title}</h6>

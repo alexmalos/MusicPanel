@@ -19,14 +19,18 @@ class Api::ListsController < ApplicationController
     def create
         @list = List.new(list_params)
         @list.nilify_blank_description
-        params[:list_items].each do |item|
-            item = item[1]
-            ListItem.create(list_item_params(item))
+        if @list.save!
+            params[:list_items].each do |item|
+                item = item[1]
+                list_item = ListItem.new(list_item_params(item))
+                list_item.list_id = @list.id
+                list_item.save
+            end
+            @artists = @list.items('Artist')
+            @albums = @list.items('Album')
+            @tracks = @list.items('Track')
+            render "/api/lists/show"
         end
-        @artists = @list.items('Artist')
-        @albums = @list.items('Album')
-        @tracks = @list.items('Track')
-        render "/api/lists/show" if @list.save!
     end
 
     def update

@@ -1,5 +1,5 @@
 class Artist < ApplicationRecord
-    validates :name, :label, :origin, :spotify, presence: true
+    validates :name, :origin, :spotify, presence: true
     
     has_many :albums
     has_many :reviews, as: :item

@@ -11,5 +11,6 @@ Rails.application.routes.draw do
     resources :tracks, only: [:index, :show]
     resources :reviews, only: [:index, :show, :update, :create, :destroy]
     resources :lists, only: [:index, :show, :update, :create, :destroy]
+    resources :list_items, only: :create
   end
 end

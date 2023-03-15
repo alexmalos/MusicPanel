@@ -16,6 +16,7 @@ export const createList = data => (
     $.ajax({
         url: '/api/lists',
         method: 'POST',
+        dataType: 'json',
         data
     })
 );
@@ -33,5 +34,14 @@ export const deleteList = id => (
     $.ajax({
         url: `/api/lists/${id}`,
         method: 'DELETE'
+    })
+);
+
+export const createListItems = data => (
+    $.ajax({
+        url: '/api/list_items',
+        method: 'POST',
+        dataType: 'json',
+        data
     })
 );

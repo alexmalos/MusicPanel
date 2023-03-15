@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { deleteList, fetchList, updateList } from '../../actions/list_actions';
 import { closeModal, openModal } from '../../actions/modal_actions';
+import { openAlert } from '../../actions/alert_actions';
 import ListForm from './list_form';
 
 const mapStateToProps = ({ session, entities }, { match }) => ({
@@ -15,7 +16,8 @@ const mapDispatchToProps = dispatch => ({
     updateList: data => dispatch(updateList(data)),
     deleteList: id => dispatch(deleteList(id)),
     openModal: (modal, data) => dispatch(openModal(modal, data)),
-    closeModal: () => dispatch(closeModal())
+    closeModal: () => dispatch(closeModal()),
+    openAlert: data => dispatch(openAlert(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListForm);

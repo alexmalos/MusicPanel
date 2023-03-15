@@ -28,7 +28,6 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
             <ArtistHome
                 albums={albums.slice(0, 8)}
                 artist={artist}
-                openModal={openModal}
                 loggedIn={loggedIn}
             />
         );
@@ -74,7 +73,7 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
     };
 
     useEffect(() => {
-        if (modalType === null) setModal(null);
+        if (!['editReview', 'editRating', 'newReview', 'artistBio'].includes(modalType)) setModal(null);
     }, [modalType]);
 
     const renderModal = (modalType, itemId, itemType) => {
@@ -148,7 +147,8 @@ export default ({ artistId, path, sessionId, openModal, fetchArtist, modalType, 
                 method: 'GET'
             }).then(response => {
                 const bioString = Object.values(response.query.pages)[0].extract;
-                const bioElements = parse(bioString).filter(el => el.props && el.props.className !== 'mw-empty-elt');
+                let bioElements = parse(bioString);
+                if (Array.isArray(bioElements)) bioElements = bioElements.filter(el => el.props && el.props.className !== 'mw-empty-elt');
                 setArtistBio(bioElements);
             });
         }

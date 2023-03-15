@@ -2,10 +2,26 @@ json.user do
     json.partial! "api/users/user", user: @user
 end
 
-json.reviews do
-    @reviews.each do |review|
-        json.set! review.id do
-            json.partial! "api/reviews/review", review: review
+if @reviews.empty?
+    json.reviews({})
+else
+    json.reviews do
+        @reviews.each do |review|
+            json.set! review.id do
+                json.partial! "api/reviews/review", review: review
+            end
+        end
+    end
+end
+
+if @lists.empty?
+    json.lists({})
+else
+    json.lists do
+        @lists.each do |list|
+            json.set! list.id do
+                json.partial! "api/lists/list", list: list
+            end
         end
     end
 end

@@ -28,8 +28,8 @@ export default () => {
               {musicDropdownOpen ? <MusicDropdown
               closeDropdown={() => setMusicDropdownOpen(false)}/> : null}
             </div>
-            <Link to={"/reviews"}>Reviews</Link>
-            <Link to={"/lists"}>Lists</Link>
+            <Link to={"/reviews"} className='navbar-link'>Reviews</Link>
+            <Link to={"/lists"} className='navbar-link'>Lists</Link>
             <div className="more-button-div">
               <button onClick={moreClick} id="more-button">
                 <MoreHorizRoundedIcon />

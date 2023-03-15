@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, Redirect } from "react-router-dom";
 import PageNotFound from "../page_not_found";
 import ModalContainer from "../modal/modal_container";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -8,12 +8,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
 import snakecaseKeys from "snakecase-keys";
 
-export default ({ listId, sessionId, fetchList, entities, updateList, createList, deleteList, openModal, closeModal, newForm }) => {
+export default ({ listId, sessionId, fetchList, entities, updateList, createList, deleteList, openModal, closeModal, newForm, fetchAlbum, fetchArtist, fetchTrack, openAlert }) => {
 
     const [savedList, setSavedList] = useState(null);
     const [list, setList] = useState(null);
     const [listItems, setListItems] = useState(null);
     const [pageNotFound, setPageNotFound] = useState(false);
+    const [createdListId, setCreatedListId] = useState(null);
+    const search = useLocation().search;
 
     useEffect(() => {
         if (!newForm) {
@@ -33,7 +35,33 @@ export default ({ listId, sessionId, fetchList, entities, updateList, createList
                 numbered: false,
                 author_id: sessionId
             });
-            setListItems([]);
+            const queryParams = new URLSearchParams(search);
+            const itemType = queryParams.get('type');
+            const itemId = queryParams.get('id');
+            const newListItem = {
+                itemType,
+                itemId,
+                orderNumber: 0
+            };
+            switch (itemType) {
+                case 'Artist':
+                    fetchArtist(itemId).then(() => {
+                        setListItems([newListItem]);
+                    }, () => setListItems([]));
+                    break;
+                case 'Album':
+                    fetchAlbum(itemId).then(() => {
+                        setListItems([newListItem]);
+                    }, () => setListItems([]));
+                    break;
+                case 'Track':
+                    fetchTrack(itemId).then(() => {
+                        setListItems([newListItem]);
+                    }, () => setListItems([]));
+                    break;
+                default:
+                    break;
+            }
         }
     }, []);
 
@@ -47,10 +75,12 @@ export default ({ listId, sessionId, fetchList, entities, updateList, createList
         </div>
     );
 
-    const createListButtonText = () => {
-        if (listItems.length === 0) return 'Music needed';
-        else if (list.title.length === 0) return 'Title needed';
-        else return 'Create List';
+    const listButtonText = () => {
+        if (list.title.length === 0) return 'Title needed';
+        else if (newForm) {
+            if (listItems.length === 0) return 'Music needed';
+            else return 'Create List';
+        } else return 'Update information'
     };
 
     const listItemElement = (listItem, index) => {
@@ -147,13 +177,21 @@ export default ({ listId, sessionId, fetchList, entities, updateList, createList
         if (info) {
             sendList = list;
             setSavedList(list);
+            openAlert({
+                list,
+                alertType: 'editList',
+                fired: false
+            });
         }
         else sendList = savedList;
         updateList({ list: snakecaseKeys(sendList), list_items: snakecaseKeys(listItems) });
     };
 
     const handleListCreate = () => {
-        createList({ list: snakecaseKeys(list), list_items: snakecaseKeys(listItems) });
+        createList({ list: snakecaseKeys(list), list_items: snakecaseKeys(listItems) }).then(({ list }) => {
+            setCreatedListId(list.id);
+        });
+        
     };
 
     const update = field => e => {
@@ -163,6 +201,7 @@ export default ({ listId, sessionId, fetchList, entities, updateList, createList
     };
 
     if (pageNotFound || (!newForm && list && list.authorId !== sessionId)) return <PageNotFound />;
+    else if (createdListId) return <Redirect to={`/lists/${createdListId}`} />;
     else if (list && listItems) return (
         <div>
             <div className="list-edit">
@@ -272,14 +311,14 @@ export default ({ listId, sessionId, fetchList, entities, updateList, createList
                             className="form-input"
                             onChange={update('description')}
                             placeholder={newForm ? 'Add a description...' : 'Description'}
-                            value={list.description}
+                            value={list.description ? list.description : ''}
                         />
                         <button
                             id="update-button"
                             className="submit"
-                            disabled={newForm ? (createListButtonText !== 'Create List') : (savedList ? listUnchanged() : true)}
+                            disabled={newForm ? (listButtonText() !== 'Create List') : (list.title.length === 0 || listUnchanged())}
                             onClick={newForm ? handleListCreate : () => handleListUpdate(true)}
-                        >{newForm ? createListButtonText() : 'Update information'}</button>
+                        >{listButtonText()}</button>
                         {newForm ? null : <button id="delete-button" className="submit" onClick={() => openModal('deleteList', true)}>Delete</button>}
                     </div>
                 </div>

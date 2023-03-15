@@ -27,7 +27,6 @@ export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType, en
                 tracks={tracks}
                 album={album}
                 artist={artist}
-                openModal={openModal}
                 sessionId={sessionId}
                 reviews={Object.values(entities.reviews)}
                 renderModal={(trackId, userReview) => renderModal(trackId, 'Track', userReview)}
@@ -53,7 +52,7 @@ export default ({ albumId, path, sessionId, openModal, fetchAlbum, modalType, en
     };
 
     useEffect(() => {
-        if (modalType === null) setModal(null);
+        if (!['editReview', 'editRating', 'newReview'].includes(modalType)) setModal(null);
     }, [modalType]);
 
     const renderModal = (itemId, itemType, userReview) => {

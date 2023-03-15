@@ -43,6 +43,7 @@ export default ({ listId, sessionId, fetchList, entities, openModal }) => {
                                 <img src={entities.artists[listItem.itemId].photoUrl} alt="" />
                                 <div className='link-border'></div>
                             </Link>
+                            {list.numbered ? <h6 className='list-item-order-number'>{listItem.orderNumber + 1}</h6> : null}
                         </div>
                         <Link className='item-link' to={`/artists/${listItem.itemId}`}>{entities.artists[listItem.itemId].name}</Link>
                     </div>
@@ -55,6 +56,7 @@ export default ({ listId, sessionId, fetchList, entities, openModal }) => {
                                 <img src={entities.albums[listItem.itemId].coverUrl} alt=""/>
                                 <div className='cover-border' id="album-cover-border"></div>
                             </Link>
+                            {list.numbered ? <h6 className='list-item-order-number'>{listItem.orderNumber + 1}</h6> : null}
                         </div>
                         <Link className="item-link" to={`/albums/${listItem.itemId}`}>{entities.albums[listItem.itemId].title}</Link>
                         <Link className='artist-link' to={`/artists/${entities.albums[listItem.itemId].artistId}`}>{entities.artists[entities.albums[listItem.itemId].artistId].name}</Link>
@@ -68,6 +70,7 @@ export default ({ listId, sessionId, fetchList, entities, openModal }) => {
                                 <img src={entities.albums[entities.tracks[listItem.itemId].albumId].coverUrl} alt=""/>
                                 <div className='cover-border' id="album-cover-border"></div>
                             </Link>
+                            {list.numbered ? <h6 className='list-item-order-number'>{listItem.orderNumber + 1}</h6> : null}
                         </div>
                         <Link className="item-link" to={`/albums/${entities.tracks[listItem.itemId].albumId}`}>{entities.tracks[listItem.itemId].title}</Link>
                         <Link className='artist-link' to={`/artists/${entities.tracks[listItem.itemId].artistId}`}>{entities.artists[entities.tracks[listItem.itemId].artistId].name}</Link>

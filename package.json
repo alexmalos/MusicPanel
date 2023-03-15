@@ -36,6 +36,7 @@
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.10.0",
     "babel-loader": "^8.2.5",
+    "croppie": "^2.6.5",
     "html-react-parser": "^3.0.2",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",

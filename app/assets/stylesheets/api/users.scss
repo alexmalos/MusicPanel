@@ -32,13 +32,14 @@
                     .profile-pic {
                         width: 120px;
                         height: 120px;
+                        min-height: 120px;
+                        min-width: 120px;
                         border-radius: 1000px;
                         display: flex;
                         justify-content: center;
                         align-items: center;
                         background-color: $lightGray;
                         box-shadow: 0 1px 0 $borderColor inset,0 -1px 0 $borderColor inset,1px 0 0 $borderColor inset,-1px 0 0 $borderColor inset;
-                        transition: box-shadow .25s;
                         color: $darkLightGray;
                         * { color: $darkLightGray; }
     
@@ -107,7 +108,7 @@
                         }
                     }
     
-                    .button {
+                    button {
                         display: block;
                         width: 100%;
                         margin-top: 16px;
@@ -194,3 +195,106 @@
     transition: color .2s;
     &:hover { color: $blue; }
 }
+
+.user-collection-tab-bar {
+    margin-top: 32px;
+    display: flex;
+    align-items: stretch;
+    background-color: $darkGray;
+    border-radius: 8px;
+
+    .user-info {
+        padding: 16px;
+        display: flex;
+        align-items: center;
+
+        .profile-button {
+            pointer-events: all;
+            min-width: 32px;
+            min-height: 32px;
+            width: 32px;
+            height: 32px;
+        
+            svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        .user-username {
+            margin-left: 8px;
+            pointer-events: all;
+            font-size: 16px;
+            line-height: normal;
+            font-weight: 600;
+
+            &:hover { color: $blue; }
+        }
+    }
+
+    .tab-link {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        &:hover { background-color: $lightGray; }
+
+        h6 {
+            transition: color .2s;
+            padding: 0 16px;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 20px;
+            color: $offWhite;
+        }
+
+        .active {
+            background-color: $blue;
+        }
+        
+        div {
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+            height: 4px;
+            width: 100%;
+        }
+    }
+
+    .active {
+        &:hover { background-color: transparent; }
+
+        h6 { color: $blue; }
+
+        .active-div { background-color: $blue; }
+    }
+}
+
+.pin-tabs {
+    display: flex;
+    align-items: center;
+
+    button {
+        flex: 1 1;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        border-bottom: 1px solid $darkLightGray;
+        transition: background-color .2s;
+        padding-top: 8px;
+        padding-bottom: 9px;
+
+        &:hover {
+            background-color: $darkLightGray050;
+            transition: background-color 0ms;
+        }
+    }
+
+    .active {
+        padding-bottom: 8px;
+        border-bottom: 2px solid $blue;
+    }
+}
+
+.cr-boundary { border-radius: 1000px; }
+
+.cr-viewport { border: none !important; }

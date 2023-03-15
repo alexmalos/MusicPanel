@@ -2,13 +2,14 @@ import * as APIUtil from "../util/user_api_util";
 
 export const RECEIVE_USER = 'RECEIVE_USER';
 
-const receiveUser = ({ user, reviews, albums, artists, tracks }) => ({
+const receiveUser = ({ user, reviews, albums, artists, tracks, lists }) => ({
     type: RECEIVE_USER,
     user,
     reviews,
     albums,
     artists,
-    tracks
+    tracks,
+    lists
 });
 
 export const fetchUser = id => dispatch => (

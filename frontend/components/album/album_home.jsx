@@ -4,7 +4,8 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import StarIcon from '@mui/icons-material/Star';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import OptionPopup from '../music/option_popup';
-import OptionMenu from '../music/music_option_menu';
+import OptionMenu from '../music/music_option_menu_container';
+import { Link } from 'react-router-dom';
 
 export default props => {
     const { album, sessionId, reviews } = props;
@@ -39,7 +40,9 @@ export default props => {
     };
 
     const albumReleaseDateString = () => {
-        const date = new Date(...(album.releaseDate.split('-')));
+        const dateArray = album.releaseDate.split('-');
+        dateArray[1]--;
+        const date = new Date(...dateArray);
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return date.toLocaleDateString('en-US', options);
     };
@@ -125,9 +128,8 @@ export default props => {
             <div className='right-body-div'>
                 <OptionMenu
                     loggedIn={Boolean(sessionId)}
-                    openModal={props.openModal}
                     musicType='album'
-                    spotify={album.spotify}
+                    item={album}
                 />
                 <h4>Information</h4>
                 <div className='info-div'>
@@ -135,6 +137,17 @@ export default props => {
                         <h5>Release Date</h5>
                         <p>{albumReleaseDateString()}</p>
                     </div>
+                    {
+                        album.collaborators ?
+                            <div className='info-element'>
+                                <h5>Collaborators</h5>
+                                <p>{album.collaborators.map((collaborator, idx) => [
+                                    idx > 0 && ", ",
+                                    collaborator.id ? <Link to={`/artists/${collaborator.id}`} key={idx}>{collaborator.name}</Link> : collaborator.name
+                                ]
+                                )}</p>
+                            </div> : null
+                    }
                     <div className='info-element'>
                         <h5>Duration</h5>
                         <p>{album.duration}</p>

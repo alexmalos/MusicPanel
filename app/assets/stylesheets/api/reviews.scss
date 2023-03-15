@@ -485,10 +485,45 @@
     }
 }
 
-.music-reviews-body {
+.music-reviews-body, .user-collection, .music-lists-body, .user-home-body {
     max-width: 1200px;
     margin: auto;
     padding: 0 32px 64px;
+
+    .no-pins {
+        padding: 64px 32px;
+        border-radius: 8px;
+        background-color: $darkGray;
+        color: $highDarkGray;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        p { color: $highDarkGray; }
+        
+        button {
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            p { color: $offWhite; }
+            * { transition: color .2s; }
+
+            svg {
+                width: 16px;
+                height: 16px;
+                margin-right: 8px;
+            }
+
+            &:hover {
+                p { color: $blue; }
+                svg { color: $blue; }
+                path { color: $blue; }
+            }
+        }
+    }
+}
+
+.music-reviews-body, .user-reviews-body, .user-home-body {
     display: flex;
 
     h4 {
@@ -498,11 +533,43 @@
         line-height: normal;
     }
 
+    .header-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 32px;
+        margin-bottom: 12px;
+
+        span {
+            margin-right: 8px;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: normal;
+        }
+        
+        svg {
+            height: 24px;
+            width: 24px;
+        }
+    
+        &:hover {
+            * {
+                color: $blue;
+                transition: color .2s;
+            }
+
+            .up-arrow { animation: arrowUp .3s cubic-bezier(.5,0,.51,.99); }
+            .down-arrow { animation: arrowDown .3s cubic-bezier(.5,0,.51,.99); }
+            .right-arrow { animation: arrowRight .3s cubic-bezier(.5,0,.51,.99); }
+        }
+    }
+
     .left-body-div {
         margin-right: 32px;
         flex: 2 2;
 
-        .review-list {
+        .review-list, .pinned-items {
             border-radius: 8px;
             background-color: $darkGray;
 
