@@ -21,7 +21,6 @@ class Api::ListsController < ApplicationController
         @list.nilify_blank_description
         if @list.save!
             params[:list_items].each do |item|
-                item = item[1]
                 list_item = ListItem.new(list_item_params(item))
                 list_item.list_id = @list.id
                 list_item.save
@@ -55,6 +54,7 @@ class Api::ListsController < ApplicationController
         @artists = @list.items('Artist')
         @albums = @list.items('Album')
         @tracks = @list.items('Track')
+        debugger
         @list.destroy
         render "/api/lists/show"
     end
