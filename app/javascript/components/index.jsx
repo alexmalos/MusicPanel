@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import Root from "./root";
-import configureStore from "../store/store";
+import storeConfig from "../store/store";
 
 document.addEventListener("turbo:load", () => {
   let store;
@@ -12,10 +12,10 @@ document.addEventListener("turbo:load", () => {
       },
       session: { id: window.currentUser.id },
     };
-    store = configureStore(preloadedState);
+    store = storeConfig(preloadedState);
     delete window.currentUser;
   } else {
-    store = configureStore();
+    store = storeConfig();
   }
 
   const root = createRoot(
